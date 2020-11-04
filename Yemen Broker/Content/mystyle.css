@@ -1,0 +1,60 @@
+﻿
+
+
+#navtop{float:right;margin-top:10px;}
+
+#navtop ul li {color:black;border-right:none;}
+#navtop ul li .last {border:none;}
+#navtop ul li a{color:black;}
+#navtop ul li a:hover{color:red;}
+#navtop ul li a:active{color:red;}
+
+
+#slider { width:980px; height:350px; position:relative; overflow:hidden; }
+#slider-holder {
+    width: 980px;
+    height: 350px;
+    position: relative;
+    overflow: hidden;
+}
+    #slider-holder ul {
+        width: 980px;
+        height: 350px;
+        position: relative;
+        overflow: hidden;
+        list-style-type: none;
+    }
+    #slider-holder .jcarousel-clip {
+        width: 980px;
+        height: 350px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    #slider-holder ul li {
+        position: relative;
+        overflow: hidden;
+        float: left;
+        display: inline;
+    }
+    #slider-nav a{ position:absolute; top:180px; font-size:0; line-height:0; z-index:2; width:58px; height:58px; }
+
+.btn {
+    background-color: #1e3ef4;
+    height: 152px;
+    width: 250px;
+    border: none;
+    color: white;
+    padding: 16px 32px;
+    text-align: center;
+    font-size: 16px;
+    margin: 4px 2px;
+    opacity: 0.6;
+    transition: 0.3s;
+  }
+  
+.btn:hover {opacity: 1}
+.btn-:hover{
+    background-color: #6d00fc;  
+}
+  

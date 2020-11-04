@@ -1,0 +1,518 @@
+﻿@model IEnumerable<Yemen_Broker.Models.Ad>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <script>
+        function isNumberKey(evt) {
+            var charCode = (evt.which) ? evt.which : event.keyCode
+            if (charCode > 31 && (charCode < 48 || charCode > 57))
+                return false;
+
+            return true;
+        }
+        function onlyAlphabets(e, t) {
+            try {
+                if (window.event) {
+                    var charCode = window.event.keyCode;
+                }
+                else if (e) {
+                    var charCode = e.which;
+                }
+                else { return true; }
+                if ((charCode > 64 && charCode < 91) || (charCode > 96 && charCode < 123))
+                    return true;
+                else
+                    return false;
+            }
+            catch (err) {
+                alert(err.Description);
+            }
+        }
+    </script>
+</head>
+<body>
+
+    <div class="container"><img src="~/Content/images/property paner1.jpg" style="width:100%;height:200px;opacity:60%;" /></div>
+    <!--star search detils-->
+    <div class="container" style="width:100%;height:140px; margin:-180px 0 70px 0; padding:30px;">
+        <div class="col-md-3">
+            <select>
+                <option value="0"> All city:</option>
+                <option value="1">Audi</option>
+                <option value="2">BMW</option>
+                <option value="3">Citroen</option>
+                <option value="4">Ford</option>
+                <option value="5">Honda</option>
+            </select>
+            <b style="color:white;">price:</b>
+            <input type="text" onkeypress="return isNumberKey(event)" name="txtChar" placeholder="form" style="width:40%;" />
+            <input type="text" onkeypress="return isNumberKey(event)" name="txtChar" placeholder="To" style="width:40%;" />
+        </div>
+        <div class="col-md-3 ">
+            <select>
+                <option value="0"> All catogris:</option>
+                <option value="1">Audi</option>
+            </select>
+        </div>
+        <div class="col-md-3">
+            <input type="text" onkeypress="return onlyAlphabets(event,this);" placeholder="Your search.." />
+            <style>
+                input[type=text], select {
+                    width: 100%;
+                    padding: 12px 20px;
+                    margin: 8px 0;
+                    display: inline-block;
+                    border: 1px solid #ccc;
+                    border-radius: 4px;
+                    box-sizing: border-box;
+                }
+            </style>
+        </div>
+        <div class="col-md-3" ">
+            <button class="btn btn-danger" style="height:45px; width:100%;margin:8px 0;opacity:100%;">
+                <div><b><i class="glyphicon glyphicon-search"></i> SEARCH NOW</b></div>
+            </button>
+        </div>
+    </div>
+    <!--end search detils-->
+
+    <div class="container">
+        <div class="col-md-2 float-left" style="padding:10px;border:solid 2px #fcb200;margin-right:20px;margin-bottom:15px;">
+            <div>
+
+                <div style="width:100%;height:120px;margin-bottom:38px;">
+                    <p style="background-color:#fcb200;color:black;margin:-20px 0 0 0;padding-left:10px;border-radius:20px;width:50px;"><b>New</b></p>
+                    <img src="~/Content/images/vavEmpty1.png" style="float:right;margin-top:-10px;" id="vav" />
+                    <img src="~/Content/images/img/1.jpg" style="width:100%;height:120px;" />
+
+                </div>
+                <P><b>car to buy</b></P>
+                <div>
+                    <i class="glyphicon glyphicon-tags" style="float:left;font-size:5px;margin-right:5px;"></i>
+                    <h6 style="color:red;"><b>YR1000000</b></h6>
+                </div>
+                <div>
+                    <i class="glyphicon glyphicon-map-marker" style="float:left;font-size:15px;margin-right:5px;"></i>
+                    <P>AlMualla-fouah.hjxv</P>
+                </div>
+
+                <button type="button" class="btn-warning" style="width:100%;height:40px; border-radius:10px;box-shadow:none;">
+                    <i class="glyphicon glyphicon-earphone" style="font-size:15px;margin-right:5px;"></i>contact Advertiser
+                </button>
+            </div>
+        </div>
+
+        <div class="col-md-2 float-left" style="padding:10px;border:solid 2px #fcb200;margin-right:20px;margin-bottom:15px;">
+            <div>
+
+                <div style="width:100%;height:120px;margin-bottom:38px;">
+                    <p style="background-color:#fcb200;color:black;margin:-20px 0 0 0;padding-left:10px;border-radius:20px;width:50px;"><b>used</b></p>
+                    <img src="~/Content/images/vavEmpty1.png" style="float:right;margin-top:-10px;" id="vav" />
+                    <img src="~/Content/images/img/1.jpg" style="width:100%;height:120px;" />
+
+                </div>
+                <P><b>car to buy</b></P>
+                <div>
+                    <i class="glyphicon glyphicon-tags" style="float:left;font-size:5px;margin-right:5px;"></i>
+                    <h6 style="color:red;"><b>YR1000000</b></h6>
+                </div>
+                <div>
+                    <i class="glyphicon glyphicon-map-marker" style="float:left;font-size:15px;margin-right:5px;"></i>
+                    <P>AlMualla-fouah.hjxv</P>
+                </div>
+
+                <button type="button" class="btn-success" style="width:100%;height:40px; border-radius:10px;box-shadow:none;">
+                    <i class="glyphicon glyphicon-earphone" style="font-size:15px;margin-right:5px;"></i>contact Advertiser
+                </button>
+            </div>
+        </div>
+        <style>
+            #vav:hover {
+                background-color: #fcb200;
+            }
+        </style>
+    </div>
+
+    <!--star show car-->
+
+    <div style="border:1px dotted #808080;border-radius:10px;" class="row">
+
+        <div style="margin:5px 5px 5px -5px;" class="col-md-3 float-left">
+            <img src="~/Content/images/img/1.jpg" alt="img1">
+        </div>
+        <div class="col-md-9 float-right" style="border-left:1px solid #f1f1f1">
+            <div>
+                <div class="col-md-10">
+                    <h3>New Car for sale</h3>
+                    <div style="text-align:left;">
+                        <i class="glyphicon glyphicon-map-marker"></i>  Aden|Other|New
+                    </div>
+                    <div style="text-align:left;">
+                        <i class="glyphicon glyphicon-th"></i> New Car 2015
+                    </div>
+                    <br />
+                    <div style="text-align:center;margin:10px 0 10px 0;">
+                        <button class="btn btn-primary col-md-4 float-left" style="height:50px; width:200px;">
+                            <div><b><i class="glyphicon glyphicon-heart"></i> Add to favorites</b></div>
+                        </button>
+                        <button class="btn btn-success col-md-4 float-left" style="height:50px; width:200px;">
+                            <div><b><i class="glyphicon glyphicon-earphone"></i> Call</b></div>
+                        </button>
+                        <button class="btn btn-warning col-md-4 float-left" style="height:50px; width:200px;">
+                            <div><b><i class="glyphicon glyphicon-envelope"></i>  Chat</b></div>
+                        </button>
+                    </div>
+                </div>
+                <div class="col-md-2 float-right">
+                    <br />
+                    <h4 style="color:red;"><b>YR 1000000</b></h4>
+                    <img src="~/Content/images/Lpgin.png" class="img-circle " style="width:60px;height:60px;text-align:center;border:solid 2px #2fa80c;border-radius:50px;margin:5px 0 0 25px;" />
+                    <button class="btn btn-default" style="height:50px; width:100px;background:#f0f0f0">
+                        <div><b><i class="glyphicon glyphicon-info-sign"></i> see more</b></div>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--end show car -->
+    <!--star show car ditals-->
+    <div class="container" style=" margin:10px;">
+        <div class="col-md-8" style="border:1px solid #ffd800;">
+            <h2 style="text-align:center">more details :</h2>
+            <div class="mySlides">
+                <div class="numbertext">1 / 5</div>
+                <img src="~/Content/images/img\1.jpg" style="width:100%;height:300px;">
+            </div>
+
+            <div class="mySlides">
+                <div class="numbertext">2 / 5</div>
+                <img src="~/Content/images/img\2.jpg" style="width:100%;height:300px;">
+            </div>
+
+            <div class="mySlides">
+                <div class="numbertext">3 / 5</div>
+                <img src="~/Content/images/img\3.jpg" style="width:100%;height:300px;">
+            </div>
+
+            <div class="mySlides">
+                <div class="numbertext">4 / 5</div>
+                <img src="~/Content/images/img\4.jpg" style="width:100%;height:300px;">
+            </div>
+
+            <div class="mySlides">
+                <div class="numbertext">5 / 5</div>
+                <img src="~/Content/images/img\5.jpg" style="width:100%;height:300px;">
+            </div>
+            <a class="vavor"></a>
+            <div class="cpn"><i class="glyphicon glyphicon-picture"></i><b> 20</b> </div>
+            <a class="prev" onclick="plusSlides(-1)">❮</a>
+            <a class="next" onclick="plusSlides(1)">❯</a>
+
+
+            <div class="row" style="margin:10px 2px;background-color:#000;padding:5px;text-align:center;">
+                <div class="column" style="margin:3px;">
+                    <img class="demo cursor" src="~/Content/images/img\1.jpg" style="width:100%;height:80px;" onclick="currentSlide(1)" alt="The Woods">
+                </div>
+                <div class="column" style="margin:3px;">
+                    <img class="demo cursor" src="~/Content/images/img\2.jpg" style="width:100%;height:80px;" onclick="currentSlide(2)" alt="Cinque Terre">
+                </div>
+                <div class="column" style="margin:3px;">
+                    <img class="demo cursor" src="~/Content/images/img\3.jpg" style="width:100%;height:80px;" onclick="currentSlide(3)" alt="Mountains and fjords">
+                </div>
+                <div class="column" style="margin:3px;">
+                    <img class="demo cursor" src="~/Content/images/img\4.jpg" style="width:100%;height:80px;" onclick="currentSlide(4)" alt="Northern Lights">
+                </div>
+                <div class="column" style="margin:3px;">
+                    <img class="demo cursor" src="~/Content/images/img\5.jpg" style="width:100%;height:80px;" onclick="currentSlide(5)" alt="Nature and sunrise">
+                </div>
+            </div>
+
+            <!--star describtion to Ads-->
+            <div class="container" style="background-color: #f0f0f0;">
+                <h5>GENERAL</h5>
+
+                <table>
+                    <tr>
+                        <th>price:</th>
+                        <td>YR 1000000</td>
+                    </tr>
+                    <tr>
+                        <th><i class="glyphicon glyphicon-map-marker"></i> Location:</th>
+                        <td>Al mukalla</td>
+                    </tr>
+                </table>
+            </div>
+
+
+            <!--End describtion to Ads-->
+
+        </div>
+        <div class="col-md-4" style=" border:1px solid #ffd800;padding:10px 0;">
+
+            <table>
+                <tr>
+                    <th><i class="glyphicon glyphicon-tags"></i>   price:</th>
+                    <td>YR 1000000</td>
+                </tr>
+                <tr>
+                    <th><i class="glyphicon glyphicon-map-marker"></i> Location:</th>
+                    <td>Al mukalla</td>
+                </tr>
+            </table>
+            <div style="text-align:center;margin:10px 0;">
+                <button class="btn btn-primary col-md-12 float-left" style="height:50px; width:100%;">
+                    <div><b><i class="glyphicon glyphicon-heart float-left"></i> Add to favorites</b></div>
+                </button>
+                <button class="btn btn-success col-md-12 float-left" style="height:50px; width:100%;">
+                    <div><b><i class="glyphicon glyphicon-earphone float-left"></i> Call</b></div>
+                </button>
+                <button class="btn btn-warning col-md-12 float-left" style="height:50px; width:100%;">
+                    <div><b><i class="glyphicon glyphicon-envelope float-left"></i>  Chat</b></div>
+                </button>
+            </div>
+            <style>
+                table {
+                    font-family: arial, sans-serif;
+                    border-collapse: collapse;
+                    width: 100%;
+                    margin-bottom: 10px;
+                }
+
+                td, th {
+                    border-bottom: 1px solid #ffd800;
+                    background-color: #fff;
+                    text-align: left;
+                    padding: 8px;
+                }
+
+                tr:nth-child(even) {
+                    background-color: #f0f0f0;
+                }
+            </style>
+        </div>
+        <script>
+            var slideIndex = 1;
+            showSlides(slideIndex);
+
+            function plusSlides(n) {
+                showSlides(slideIndex += n);
+            }
+
+            function currentSlide(n) {
+                showSlides(slideIndex = n);
+            }
+
+            function showSlides(n) {
+                var i;
+                var slides = document.getElementsByClassName("mySlides");
+                var dots = document.getElementsByClassName("demo");
+                var captionText = document.getElementById("caption");
+                if (n > slides.length) { slideIndex = 1 }
+                if (n < 1) { slideIndex = slides.length }
+                for (i = 0; i < slides.length; i++) {
+                    slides[i].style.display = "none";
+                }
+                for (i = 0; i < dots.length; i++) {
+                    dots[i].className = dots[i].className.replace(" active", "");
+                }
+                slides[slideIndex - 1].style.display = "block";
+                dots[slideIndex - 1].className += " active";
+                captionText.innerHTML = dots[slideIndex - 1].alt;
+            }
+        </script>
+        <style>
+            body {
+                font-family: Arial;
+                margin: 0;
+            }
+
+            * {
+                box-sizing: border-box;
+            }
+
+            img {
+                vertical-align: middle;
+            }
+
+            /* Position the image container (needed to position the left and right arrows) */
+            .container {
+                position: relative;
+            }
+
+            /* Hide the images by default */
+            .mySlides {
+                display: none;
+                border: 1px solid #808080;
+            }
+
+            /* Add a pointer when hovering over the thumbnail images */
+            .cursor {
+                cursor: pointer;
+            }
+
+            /* Next & previous buttons */
+            .prev,
+            .next {
+                cursor: pointer;
+                position: absolute;
+                top: 30%;
+                width: auto;
+                padding: 16px;
+                color: white;
+                font-weight: bold;
+                font-size: 20px;
+                border: 1px solid #000000;
+                border-radius: 0 3px 3px 0;
+                user-select: none;
+                -webkit-user-select: none;
+                background-color: black;
+            }
+
+            .vavor {
+                position: absolute;
+                top: 15%;
+                left: 650px;
+                width: auto;
+                padding: 16px;
+                user-select: none;
+                -webkit-user-select: none;
+                background: url(../../Content/images/vavEmpty1.png)no-repeat;
+            }
+
+                .vavor:hover {
+                    background: url(../../Content/images/vavok.png)no-repeat;
+                }
+
+            .cpn {
+                position: absolute;
+                top: 55%;
+                left: 50px;
+                height: auto;
+                width: auto;
+                background-color: #f0f0f0;
+                padding: 0 3px;
+                color: black;
+                border-radius: 5px;
+            }
+
+            /* Position the "next button" to the right */
+            .next {
+                right: 15px;
+                border-radius: 3px 0 0 3px;
+            }
+
+                /* On hover, add a black background color with a little bit see-through */
+                .prev:hover,
+                .next:hover {
+                    background-color: rgba(0, 0, 0, 0.8);
+                    color: red;
+                    text-decoration: none;
+                }
+
+            /* Number text (1/3 etc) */
+            .numbertext {
+                color: #000000;
+                font-size: 12px;
+                padding: 8px 12px;
+                position: absolute;
+                top: 0;
+            }
+
+            /* Container for image text */
+            .caption-container {
+                text-align: center;
+                background-color: #222;
+                padding: 2px 16px;
+                color: white;
+            }
+
+            .row:after {
+                content: "";
+                display: table;
+                clear: both;
+            }
+
+            /* Six columns side by side */
+            .column {
+                float: left;
+                width: 16.66%;
+            }
+
+            /* Add a transparency effect for thumnbail images */
+            .demo {
+                opacity: 0.6;
+            }
+
+                .active,
+                .demo:hover {
+                    opacity: 1;
+                }
+        </style>
+    </div>
+    <!--end show car ditals-->
+
+
+
+
+
+
+
+
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.City.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AdPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AdDescribtion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Discriminator)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.City.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AdPrice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AdDescribtion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Discriminator)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.AdId }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.AdId }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.AdId })
+                </td>
+            </tr>
+        }
+
+    </table>
+
+
+</body>
+</html>
+

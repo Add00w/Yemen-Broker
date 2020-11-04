@@ -1,0 +1,67 @@
+﻿@model Yemen_Broker.Models.Land
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Land</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Ad.AdDescribtion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Ad.AdDescribtion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NumberOfLand)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NumberOfLand)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PlateNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PlateNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StreetsArea)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StreetsArea)
+        </dd>
+        @if (Model.Ad.Pictures.Count() > 0)
+        {
+            <dt>Pictures</dt>
+            <dd>
+                <img src="/Uploads/@Html.DisplayFor(model=>model.Ad.Pictures.First().PictureURL)" class="thumbnail">
+            </dd>
+            <dt></dt>
+            <dd>
+                @foreach (var item in Model.Ad.Pictures.OrderBy(pic =>
+                pic.PictureId).Skip(1))
+                {
+                    <a href="/Uploads/@Html.DisplayFor(model=>item.PictureURL)">
+                        <img src="/Uploads/@Html.DisplayFor(model=>item.PictureURL)" width="200" height="200">
+                    </a>
+                }
+            </dd>
+        }
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.AdId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
