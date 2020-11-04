@@ -1,0 +1,153 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/mystyle.css")
+    @Styles.Render("~/Content/footer_style.css")
+    @Scripts.Render("~/bundles/modernizr")
+
+
+    <link rel="stylesheet" href="~/Content/fontawesome/all.css">
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+
+    <script type="text/javascript" src="~/Scripts/js/myJS.js">
+        alert("This alert box was called with the onload event");
+    </script>
+    <!--bootstrap lined-->
+    <link rel="stylesheet" href="~/Content/bootstrap.min.css">
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+
+    <script src="~/Content/bootstrap4-offline/javascript.js"></script>
+    <script src="~/Content/bootstrap4-offline/jquery.js"></script>
+
+
+
+
+</head>
+<body onload="carousel()">
+    <div class="navbar navbar-inverse navbar-fixed-top" style="background-color:#fafafa; ">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar" style="color:black;"></span>
+                    <span class="icon-bar" style="color:black;"></span>
+                    <span class="icon-bar" style="color:black;"></span>
+                </button>
+                <a href="/Home/Index"><img src="~/Content/images/logoYB.png" /> </a>
+
+            </div>
+
+            <div class="col-md-4 float-right" id="navtop">
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background:none;height:50px;width:150px;float:left;color:black;">
+                        <img src="~/Content/images/Lpgin.png" style="width:22px; height:22px;" />
+                        <div style="display:inline;background-color:red;color:white;border-radius:50px;margin-left:-10px;padding:1px;"><b>10</b></div>
+                        <br /> my account   <span class="caret"></span>
+                    </button>
+                    <a href="" style="float:right;margin-top:-50px;margin-bottom:10px"> <img src="~/Content/images/Add Advetrise.png" /></a>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="background-color:white;padding-left:5px;padding:5px 10px 5px 10px;margin-top:65px;">
+
+                        <a href="#" id="uname">
+                            <img src="~/Content/images/Lpgin.png" style="width:20px; height:20px;" /> <b>Acount name.  </b><i class="glyphicon glyphicon-chevron-right" style="float:right;"></i><br />
+                            <h6 style="padding-left: 23px;margin:-3px 0;">free member</h6>
+                        </a><hr />
+                        <a href="#" id="uname"><i class="glyphicon glyphicon-th-list" style="width:20px; height:20px;"></i> <b>My Ads.</b></a><br />
+                        <a href="#" id="uname"><i class="glyphicon glyphicon-shopping-cart" style="width:20px; height:20px;"></i> <b>My Orders.</b></a><br />
+                        <a href="#" id="uname"><i class="glyphicon glyphicon-heart" style="width:20px; height:20px;"></i> <b>Favorite Ads.</b></a><br />
+                        <a href="#" id="uname"><i class="glyphicon glyphicon-eye-open" style="width:20px; height:20px;"></i> <b>Recet viewed posts. </b></a><br /><hr />
+                        <a href="#" id="uname"><i class="glyphicon glyphicon-comment" style="width:20px; height:20px;"></i><div style="display:inline;background-color:red;color:white;border-radius:50px;margin-left:-10px;padding:1px;"><b>10</b></div> <b>My chats.</b></a><br />
+                        <a href="#" id="uname"><i class="glyphicon glyphicon-bell" style="width:20px; height:20px;"></i><div style="display:inline;background-color:red;color:white;border-radius:50px;margin-left:-10px;padding:1px;"><b>5</b></div> <b>Notifications. </b></a><br /><hr />
+                        <a href="#" id="uname"><i class="glyphicon glyphicon-earphone" style="width:20px; height:20px;"></i> <b>Contact Us.</b></a><br />
+                        <a href="#" id="uname"><i class="glyphicon glyphicon-question-sign" style="width:20px; height:20px;"></i> <b>Help.</b></a><br />
+                        <button class="btn btn-danger" type="button" style="height:30px;width:90%;margin-right :5px;opacity:95%;"><b>logoff</b></button><br />
+                    </div>
+                    <style>
+                        #uname {
+                            color: #808080;
+                        }
+
+                            #uname:hover {
+                                text-decoration: none;
+                                color: black;
+                            }
+                    </style>
+                </div>
+                <!--<ul class="nav navbar-nav">
+                              <li style="border-right:none;"><img src="~/Content/images/Lpgin.png" style="width:22px; height:22px;margin:15px -12px 0 5px;" /></li>
+                <li>@Html.ActionLink("Login", "Login", "Account")</li>
+                            <li class="last" style="border-right:none;margin-left:3px;"><a href="" style="border-right:none;margin:-15px 0 -5px -10px;"><img src="~/Content/images/Add Advetrise1.png" /></a></li>
+                            </ul>
+                            -->
+            </div>
+
+            <div class=" col-md-4 float-left" id="navtop">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Home", "Index", "Home") </li>
+                    <li>@Html.ActionLink("About US", "About", "Home")</li>
+                    <li>@Html.ActionLink("Contact US", "Contact", "Home")</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- main-->
+    <div class="container body-content" style="margin-top:40px;">
+        @RenderBody()
+        <hr />
+    </div>
+    <!-- Footer -->
+    <!-- Site footer -->
+    <footer class="site-footer " style="width:100%;bottom:-20px;position:relative;">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 col-md-6">
+                    <h6>About</h6>
+                    <p class="text-justify">Scanfcode.com <i>CODE WANTS TO BE SIMPLE </i> is an initiative  to help the upcoming programmers with the code. Scanfcode focuses on providing the most efficient code or snippets as the code wants to be simple. We will help programmers build up concepts in different programming languages that include C, C++, Java, HTML, CSS, Bootstrap, JavaScript, PHP, Android, SQL and Algorithm.</p>
+                </div>
+
+                <div class="col-xs-6 col-md-3">
+                    <h6>Categories</h6>
+                    <ul class="footer-links">
+                        <li><a href="">Propertes</a></li>
+                        <li><a href="">Cars</a></li>
+                        <li><a href="">Mobiles</a></li>
+                        <li><a href="">Computers</a></li>
+                        <li><a href="">Others</a></li>
+                        <li><a href="">Orders</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-xs-6 col-md-3">
+                    <h6>Quick Links</h6>
+                    <ul class="footer-links">
+                        <li>@Html.ActionLink("Home", "Index", "Home") </li>
+                        <li>@Html.ActionLink("About US", "About", "Home")</li>
+                        <li>@Html.ActionLink("Contact US", "Contact", "Home")</li>
+                    </ul>
+                </div>
+            </div>
+            <hr>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-sm-6 col-xs-12">
+                    <p class="copyright-text" style="text-align:center;">
+                        &copy; @DateTime.Now.Year - My ASP.NET Application
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- End Style footer-->
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

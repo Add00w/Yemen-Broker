@@ -1,0 +1,50 @@
+﻿@model Yemen_Broker.Models.Ad
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Ad</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.City.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.City.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AdPrice)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AdPrice)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AdDescribtion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AdDescribtion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Discriminator)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Discriminator)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.AdId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

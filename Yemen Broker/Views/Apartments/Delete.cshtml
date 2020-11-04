@@ -1,0 +1,72 @@
+﻿@model Yemen_Broker.Models.Apartment
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Apartment</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Ad.AdDescribtion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Ad.AdDescribtion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FloorNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FloorNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NumberOfDoors)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NumberOfDoors)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NumberOfBathrooms)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NumberOfBathrooms)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NumberOfKitchens)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NumberOfKitchens)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TypeOfFinishing)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TypeOfFinishing)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

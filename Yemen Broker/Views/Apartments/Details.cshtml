@@ -1,0 +1,83 @@
+﻿@model Yemen_Broker.Models.Apartment
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Apartment</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Ad.AdDescribtion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Ad.AdDescribtion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FloorNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FloorNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NumberOfDoors)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NumberOfDoors)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NumberOfBathrooms)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NumberOfBathrooms)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NumberOfKitchens)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NumberOfKitchens)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TypeOfFinishing)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TypeOfFinishing)
+        </dd>
+        @if (Model.Ad.Pictures.Count() > 0)
+        {
+            <dt>Pictures</dt>
+            <dd>
+                <img src="/Uploads/@Html.DisplayFor(model=>model.Ad.Pictures.First().PictureURL)" class="thumbnail">
+            </dd>
+            <dt></dt>
+            <dd>
+                @foreach (var item in Model.Ad.Pictures.OrderBy(pic =>
+                pic.PictureId).Skip(1))
+                {
+                    <a href="/Uploads/@Html.DisplayFor(model=>item.PictureURL)">
+                        <img src="/Uploads/@Html.DisplayFor(model=>item.PictureURL)" width="200" height="200">
+                    </a>
+                }
+            </dd>
+        }
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.AdId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
