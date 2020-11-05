@@ -21,6 +21,7 @@ namespace Yemen_Broker.Areas.Dashboard.Controllers
         // GET: Dashboard/Ads
         public ActionResult Index()
         {
+            //hello
             return View(db.Ads.Where(ad => ad.Discriminator == DiscriminatorOptions.Ad).ToList());
 
         }

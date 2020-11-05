@@ -14,9 +14,8 @@ namespace Yemen_Broker.Controllers
 
         public ActionResult Index()
         {
-            var ads = db.Ads.Where(ad => ad.Discriminator == DiscriminatorOptions.Apartment).Take(4).ToList();
 
-            return View(ads);
+            return View(db.Ads.ToList());
         }
 
         public ActionResult About()

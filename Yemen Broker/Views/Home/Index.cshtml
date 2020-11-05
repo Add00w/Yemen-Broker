@@ -141,13 +141,42 @@
 
 
     </table>
-    
-        @{ 
-            string des;
-                des = Model.FirstOrDefault().AdDescribtion;
-    <p> @des</p>
-        }
-   
+
+    @{
+        string des;
+        des = Model.FirstOrDefault().AdDescribtion;
+        <p> @des</p>
+
+
+        var apartments = Model.Where(ad => ad.Discriminator == Yemen_Broker.ViewModels.DiscriminatorOptions.Apartment).Take(4);
+        var lands = Model.Where(ad => ad.Discriminator == Yemen_Broker.ViewModels.DiscriminatorOptions.Land).Take(4);
+
+        <h2>Apartments</h2>
+        <ul>
+            @foreach (var item in apartments)
+            {
+                <li><a href="#"><img src="/Uploads/@Html.DisplayFor(model=>item.Pictures.FirstOrDefault().PictureURL)" /></a><div><img src="~/Content/images/price.png" /><h5><b> $@item.AdPrice</b></h5></div></li>
+            }
+            <li>
+                <a href="#">
+                    <button type="button">Show All</button>
+                </a>
+            </li>
+        </ul>
+        <h2>lands</h2>
+        <ul>
+            @foreach (var item in lands)
+            {
+                <li><a href="#"><img src="/Uploads/@Html.DisplayFor(model=>item.Pictures.FirstOrDefault().PictureURL)" /></a><div><img src="~/Content/images/price.png" /><h5><b> $@item.AdPrice</b></h5></div></li>
+            }
+            <li>
+                <a href="#">
+                    <button type="button">Show All</button>
+                </a>
+            </li>
+        </ul>
+    }
+
 
     <h2>Cars</h2>
     <ul>
@@ -156,7 +185,7 @@
         <li> <a href="index 2.html"> <img src="~/Content/images/img\4.jpg" /></a><div><img src="~/Content/images/price.png" /><h5><b>YR 1000000</b></h5></div></li>
         <li><a href="index 2.html"> <img src="~/Content/images/img\5.jpg" /></a><div><img src="~/Content/images/price.png" /><h5><b>YR 1000000</b></h5></div></li>
         <li>
-            <a href="index 2.html">
+            <a href="#">
                 <button type="button">Show All</button>
             </a>
         </li>

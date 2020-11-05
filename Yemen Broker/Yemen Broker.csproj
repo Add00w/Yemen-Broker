@@ -237,6 +237,7 @@
     <Compile Include="ViewModels\ApartmentViewModel.cs" />
     <Compile Include="ViewModels\CityModel.cs" />
     <Compile Include="ViewModels\DiscriminatorModel.cs" />
+    <Compile Include="ViewModels\HomePageViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModel.cs" />
     <Compile Include="ViewModels\LandsViewModel.cs" />
     <Compile Include="ViewModels\ShopModel.cs" />
