@@ -1,0 +1,160 @@
+﻿
+@model Yemen_Broker.ViewModels.OrderIndexViewModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <script>
+        function isNumberKey(evt) {
+            var charCode = (evt.which) ? evt.which : event.keyCode
+            if (charCode > 31 && (charCode < 48 || charCode > 57))
+                return false;
+
+            return true;
+        }
+        function onlyAlphabets(e, t) {
+            try {
+                if (window.event) {
+                    var charCode = window.event.keyCode;
+                }
+                else if (e) {
+                    var charCode = e.which;
+                }
+                else { return true; }
+                if ((charCode > 64 && charCode < 91) || (charCode > 96 && charCode < 123))
+                    return true;
+                else
+                    return false;
+            }
+            catch (err) {
+                alert(err.Description);
+            }
+        }
+    </script>
+</head>
+<body>
+
+
+    <!--star search detils-->
+    <div class="container" style="width:100%;height:120px; padding:30px;background-color:#fffefe;margin:50px 0;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+        @using (Html.BeginForm())
+        {
+            <div class="col-md-4 ">
+                @Html.DropDownList("city", null, "all", htmlAttributes: new { @class = "form-control", @style = "width:100%;height:45px;padding: 12px 20px;margin: 8px 0;display: inline-block;background-color: #f0f0f0;border: 1px solid #ccc;border-radius: 4px;box-sizing: border-box;" })
+
+            </div>
+            <div class="col-md-4">
+                @Html.TextBox("SearchString", Model.SearchString, new { @placeholder = "Search Orders" })
+                <style>
+                    input[type=text], select {
+                        width: 100%;
+                        padding: 12px 20px;
+                        margin: 8px 0;
+                        display: inline-block;
+                        background-color: #f0f0f0;
+                        border: 1px solid #ccc;
+                        border-radius: 4px;
+                        box-sizing: border-box;
+                    }
+                </style>
+            </div>
+            <div class="col-md-3">
+                <button class="btn btn-danger" style="height:45px; width:100%;margin:8px 0;opacity:100;">
+                    <div><b><i class="glyphicon glyphicon-search"></i> SEARCH NOW</b></div>
+                </button>
+            </div>
+        }
+    </div>
+    <!--end search detils-->
+    <p class="text-success">
+        @(String.IsNullOrWhiteSpace(Model.SearchString) ? "Showing all" : "You search for " + Model.SearchString + " found") @Model.Pager.TotalItems Others
+    </p>
+    <!--star show car-->
+    @foreach (var order in Model.Orders)
+    {
+        <div style="border:1px dotted #808080;border-radius:10px;margin-bottom:20px;" class="row">
+
+            <div class="col-md-12 float-right" style="border-left:1px solid #f1f1f1;padding-bottom:10px;">
+                <div>
+                    <div class="col-md-10">
+                        <h3>@order.Order_title</h3>
+                        <div style="text-align:left;">
+                            <i class="glyphicon glyphicon-map-marker"></i>  @order.City.Name
+                        </div>
+                        <div style="text-align:left;">
+                            <i class="glyphicon glyphicon-th"></i> @order.Order_description
+                        </div>
+                        <br />
+                        <div style="text-align:center;margin:10px 0 10px 0;">
+                            <a href="/Messages/Chat/@order.UserId" class="col-md-6 float-left" style="margin:4px 0 0 10px;height:50px; width:300px;color:white;background-color:orange;padding-top:15px">
+                                <div><b><i class="glyphicon glyphicon-envelope float-left"></i> Chat  </b></div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-md-2 float-right">
+                        <br /><br /><br />
+                        <img src="~/Content/images/Lpgin.png" class="img-circle " style="width:60px;height:60px;text-align:center;border:solid 2px #f0f0f0;border-radius:50px;margin:5px 0 0 25px;" />
+                        <div style="margin-top:4px;text-align:center;background-color:#f0f0f0;height:50px; width:100px;padding-top:15px;">
+                            <a href="/Orders/Details/@order.Order_id" style="color:black;">
+                                <div><b><i class="glyphicon glyphicon-info-sign"></i>  see more</b></div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+
+</body>
+</html>
+
+<!-- pager -->
+@if (Model.Pager.EndPage > 1)
+{
+    <p>
+        Page @(Model.Pager.PageSize > Model.Pager.CurrentPage ? 1 : Model.Pager.CurrentPage) of @Model.Pager.TotalPages
+    </p>
+    <nav>
+        <ul class="pagination">
+            @if (Model.Pager.CurrentPage > 1)
+            {
+                <li class="page-item">
+                    <a class="page-link" href="@Url.Action("Index","Orders",new {SearchString=Model.SearchString,city=Model.City})">
+                        First
+                    </a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="@Url.Action("Index","Orders",new { page=Model.Pager.CurrentPage - 1, SearchString=Model.SearchString,city=Model.City})">
+                        Previous
+                    </a>
+                </li>
+            }
+
+            @for (var page = Model.Pager.StartPage; page <= Model.Pager.EndPage; page++)
+            {
+                <li class="page-item @(page == Model.Pager.CurrentPage ? "active" : "")">
+                    <a class="page-link" href="@Url.Action("Index","Orders",new { page=page, SearchString=Model.SearchString,city=Model.City})">@page</a>
+                </li>
+            }
+
+            @if (Model.Pager.CurrentPage < Model.Pager.TotalPages)
+            {
+                <li class="page-item">
+                    <a class="page-link" href="@Url.Action("Index","Orders",new { page=Model.Pager.CurrentPage + 1, SearchString=Model.SearchString,city=Model.City})">Next</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="@Url.Action("Index","Orders",new { page=Model.Pager.TotalPages, SearchString=Model.SearchString,city=Model.City})">Last</a>
+                </li>
+            }
+        </ul>
+    </nav>
+
+}

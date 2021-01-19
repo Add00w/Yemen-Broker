@@ -1,0 +1,267 @@
+﻿
+@model Yemen_Broker.ViewModels.MobileViewModel
+
+
+@using (Html.BeginForm("Edit", "Mobiles", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+
+<div style="padding:5px 80px;">
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(m => m.Id)
+    <div class="text-danger">@ViewBag.chooseImage</div>
+    <div class="row">
+        <div class="col-md-6 ">
+            <div class="form-group">
+                <p style="padding:0 18px;">  @Html.LabelFor(model => model.CityId, htmlAttributes: new { @class = "control-label" })</p>
+                <div class="col-md-12">
+
+                    @Html.DropDownList("CityId", null, htmlAttributes: new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 ">
+            <div class="form-group">
+                <p style="padding:0 18px;">
+                    @Html.LabelFor(Model => Model.AdPrice, htmlAttributes: new { @class = "control-label" })
+                </p>
+                <div class="col-md-12">
+                    @Html.EditorFor(model => model.AdPrice, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.AdPrice, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 ">
+            <div class="form-group">
+                <p style="padding:0 18px;">
+                    @Html.LabelFor(model => model.AdDescribtion, htmlAttributes: new { @class = "control-label" })
+                </p>
+                <div class="col-md-12">
+                    @Html.EditorFor(model => model.AdDescribtion, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.AdDescribtion, "", new { @class = "text-danger" })
+                </div>
+
+            </div>
+        </div>
+        <div class="col-md-6 ">
+            <div class="form-group">
+                <p style="padding:0 18px;">
+                    @Html.LabelFor(model => model.AdTitle, htmlAttributes: new { @class = "control-label" })
+                </p>
+                <div class="col-md-12">
+                    @Html.EditorFor(model => model.AdTitle, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.AdTitle, "", new { @class = "text-danger" })
+                </div>
+
+            </div>
+        </div>
+        <!--edite here-->
+        <div class="col-md-6 ">
+            <div class="form-group">
+                <p style="padding:0 18px;">
+                    @Html.LabelFor(model => model.MobileCompany, htmlAttributes: new { @class = "control-label" })
+                </p>
+                <div class="col-md-12">
+                    @Html.EditorFor(model => model.MobileCompany, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.MobileCompany, "", new { @class = "text-danger" })
+                </div>
+
+            </div>
+        </div>
+        <div class="col-md-6 ">
+            <div class="form-group">
+                <p style="padding:0 18px;">
+                    @Html.LabelFor(model => model.MobileRam, htmlAttributes: new { @class = "control-label" })
+                </p>
+                <div class="col-md-12">
+                    @Html.EditorFor(model => model.MobileRam, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.MobileRam, "", new { @class = "text-danger" })
+                </div>
+
+            </div>
+        </div>
+        <div class="col-md-6 ">
+            <div class="form-group">
+                <p style="padding:0 18px;">
+                    @Html.LabelFor(model => model.MobileStorage, htmlAttributes: new { @class = "control-label" })
+                </p>
+                <div class="col-md-12">
+                    @Html.EditorFor(model => model.MobileStorage, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.MobileStorage, "", new { @class = "text-danger" })
+                </div>
+
+            </div>
+        </div>
+
+
+        <div class="col-md-6 ">
+            <div class="form-group">
+                <p style="padding:0 18px;">
+                    @Html.LabelFor(model => model.MobileScreenSize, htmlAttributes: new { @class = "control-label" })
+                </p>
+                <div class="col-md-12">
+                    @Html.EditorFor(model => model.MobileScreenSize, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.MobileScreenSize, "", new { @class = "text-danger" })
+                </div>
+
+            </div>
+        </div>
+        <div class="col-md-6 ">
+            <div class="form-group">
+                <p style="padding:0 18px;">
+                    @Html.LabelFor(model => model.MobileCpu, htmlAttributes: new { @class = "control-label" })
+                </p>
+                <div class="col-md-12">
+                    @Html.EditorFor(model => model.MobileCpu, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.MobileCpu, "", new { @class = "text-danger" })
+                </div>
+
+            </div>
+        </div>
+        <div class="col-md-6 ">
+            <div class="form-group">
+                <p style="padding:0 18px;">
+                    @Html.LabelFor(model => model.MobileOS, htmlAttributes: new { @class = "control-label" })
+                </p>
+                <div class="col-md-12">
+                    @Html.DropDownListFor(model => model.MobileOS, new List<SelectListItem>{
+                 new SelectListItem{Text="Android",Value="Android"},
+                 new SelectListItem{Text="iOS",Value="iOS"},
+             },new { @class = "form-control" })
+                    @*@Html.EditorFor(model => model.MobileOS, new { htmlAttributes = new { @class = "form-control" } })*@
+                    @Html.ValidationMessageFor(model => model.MobileOS, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 ">
+            <div class="form-group">
+                <p style="padding:0 18px;">
+                    @Html.LabelFor(model => model.MobileColor, htmlAttributes: new { @class = "control-label" })
+                </p>
+                <div class="col-md-12">
+                    @Html.EditorFor(model => model.MobileColor, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.MobileColor, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 ">
+            <div class="form-group">
+                <p style="padding:0 18px;">
+                    @Html.LabelFor(model => model.MobileBattery, htmlAttributes: new { @class = "control-label" })
+                </p>
+                <div class="col-md-12">
+                    @Html.EditorFor(model => model.MobileBattery, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.MobileBattery, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 ">
+            <div class="form-group">
+                <p style="padding:0 18px;">
+                    @Html.LabelFor(model => model.MobileStatus, htmlAttributes: new { @class = "control-label" })
+                </p>
+                <div class="col-md-12">
+                    @Html.DropDownListFor(model => model.MobileStatus, new List<SelectListItem>{
+                  new SelectListItem{Text="New",Value="New"},
+                  new SelectListItem{Text="Used",Value="Used"},
+              },new { @class = "form-control" })
+                    @*@Html.EditorFor(model => model.MobileStatus, new { htmlAttributes = new { @class = "form-control" } })*@
+                    @Html.ValidationMessageFor(model => model.MobileStatus, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 ">
+            <div class="form-group">
+                <p style="padding:0 18px;">
+                    @Html.LabelFor(model => model.CDMA_GSM, htmlAttributes: new { @class = "control-label" })
+                </p>
+                <div class="col-md-12">
+                    @Html.DropDownListFor(model => model.CDMA_GSM, new List<SelectListItem>{
+                  new SelectListItem{Text="CDMA",Value="CDMA"},
+                  new SelectListItem{Text="GSM",Value="GSM"},
+                   new SelectListItem{Text="Both",Value="Both"},
+              },new { @class = "form-control" })
+                    @*@Html.EditorFor(model => model.CDMA_GSM, new { htmlAttributes = new { @class = "form-control" } })*@
+                    @Html.ValidationMessageFor(model => model.CDMA_GSM, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 ">
+            <div class="form-group">
+                <p style="padding:0 18px;">
+                    @Html.LabelFor(model => model.MobileCamera, htmlAttributes: new { @class = "control-label" })
+                </p>
+                <div class="col-md-12">
+                    @Html.EditorFor(model => model.MobileCamera, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.MobileCamera, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 ">
+            <div class="form-group">
+                <p style="padding:0 18px;">
+                    @Html.LabelFor(model => model.OTG, htmlAttributes: new { @class = "control-label" })
+                </p>
+                <div class="col-md-12">
+                    @Html.EditorFor(model => model.OTG, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.OTG, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+    <!--no edite-->
+    <div style="background:url(../../Content/images/parts.png) no-repeat;margin-left:-2px;height:50px;width:222px;"><h4 style="padding:13px;"> <b> 3- Add photo:</b></h4></div>
+    <div style="padding:5px 20px; text-align:left;">
+        <div class="row">
+            <div class="form-group">
+                <p style="padding:0 18px;">
+                    @Html.LabelFor(model => model.Pictures, htmlAttributes: new { @class = "control-label" })
+                </p>
+                <div class="col-md-10">
+                    <input type="file" class="multiple" name="files" multiple />
+
+                    @Html.ValidationMessageFor(model => model.Pictures, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <hr />
+        </div>
+    </div>
+    <div style="background:url(../../Content/images/parts.png) no-repeat;margin-left:-2px;height:50px;width:225px;"><h4 style="padding:13px;"> <b> 4- Contact information:</b></h4></div>
+    <div style="padding:5px 60px; text-align:left;">
+        <div class="row">
+            <div class="form-group  col-md-6">
+                <p style="padding:0 18px;"><b>Name :</b></p>
+                <div class="col-md-12">
+                    @Html.TextBox("Name")
+                </div>
+            </div>
+            <div class="form-group  col-md-6">
+                <div class="form-group ">
+                    <p style="padding:0 5px;"><b>Phonne Number :</b></p>
+                    <div class="col-md-12">
+                        @Html.TextBox("userPhone")
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-12" style="padding:0 25px;">
+                    <input type="submit" value="Save and Submit Ad " class="btn btn-warning" style="height:50px; width:100%;opacity:100;" />
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+
+

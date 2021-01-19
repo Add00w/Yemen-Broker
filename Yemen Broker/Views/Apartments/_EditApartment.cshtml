@@ -1,0 +1,177 @@
+﻿@model Yemen_Broker.ViewModels.ApartmentViewModel
+
+
+@using (Html.BeginForm("Edit", "Apartments", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+
+<div style="padding:5px 80px;">
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(m => m.Id)
+    <div class="text-danger">@ViewBag.chooseImage</div>
+    <div class="row">
+        <div class="col-md-6 ">
+            <div class="form-group">
+                <p style="padding:0 18px;">  @Html.LabelFor(model => model.CityId, htmlAttributes: new { @class = "control-label" })</p>
+                <div class="col-md-12">
+
+                    @Html.DropDownList("CityId", null, htmlAttributes: new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 ">
+            <div class="form-group">
+                <p style="padding:0 18px;">
+                    @Html.LabelFor(Model => Model.AdPrice, htmlAttributes: new { @class = "control-label" })
+                </p>
+                <div class="col-md-12">
+                    @Html.EditorFor(model => model.AdPrice, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.AdPrice, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 ">
+            <div class="form-group">
+                <p style="padding:0 18px;">
+                    @Html.LabelFor(model => model.AdDescribtion, htmlAttributes: new { @class = "control-label" })
+                </p>
+                <div class="col-md-12">
+                    @Html.EditorFor(model => model.AdDescribtion, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.AdDescribtion, "", new { @class = "text-danger" })
+                </div>
+
+            </div>
+        </div>
+        <div class="col-md-6 ">
+            <div class="form-group">
+                <p style="padding:0 18px;">
+                    @Html.LabelFor(model => model.AdTitle, htmlAttributes: new { @class = "control-label" })
+                </p>
+                <div class="col-md-12">
+                    @Html.EditorFor(model => model.AdTitle, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.AdTitle, "", new { @class = "text-danger" })
+                </div>
+
+            </div>
+        </div>
+
+        <div class="col-md-6 ">
+            <div class="form-group">
+                <p style="padding:0 18px;">
+                    @Html.LabelFor(model => model.FloorNumber, htmlAttributes: new { @class = "control-label" })
+                </p>
+                <div class="col-md-12">
+                    @Html.EditorFor(model => model.FloorNumber, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.FloorNumber, "", new { @class = "text-danger" })
+                </div>
+
+            </div>
+        </div>
+        <div class="col-md-6 ">
+            <div class="form-group">
+                <p style="padding:0 18px;">
+                    @Html.LabelFor(model => model.NumberOfBathrooms, htmlAttributes: new { @class = "control-label" })
+                </p>
+                <div class="col-md-12">
+                    @Html.EditorFor(model => model.NumberOfBathrooms, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.NumberOfBathrooms, "", new { @class = "text-danger" })
+                </div>
+
+            </div>
+        </div>
+        <div class="col-md-6 ">
+            <div class="form-group">
+                <p style="padding:0 18px;">
+                    @Html.LabelFor(model => model.NumberOfRooms, htmlAttributes: new { @class = "control-label" })
+                </p>
+                <div class="col-md-12">
+                    @Html.EditorFor(model => model.NumberOfRooms, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.NumberOfRooms, "", new { @class = "text-danger" })
+                </div>
+
+            </div>
+        </div> <div class="col-md-6 ">
+            <div class="form-group">
+                <p style="padding:0 18px;">
+                    @Html.LabelFor(model => model.NumberOfDoors, htmlAttributes: new { @class = "control-label" })
+                </p>
+                <div class="col-md-12">
+                    @Html.EditorFor(model => model.NumberOfDoors, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.NumberOfDoors, "", new { @class = "text-danger" })
+                </div>
+
+            </div>
+        </div>
+        <div class="col-md-6 ">
+            <div class="form-group">
+                <p style="padding:0 18px;">
+                    @Html.LabelFor(model => model.NumberOfKitchens, htmlAttributes: new { @class = "control-label" })
+                </p>
+                <div class="col-md-12">
+                    @Html.EditorFor(model => model.NumberOfKitchens, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.NumberOfKitchens, "", new { @class = "text-danger" })
+                </div>
+
+            </div>
+        </div>
+        <div class="col-md-6 ">
+            <div class="form-group">
+                <p style="padding:0 18px;">
+                    @Html.LabelFor(model => model.TypeOfFinishing, htmlAttributes: new { @class = "control-label" })
+                </p>
+                <div class="col-md-12">
+                    @Html.EditorFor(model => model.TypeOfFinishing, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.TypeOfFinishing, "", new { @class = "text-danger" })
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+    <div style="background:url(../../Content/images/parts.png) no-repeat;margin-left:-2px;height:50px;width:222px;"><h4 style="padding:13px;"> <b> 3- Add photo:</b></h4></div>
+    <div style="padding:5px 20px; text-align:left;">
+        <div class="row">
+            <div class="form-group">
+                <p style="padding:0 18px;">
+                    @Html.LabelFor(model => model.Pictures, htmlAttributes: new { @class = "control-label" })
+                </p>
+                <div class="col-md-10">
+                    <input type="file" class="multiple" name="files" multiple />
+
+                    @Html.ValidationMessageFor(model => model.Pictures, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <hr />
+        </div>
+    </div>
+    <div style="background:url(../../Content/images/parts.png) no-repeat;margin-left:-2px;height:50px;width:225px;"><h4 style="padding:13px;"> <b> 4- Contact information:</b></h4></div>
+    <div style="padding:5px 60px; text-align:left;">
+        <div class="row">
+            <div class="form-group  col-md-6">
+                <p style="padding:0 18px;"><b>Name :</b></p>
+                <div class="col-md-12">
+                    @Html.TextBox("Name")
+                </div>
+            </div>
+            <div class="form-group  col-md-6">
+                <div class="form-group ">
+                    <p style="padding:0 5px;"><b>Phonne Number :</b></p>
+                    <div class="col-md-12">
+                        @Html.TextBox("userPhone")
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-12" style="padding:0 25px;">
+                    <input type="submit" value="Save and Submit Ad " class="btn btn-warning" style="height:50px; width:100%;opacity:100;" />
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+

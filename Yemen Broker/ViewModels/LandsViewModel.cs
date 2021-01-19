@@ -13,10 +13,10 @@ namespace Yemen_Broker.ViewModels
     {
         public long Id { get; set; }
 
-
         [DisplayName("Number of land")]
         [Required]
         public int NumberOfLand { get; set; }
+        
         [DisplayName("Plate number")]
         [Required]
         public int PlateNumber { get; set; }
@@ -25,8 +25,12 @@ namespace Yemen_Broker.ViewModels
         public string StreetsArea { get; set; }
 
         [DisplayName("Price")]
+        [DisplayFormat(DataFormatString = "{0:c}")]
         [Required]
         public double AdPrice { set; get; }
+        [DisplayName("Title")]
+        [Required]
+        public String AdTitle { set; get; }
         [DisplayName("Description")]
         [Required]
         public String AdDescribtion { set; get; }

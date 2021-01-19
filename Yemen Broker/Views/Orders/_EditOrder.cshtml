@@ -1,0 +1,74 @@
+﻿
+@model Yemen_Broker.ViewModels.OrderViewModel
+
+@using (Html.BeginForm("Edit", "Orders", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+<div style="padding:5px 80px;">
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(m => m.Order_id)
+    <div class="row">
+        <div class="col-md-6 ">
+            <div class="form-group">
+                <p style="padding:0 18px;">  @Html.LabelFor(model => model.CityId, htmlAttributes: new { @class = "control-label" })</p>
+                <div class="col-md-12">
+
+                    @Html.DropDownList("CityId", null, htmlAttributes: new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 ">
+            <div class="form-group">
+                <p style="padding:0 18px;">
+                    @Html.LabelFor(model => model.Order_title, htmlAttributes: new { @class = "control-label" })
+                </p>
+                <div class="col-md-12">
+                    @Html.EditorFor(model => model.Order_title, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Order_title, "", new { @class = "text-danger" })
+                </div>
+
+            </div>
+        </div>
+        <div class="col-md-6 ">
+            <div class="form-group">
+                <p style="padding:0 18px;">
+                    @Html.LabelFor(model => model.Order_description, htmlAttributes: new { @class = "control-label" })
+                </p>
+                <div class="col-md-12">
+                    @Html.EditorFor(model => model.Order_description, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Order_description, "", new { @class = "text-danger" })
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+    <div style="background:url(../../Content/images/parts.png) no-repeat;margin-left:-2px;height:50px;width:225px;"><h4 style="padding:13px;"> <b> 3- Contact information:</b></h4></div>
+    <div style="padding:5px 60px; text-align:left;">
+        <div class="row">
+            <div class="form-group  col-md-6">
+                <p style="padding:0 18px;"><b>Name :</b></p>
+                <div class="col-md-12">
+                    @Html.TextBox("Name")
+                </div>
+            </div>
+            <div class="form-group  col-md-6">
+                <div class="form-group ">
+                    <p style="padding:0 5px;"><b>Phonne Number :</b></p>
+                    <div class="col-md-12">
+                        @Html.TextBox("userPhone")
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-12" style="padding:0 25px;">
+                    <input type="submit" value="Save and Submit Ad " class="btn btn-warning" style="height:50px; width:100%;opacity:100;" />
+                </div>
+            </div>
+        </div>
+    </div>
+}
+

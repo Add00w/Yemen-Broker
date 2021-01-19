@@ -1,0 +1,59 @@
+﻿@model Yemen_Broker.Models.Computer
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Delete</title>
+</head>
+<body>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div style="background-color:#dc1b1b;color:white;width:100%;padding-left:20px;font-size:larger;"><h3><b>Are you sure you want to delete this?</b></h3></div>
+
+        <!--star show car-->
+
+        <div style="border:1px dotted #808080;border-radius:10px;margin:0 5px 20px 5px;" class="row">
+
+            <div style="margin:5px -5px 5px 5px;text-align:center;" class="col-md-3 float-left">
+                <img src="~/Uploads/@Html.DisplayFor(m=>m.Ad.Pictures.FirstOrDefault().PictureURL)" alt="img1 " style=" width:250px;height:175px;" />
+            </div>
+            <div class="col-md-9 float-right">
+                <div>
+                    <div class="col-md-10">
+                        <h3>@Html.DisplayFor(model => model.Ad.AdTitle)</h3>
+                        <div style="text-align:left;">
+                            <i class="glyphicon glyphicon-map-marker" style="margin-right:10px;"></i> @Html.DisplayFor(model => model.Ad.City.Name)
+                        </div>
+                        <div style="text-align:left;">
+                            <i class="glyphicon glyphicon-calendar" style="margin-right:10px;"></i> 20/11/2020
+                        </div>
+                        <div style="text-align:left;">
+                            <i class="glyphicon glyphicon-th" style="margin-right:10px;"></i>car butifual @Html.DisplayFor(model => model.Ad.AdDescribtion)
+                        </div>
+                        <br />
+                    </div>
+                    <div class="col-md-2 float-right">
+                        <h4 style="color:red;"><b>YR @Html.DisplayFor(model => model.Ad.AdPrice)</b></h4>
+                        <img src="~/Content/images/Lpgin.png" class="img-circle " style="width:60px;height:60px;text-align:center;border:solid 2px #f1f1f1;border-radius:50px;margin:5px 0 0 25px;" />
+                        <button class="btn btn-danger" style="height:50px; width:100px;">
+                            <div><b><i class="glyphicon glyphicon-trash"></i>  Delete</b></div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--end show car -->
+        <div>
+            @Html.ActionLink("<< Back to List", "Index")
+        </div>
+
+    }
+</body>
+</html>

@@ -1,0 +1,159 @@
+﻿
+@model Yemen_Broker.ViewModels.MyOrdersViewModel
+@{
+    ViewBag.Title = "ManageOrders";
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>AdminManageOrders</title>
+</head>
+<body>
+    <div>
+        <div style="background-color:#f7e89d;width:100%;padding:5px 20px;font-size:larger;margin-bottom:20px;"> <p><b>Welcome to Management Orders page From The Admin.</b></p></div>
+        <div id="menucontent">
+            <!-- start Orders section-->
+            <div id="Adsconte" style="display:block">
+                <nav class="navbar navbar-dark" style="background-color:#f1f1f1">
+                    <h4 class="navbar-brand col-md-7"><b>@Model.Orders.Count()</b><b> Orders</b></h4>
+                    @using (Html.BeginForm())
+                    {
+                        @Html.TextBox("SearchString", Model.SearchString, new { @placeholder = "Search here..", @style = "height:33px;width:100%;margin:20px 0 0 40px;" })
+                        <button class="btn btn-danger my-2 my-sm-0" type="submit" style="height:33px;width:100px;opacity:100;margin-top:-3px">Search</button>
+                    }
+                </nav>
+                @if (Model.Orders.Count() <= 0)
+                {
+                    <div style="text-align :center; display:block">
+                        <h3>No Ads</h3>
+                        <h1><b>The Ads list is empty</b></h1>
+                    </div>
+                }
+                <div>
+                    <p class="text-success">
+                        @(String.IsNullOrWhiteSpace(Model.SearchString) ? "Showing all" : "You search for " + Model.SearchString + " found") @Model.Pager.TotalItems Orders
+                    </p>
+                    <!--star show Ads-->
+                    @foreach (var order in Model.Orders)
+                    {
+                        <div style="border:1px dotted #808080;border-radius:10px;margin:5px;" class="row">
+
+                            <div class="col-md-12 float-right">
+                                <div>
+                                    <div class="col-md-10">
+                                        <h3>@order.Order_title</h3>
+                                        <div style="text-align:left;">
+                                            <i class="glyphicon glyphicon-map-marker"></i>  @order.City.Name
+                                        </div>
+                                        <div style="text-align:left;">
+                                            <i class="glyphicon glyphicon-th"></i> @order.Order_description
+                                        </div>
+                                        <br />
+                                        <div style="text-align:center;margin:10px 0 10px 0;">
+                                            <a href="/Messages/Chat/@order.UserId" class="col-md-6 float-left" style="margin:4px 0 0 10px;height:50px; width:300px;color:white;background-color:orange;padding-top:15px">
+                                                <div><b><i class="glyphicon glyphicon-envelope float-left"></i> Chat  </b></div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 float-right">
+                                        <br /><br />
+                                        <button class="btn btn-success" style="height:30px; width:100px;">
+                                            <div id="conformorrejct"><b><i class="glyphicon glyphicon-ok-circle"></i>  @Html.ActionLink("Confirm", "ConfirmOrReject", new { id = order.Order_id, isConfirm = true })</b></div>
+                                        </button>
+                                        <button class="btn btn-danger" style="height:30px; width:100px;">
+                                                                                    <div id="conformorrejct"><b>
+                                            <i class="glyphicon glyphicon-remove-circle"></i>
+                                            @if (order.Rejected)
+                                            {
+                                                <i>Rejected</i>
+                                            }
+                                            else
+                                            {
+                                                @Html.ActionLink("Reject", "ConfirmOrReject", new { id = order.Order_id, isReject = true })
+                                            }
+                                        </b></div>
+                                        </button>
+                                        <div style="margin-top:20px;text-align:center;background-color:#f0f0f0;height:50px; width:100px;padding-top:15px;">
+                                            <a href="/Orders/Details/@order.Order_id" style="color:black;">
+                                                <div><b><i class="glyphicon glyphicon-info-sign"></i>  see more</b></div>
+                                            </a>
+                                        </div>
+                                        <style>
+                                            #conformorrejct b a {
+                                                color: white;
+                                                padding: 3px;
+                                            }
+                                        </style>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    <!--end show Ads -->
+
+                </div>
+            </div>
+            <!-- End Ads section-->
+
+        </div>
+        <style>
+
+            #menucontent {
+                border: 1px solid #808080;
+                margin: 24px 0 10px 0;
+                padding: 10px;
+            }
+        </style>
+    </div>
+</body>
+</html>
+
+<!-- pager -->
+@if (Model.Pager.EndPage > 1)
+{
+    <p>
+        Page @(Model.Pager.PageSize > Model.Pager.CurrentPage ? 1 : Model.Pager.CurrentPage) of @Model.Pager.TotalPages
+    </p>
+    <nav>
+        <ul class="pagination">
+            @if (Model.Pager.CurrentPage > 1)
+            {
+                <li class="page-item">
+                    <a class="page-link" href="@Url.Action("ManageOrders","Orders",new {SearchString=Model.SearchString})">
+                        First
+                    </a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="@Url.Action("ManageOrders","Orders",new { page=Model.Pager.CurrentPage - 1, SearchString=Model.SearchString})">
+                        Previous
+                    </a>
+                </li>
+            }
+
+            @for (var page = Model.Pager.StartPage; page <= Model.Pager.EndPage; page++)
+            {
+                <li class="page-item @(page == Model.Pager.CurrentPage ? "active" : "")">
+                    <a class="page-link" href="@Url.Action("ManageOrders","Orders",new { page=page, SearchString=Model.SearchString})">@page</a>
+                </li>
+            }
+
+            @if (Model.Pager.CurrentPage < Model.Pager.TotalPages)
+            {
+                <li class="page-item">
+                    <a class="page-link" href="@Url.Action("ManageOrders","Orders",new { page=Model.Pager.CurrentPage + 1, SearchString=Model.SearchString})">Next</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="@Url.Action("ManageOrders","Orders",new { page=Model.Pager.TotalPages, SearchString=Model.SearchString})">Last</a>
+                </li>
+            }
+        </ul>
+    </nav>
+
+}
+
+

@@ -1,0 +1,91 @@
+﻿@model Yemen_Broker.ViewModels.IndividualUserReportViewModel
+
+@{
+    Layout = null;
+}
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>individual user Report</title>
+
+
+    <link rel="stylesheet" href="~/Content/bootstrap.min.css">
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+
+    <script src="~/Content/bootstrap4-offline/javascript.js"></script>
+    <script src="~/Content/bootstrap4-offline/jquery.js"></script>
+
+
+</head>
+<div class="container">
+    @*header*@
+    <div class="row" style="border-bottom:1px double #000000">
+
+        <div class="col-sm-8">
+            <a href="/Home">
+                <img src="~/Content/images/logoYB.png" alt="YB Logo." />
+            </a>
+        </div>
+        <div class="col-sm-4" style="margin-top:15px;">
+            <h4><b>@Html.DisplayFor(modelItem => modelItem.User.UserName)</b></h4>
+            <h4>@DateTime.Now</h4>
+        </div>
+        <hr />
+    </div>
+    <div class="row">
+        <div class="col col-lg-12">
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>
+                            Subscription Type
+                        </th>
+                        <th>
+                            Registration Date
+                        </th>
+                        <th>
+                            Number of ads
+                        </th>
+
+                        <th>
+                            Number of Orders
+                        </th>
+                        <th>
+                            Address
+                        </th>
+                        <th>
+                            Confirmed
+                        </th>
+
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => modelItem.User.Subscription.SubscriptionType)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => modelItem.User.RegisteredDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => modelItem.AdsCount)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => modelItem.OrdersCount)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => modelItem.User.UserAddress)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => modelItem.User.Confirmed)
+
+                        </td>
+                    </tr>
+                </tbody>
+
+            </table>
+
+        </div>
+    </div>
+</div>

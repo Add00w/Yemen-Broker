@@ -1,0 +1,94 @@
+﻿@model Yemen_Broker.Models.Order
+@{
+    ViewBag.Title = "Reject";
+}
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Reject</title>
+</head>
+<body>
+
+    <div>
+        <div style="background-color:#f7e89d;width:100%;padding:5px 20px;font-size:larger;margin-bottom:20px;"> <p><b>Are you sure you want to Reject this?</b></p></div>
+        <div id="menucontent">
+            <!-- start Ads section-->
+            <div id="Adsconte" style="display:block">
+                <div>
+                    <!--star show Ads-->
+
+                    <div style="border:1px dotted #808080;border-radius:10px;margin:5px;" class="row">
+                        <div class="col-md-12 float-right">
+                            <div>
+                                <div class="col-md-12">
+                                    <h3>@Model.Order_title</h3>
+                                    <div style="text-align:left;">
+                                        <i class="glyphicon glyphicon-map-marker"></i>  @Model.City.Name|@Model.Order_date
+                                    </div>
+                                    <div style="text-align:left;">
+                                        <i class="glyphicon glyphicon-th"></i> @Model.Order_description
+                                    </div>
+                                    <br />
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--end show Ads -->
+
+                </div>
+            </div>
+            <!-- End Ads section-->
+            <div class="row">
+                @using (Html.BeginForm("ConfirmOrReject", "Orders",new { id= ViewBag.rejectedOrderId } ,FormMethod.Post))
+                {
+                <div class="col-md-5">
+                    <h4>Please leave note for the owner of this ad</h4>
+                </div>
+                <div class="col-md-4">
+                    <textarea name="message" id="txtar" cols="50" rows="2"></textarea>
+                </div>
+                <div class="col-md-3">
+                    <button class="btn btn-success" id="btnsucsess"><b>Send</b></button>
+
+                </div>
+                }
+            </div>
+            <style>
+
+                #menucontent {
+                    border: 1px solid #808080;
+                    margin: 24px 0 0 0;
+                    padding: 10px;
+                }
+
+                #btnsucsess {
+                    height: 45px;
+                    width: 150px;
+                    opacity: 100;
+                    margin-left: -80px;
+                    margin-top: 6px;
+                }
+
+                #txtar {
+                    width: 500px;
+                    margin-top: 6px;
+                }
+            </style>
+
+        </div>
+        @Html.ActionLink(" Go back  ", "ManageOrders", null, new { @class = "btn btn-success  glyphicon glyphicon-arrow-left", @style = "width:100px;height:40px; text-align:center" })
+    </div>
+</body>
+</html>
+
+

@@ -1,0 +1,88 @@
+﻿@model Yemen_Broker.Models.Ad
+
+@using (Html.BeginForm("Create", "Ads", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+<div style="padding:5px 80px;">
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="text-danger">@ViewBag.chooseImage</div>
+    <div class="row">
+        <div class="col-md-6 ">
+            <div class="form-group">
+                <p style="padding:0 18px;">  @Html.LabelFor(model => model.CityId, htmlAttributes: new { @class = "control-label" })</p>
+                <div class="col-md-12">
+
+                    @Html.DropDownList("CityId", null, htmlAttributes: new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 ">
+            <div class="form-group">
+                <p style="padding:0 18px;">
+                    @Html.LabelFor(model => model.AdPrice, htmlAttributes: new { @class = "control-label" })
+                </p>
+                <div class="row">
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.AdPrice, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.AdPrice, "", new { @class = "text-danger" })
+                    </div>
+                    <p>Riyal Yamani</p>
+                </div>
+               
+            </div>
+        </div>
+        <div class="col-md-6 ">
+            <div class="form-group">
+                <p style="padding:0 18px;">
+                    @Html.LabelFor(model => model.AdTitle, htmlAttributes: new { @class = "control-label" })
+                </p>
+                <div class="col-md-12">
+                    @Html.EditorFor(model => model.AdTitle, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.AdTitle, "", new { @class = "text-danger" })
+                </div>
+
+            </div>
+        </div>
+        <div class="col-md-6 ">
+            <div class="form-group">
+                <p style="padding:0 18px;">
+                    @Html.LabelFor(model => model.AdDescribtion, htmlAttributes: new { @class = "control-label" })
+                </p>
+                <div class="col-md-12">
+                    @Html.EditorFor(model => model.AdDescribtion, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.AdDescribtion, "", new { @class = "text-danger" })
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+    <div style="background:url(../../Content/images/parts.png) no-repeat;margin-left:-2px;height:50px;width:222px;"><h4 style="padding:13px;"> <b> 3- Add photo:</b></h4></div>
+    <div style="padding:5px 20px; text-align:left;">
+        <div class="row">
+            <div class="form-group">
+                <p style="padding:0 18px;">
+                    @Html.LabelFor(model => model.Pictures.FirstOrDefault().PictureId, htmlAttributes: new { @class = "control-label" })
+                </p>
+                <div class="col-md-10">
+                    <input type="file" class="multiple" name="files" multiple />
+
+                    @Html.ValidationMessageFor(model => model.Pictures.FirstOrDefault().PictureId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <hr />
+        </div>
+    </div>
+
+    <div style="padding:5px 60px; text-align:left;">
+        <div class="row">
+            <div class="form-group">
+                <div class="col-md-12" style="padding:0 25px;">
+                    <input type="submit" value="Save and Submit Ad " class="btn btn-warning" style="height:50px; width:100%;opacity:100;" />
+                </div>
+            </div>
+        </div>
+    </div>
+}

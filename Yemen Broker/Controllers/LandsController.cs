@@ -13,19 +13,51 @@ using Yemen_Broker.ViewModels;
 
 namespace Yemen_Broker.Controllers
 {
-    [Authorize]
     public class LandsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Lands
-        public ActionResult Index()
+        public ActionResult Index(string SearchString, String city, double from = 0.0, double to = 0.0, int page = 1)
         {
-            string uId = User.Identity.GetUserId();
+            var lands = db.Lands.OfType<Land>()
+                .Where(w => w.Ad.User.Confirmed)
+                .Include(l => l.Ad);
+            ViewBag.Views = db.Views;
+            ViewBag.Wishlists = db.Wishlists;
+            if (!String.IsNullOrEmpty(SearchString))
+            {
+                lands = lands.Where(a => a.Ad.City.Name.ToUpper().Contains(SearchString.ToUpper())
+                || a.Ad.AdDescribtion.ToUpper().Contains(SearchString.ToUpper())
+                || a.Ad.AdTitle.ToUpper().Contains(SearchString.ToUpper()));
+            }
 
-            var lands=db.Lands.OfType<Land>().Where(land => land.Ad.UserId.Equals(uId)).Include(l=>l.Ad).ToList();
-            //var lands = db.Lands.Include(l => l.Ad);
-            return View(lands);
+            if (!String.IsNullOrEmpty(city))
+            {
+                lands = lands.Where(a => a.Ad.City.Name.ToUpper().Equals(city));
+            }
+
+            if (to >= from && to > 1 && from >= 0.0)
+            {
+                lands = lands.Where(a => a.Ad.AdPrice >= from && a.Ad.AdPrice <= to);
+
+            }
+            var cities = lands.Select(c => c.Ad.City.Name).Distinct();
+            ViewBag.city = new SelectList(cities);
+            //pagination steps
+            int pageSize = 6;
+            var pager = new Pager(lands.Count(), page, pageSize);
+            LandIndexViewModel vModel = new LandIndexViewModel()
+            {
+                Lands = lands.OrderBy(a => a.Ad.AdPrice).Skip((pager.CurrentPage - 1) * pager.PageSize).Take(pager.PageSize),
+                Pager = pager,
+                SearchString = SearchString,
+                City = city,
+                From = from,
+                To = to
+
+            };
+            return View(vModel);
         }
 
         // GET: Lands/Details/5
@@ -36,14 +68,56 @@ namespace Yemen_Broker.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Land land = db.Lands.Find(id);
+            //code for rating start
+            var rate = db.Ratings.Find(User.Identity.GetUserId(), land.Ad.UserId);
+            ViewBag.inFavorite = db.Wishlists.Find(land.AdId, User.Identity.GetUserId()) != null;
+            var adverRate = db.Ratings.Where(r => r.AdvertiserId.Equals(land.Ad.UserId)).ToList();
+            ViewBag.ratingAverage = adverRate.Count() > 0 ?
+                                 db.Ratings.Where(r => r.AdvertiserId.Equals(land.Ad.UserId))
+                                .Select(r => r.RatingNumber)
+                                .Average() : 0;
+            ViewBag.ratersCount = adverRate.Count() > 0 ?
+                               db.Ratings.Where(r => r.AdvertiserId.Equals(land.Ad.UserId))
+                               .Count() : 0;
+            ViewBag.Rated = rate != null;
+            //end of rating
             if (land == null)
             {
                 return HttpNotFound();
             }
+            if (User.Identity.IsAuthenticated)
+            {
+                String userId = User.Identity.GetUserId();
+                bool isOwner = land.Ad.UserId.Equals(userId);
+                int view = db.Views.Where(v => v.UserId.Equals(userId) && v.AdId == land.AdId).Count();
+
+                if (!isOwner && view == 0)
+                {
+                    db.Views.Add(new View()
+                    {
+                        AdId = land.AdId,
+                        UserId = userId,
+                    });
+                    db.SaveChanges();
+                }
+            }
+            var views = db.Views.Where(la => la.AdId.Equals(land.AdId)).Count();
+
+            ViewBag.views = views;
+            //similar ads
+            var similarLands = db.Lands
+                            .Where(c => c.Ad.Confirmed)
+                            .OrderBy(c => land.Ad.City.Name)
+                            .ThenBy(c => land.Ad.AdTitle)
+                            .ThenBy(c => land.StreetsArea)
+                            .ThenBy(c => c.Ad.User.DatePayingStarted)
+                            .Take(4);
+            ViewBag.similarLands = similarLands;
             return View(land);
         }
 
         // GET: Lands/Create
+        [Authorize]
         public ActionResult Create()
         {
             ViewBag.CityId = new SelectList(db.Cities, "Id", "Name");
@@ -55,10 +129,45 @@ namespace Yemen_Broker.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public ActionResult Create(LandsViewModel landsVM, IEnumerable<HttpPostedFileBase> files)
         {
+            var uid = User.Identity.GetUserId();
+            var user = db.Users.Find(uid);
+            if (!user.Confirmed)
+            {
+                ViewBag.NotConfirmed = "Sory! wait until the confirmation, thanks!.";
+                ViewBag.CityId = new SelectList(db.Cities, "Id", "Name", landsVM.CityId);
+
+                return View(landsVM);
+            }
             if (ModelState.IsValid)
             {
+                if (!User.IsInRole("Admin"))
+                {
+                    //find user's listings and check if he advertised more than allowed size
+                    int uLiveAdsCount = db.Ads.Where(ap => ap.UserId.Equals(uid)).Count();
+                    ////find user's subscription size
+                    int usubsId = db.Users.Where(u => u.Id.Equals(uid)).Select(usub => usub.SubscriptionId).FirstOrDefault();
+                    int subsSize = db.Subscriptions.Where(s => s.SubscriptionId == usubsId).Select(sz => sz.SubscripsionSize).FirstOrDefault();
+
+                    if (uLiveAdsCount >= subsSize)
+                    {
+                        ViewBag.LimitReached = "Sory! you have reached the limit of this subscription please remove some ads or upgrade your subscription, thanks!.";
+                        ViewBag.CityId = new SelectList(db.Cities, "Id", "Name", landsVM.CityId);
+
+                        return View(landsVM);
+
+                    }
+                }
+                //if user chooses no image show him error
+                if (files == null || files.Count() <= 0 || files.FirstOrDefault() == null)
+                {
+                    ViewBag.chooseImage = "Please choose image";
+                    ViewBag.CityId = new SelectList(db.Cities, "Id", "Name", landsVM.CityId);
+                    return View(landsVM);
+                }
+                //end
                 var pictures = new List<Picture>();
 
                 foreach (var file in files)
@@ -80,6 +189,8 @@ namespace Yemen_Broker.Controllers
                     AdDescribtion = landsVM.AdDescribtion,
                     AdPrice = landsVM.AdPrice,
                     City = City,
+                    AdTitle = landsVM.AdTitle,
+                    Date = DateTime.Now.Date,
                     Discriminator = DiscriminatorOptions.Land,
                     Pictures = pictures,
                     UserId = User.Identity.GetUserId()
@@ -102,6 +213,7 @@ namespace Yemen_Broker.Controllers
         }
 
         // GET: Lands/Edit/5
+        [Authorize]
         public ActionResult Edit(long? id)
         {
             if (id == null)
@@ -121,6 +233,7 @@ namespace Yemen_Broker.Controllers
                NumberOfLand=land.NumberOfLand,
                PlateNumber=land.PlateNumber,
                StreetsArea=land.StreetsArea,
+               AdTitle=land.Ad.AdTitle,
                 Id = land.AdId,
                 CityId = land.Ad.City.Id
             };
@@ -135,6 +248,7 @@ namespace Yemen_Broker.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public ActionResult Edit(LandsViewModel landsVM, IEnumerable<HttpPostedFileBase> files)
         {
             var city = db.Cities.Find(landsVM.CityId);
@@ -146,7 +260,7 @@ namespace Yemen_Broker.Controllers
 
                 var pictures = new List<Picture>();
 
-                if (files != null && files.Count() > 0)
+                if (files != null && files.Count() > 0 && files.FirstOrDefault()!=null)
                 {
                     foreach (var file in files)
                     {
@@ -162,6 +276,7 @@ namespace Yemen_Broker.Controllers
                 land.Ad.AdDescribtion = landsVM.AdDescribtion;
                 land.Ad.AdPrice = landsVM.AdPrice;
                 land.Ad.City = city;
+                land.Ad.AdTitle = landsVM.AdTitle;
                 land.NumberOfLand = landsVM.NumberOfLand;
                 land.PlateNumber = landsVM.PlateNumber;
                 if (pictures.Count() > 0)
@@ -170,13 +285,14 @@ namespace Yemen_Broker.Controllers
 
                 db.Entry(land).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("MyAds", "Ads");
             }
             ViewBag.CityId = new SelectList(db.Cities, "Id", "Name", landsVM.CityId);
             return View(landsVM);
         }
 
-        // GET: Lands/Delete/5
+        // GET: Lands/Delete/5  
+        [Authorize]
         public ActionResult Delete(long? id)
         {
             if (id == null)

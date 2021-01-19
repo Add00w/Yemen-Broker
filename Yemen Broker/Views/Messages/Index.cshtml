@@ -1,0 +1,139 @@
+﻿@model IEnumerable<Yemen_Broker.Models.Message>
+@{
+    ViewBag.Title = "Mychats";
+}
+
+<h2>Mychats</h2>
+<div id="menu" class="row">
+    <ul class="col-md-10">
+        <li class="item active">
+            <b>All Chats</b>
+        </li>
+    </ul>
+</div>
+<div class="row" id="chatcontent">
+    <div class="col-md-12" id="userchat">
+        <div style=" display:none">
+            <b>There are no more conversations...</b><br />
+            <a href="#">Start browsing the best ads here.</a>
+        </div>
+        <div>
+            <ul>
+                @foreach (var m in Model)
+                {
+                    <li>
+                        <a href="/Messages/Chat/@m.RecieverId">
+                            <button>
+                                <h5 style="padding-top:5px;"><b>@m.User.UserName</b></h5>
+                                <h6 style="float:right;">@m.MessageDateTime.ToShortTimeString()</h6>
+                            </button>
+                        </a>
+                    </li>
+                }
+
+                
+            </ul>
+        </div>
+    </div>
+</div>
+<style>
+    
+
+    #chatcontent {
+        border: 1px solid #808080;
+        height: 450px;
+        margin-top: -10px;
+    }
+
+    #userchat {
+        border-right: 1px solid #808080;
+        background-color: #ffffff;
+        height: 445px;
+        margin-top: -8px;
+        padding: 10px 5px;
+        overflow-y: auto;
+    }
+
+        #userchat ul {
+            list-style-type: none;
+        }
+
+            #userchat ul li {
+                margin-left: -10px;
+                width: 100%;
+            }
+
+        #userchat button {
+            text-align: left;
+            margin-bottom: 5px;
+            border: none;
+            width: 100%;
+            height: 30px;
+        }
+
+            #userchat button h5, h6 {
+                display: inline;
+            }
+
+    #showchat {
+        background-color: #f1f1f1;
+        height: 445px;
+        margin-top: -8px;
+        padding: 20px;
+    }
+
+    #menu {
+        margin-bottom: 0;
+    }
+
+        #menu ul {
+            list-style-type: none;
+            margin-bottom: 15px;
+            padding: 10px 0 0 0;
+            width: 100%;
+            text-align: left;
+        }
+
+            #menu ul li {
+                display: inline;
+                padding: 8px 16px;
+                border: 1px solid #808080;
+                border-radius: 0 50px 0 0;
+                margin-right: 5px;
+                background-color: #0741aa;
+                color: white;
+                text-decoration: none;
+                height: 50px;
+            }
+
+                #menu ul li:hover {
+                    background-color: #47a903;
+                    text-decoration: none;
+                }
+
+        #menu li.active {
+            background-color: #47a903;
+            text-decoration: none;
+        }
+
+    #menucontent {
+        border: 1px solid #808080;
+        margin: -24px 0 0 0;
+        padding: 10px;
+    }
+</style>
+<script>
+        function addRow() {
+            var text = document.getElementById('Coms').value;
+            document.querySelector('#content').insertAdjacentHTML(
+                'afterbegin',
+                `<div id="mesend"><p>document.getElementById('Coms').value</p></div><br /><br />`
+            )
+        }
+function send(){
+    var text = document.getElementById('Coms').value;
+
+        var value = document.getElementById("mesend").value;
+        ntext = document.getElementById("mesend").innerHTML += text;
+
+}</script>

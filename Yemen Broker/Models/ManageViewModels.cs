@@ -12,6 +12,25 @@ namespace Yemen_Broker.Models
         public string PhoneNumber { get; set; }
         public bool TwoFactor { get; set; }
         public bool BrowserRemembered { get; set; }
+        //anaa kudaray
+        public double AdsCount { get; set; } = 0;
+        public double OrdersCount { get; set; } = 0;
+        public double MyAdsCount { get; set; } = 0;
+        public double MyOrdersCount { get; set; } = 0;
+        public double MyFavoritesCount { get; set; } = 0;
+
+        public double CarsCount { get; set; } = 0;
+        public double ComputersCount { get; set; } = 0;
+        public double MobilesCount { get; set; } = 0;
+        public double HomesCount { get; set; } = 0;
+        public double ShopsCount { get; set; } = 0;
+        public double LandsCount { get; set; } = 0;
+        public double WarehousesCount { get; set; } = 0;
+        public double ApartmentsCount { get; set; } = 0;
+        public double OthersCount { get; set; } = 0;
+
+        public User User { get; set; }
+        public double Percentage { get; set; }
     }
 
     public class ManageLoginsViewModel

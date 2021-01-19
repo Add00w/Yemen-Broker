@@ -1,0 +1,53 @@
+﻿@model Yemen_Broker.Models.User
+
+@{
+    ViewBag.Title = "Block";
+}
+
+<h2>Block</h2>
+
+        <h3>Are you sure you want to block this?</h3>
+
+<div>
+    <h4>User</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        @Html.HiddenFor(u => u.Id)
+        <dt>
+            @Html.DisplayNameFor(model => model.UserName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserAddress)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserAddress)
+
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+                    <input type="submit" value="Block" class="btn btn-danger" />
+
+
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

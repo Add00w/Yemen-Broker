@@ -1,0 +1,404 @@
+﻿@model Yemen_Broker.Models.Car
+@using Microsoft.AspNet.Identity
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+</head>
+<body>
+    <!--Star Ads details-->
+
+    <div class="container" style=" margin:10px;">
+        <h2><b>@Model.Ad.AdTitle</b></h2>
+        <div class="col-md-8" style="border:1px solid #ffd800;">
+            <h2 style="text-align:center"></h2><br />
+            @foreach (var pic in Model.Ad.Pictures)
+            {
+                <div class="mySlides">
+                    <img src="~/Uploads/@pic.PictureURL" style="width:100%;height:300px;">
+                </div>
+            }
+
+            <div class="vavor"><i class="glyphicon glyphicon-eye-open"></i><b> @ViewBag.views</b> </div>
+            @*<a class="vavor"></a>*@
+            <div class="cpn"><i class="glyphicon glyphicon-picture"></i><b> @Model.Ad.Pictures.Count()</b> </div>
+            <a class="prev" onclick="plusSlides(-1)">❮</a>
+            <a class="next" onclick="plusSlides(1)">❯</a>
+
+
+            <div class="row" style="margin:10px 2px;background-color:#000;padding:5px;text-align:center;">
+                @foreach (var pic in Model.Ad.Pictures)
+                {
+                    <div class="column" style="margin:3px;">
+                        <img class="demo cursor" src="~/Uploads/@pic.PictureURL" style="width:100%;height:80px;" onclick="currentSlide(@(Model.Ad.Pictures.IndexOf(pic)+1))" alt="The Woods">
+                    </div>
+                }
+
+            </div>
+
+            <!--star describtion to Ads-->
+            <div class="col-md-12" style="background-color: #f0f0f0; margin-bottom:10px;">
+
+                <h5>GENERAL</h5>
+
+                <table id="destable">
+                    <tr>
+                        <th> @Html.DisplayNameFor(model => model.CarCompany)</th>
+                        <td>@Html.DisplayFor(model => model.CarCompany) </td>
+                        <th>@Html.DisplayNameFor(model => model.CarName)</th>
+                        <td>@Html.DisplayFor(model => model.CarName)</td>
+                    </tr>
+                    <tr>
+                        <th> @Html.DisplayNameFor(model => model.CarType) </th>
+                        <td>@Html.DisplayFor(model => model.CarType)</td>
+                        <th>@Html.DisplayNameFor(model => model.TypeofGas)</th>
+                        <td> @Html.DisplayFor(model => model.TypeofGas)</td>
+                    </tr>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.TypeofGear)) </th>
+                        <td>@Html.DisplayFor(model => model.TypeofGear)</td>
+                        <th> @Html.DisplayNameFor(model => model.CarModel)</th>
+                        <td> @Html.DisplayFor(model => model.CarModel)</td>
+                    </tr>
+                    <tr>
+                        <th> @Html.DisplayNameFor(model => model.EngineType) </th>
+                        <td>@Html.DisplayFor(model => model.EngineType)</td>
+                        <th>@Html.DisplayNameFor(model => model.CarColor)</th>
+                        <td> @Html.DisplayFor(model => model.CarColor)</td>
+                    </tr>
+                    <tr>
+                        <th> @Html.DisplayNameFor(model => model.Status) </th>
+                        <td>@Html.DisplayFor(model => model.Status)</td>
+                        <th>@Html.DisplayNameFor(model => model.Ad.AdDescribtion)</th>
+                        <td> @Html.DisplayFor(model => model.Ad.AdDescribtion)</td>
+                    </tr>
+                    
+                </table>
+
+            </div>
+
+
+            <!--End describtion to Ads-->
+
+        </div>
+        <div class="col-md-4" style=" border:1px solid #ffd800;padding:10px 0;">
+
+            <table id="destable">
+                <tr>
+                    <th><i class="glyphicon glyphicon-tags"></i>   @Html.DisplayNameFor(model => model.Ad.AdPrice):</th>
+                    <td>YR @Html.DisplayFor(model => model.Ad.AdPrice)</td>
+                </tr>
+                <tr>
+                    <th><i class="glyphicon glyphicon-map-marker"></i> Location:</th>
+                    <td>@Html.DisplayFor(model => model.Ad.City.Name)</td>
+                </tr>
+            </table>
+            <div>
+                @*<div class="col col-md-4 "><img src="~/Content/images/Lpgin.png" class="img-circle " style="width:60px;height:60px;text-align:center;border:solid 2px #808080;border-radius:50px;margin:15px 0 0 25px;" /></div>*@
+                <div class="col col-md-8 ">
+                    <h5><b><i class="glyphicon glyphicon-user"></i> @Model.Ad.User.UserName.  </b></h5>
+                    @*<h4>@ViewBag.ratingAverage <i class="	glyphicon glyphicon-star" style="color:#ffd800;"></i></h4>*@
+                    <div class="row" style="margin-left:5px">
+                        <h4>@ViewBag.ratingAverage <i class="	glyphicon glyphicon-star" style="color:#ffd800;"></i></h4>
+                        from <h4>@ViewBag.ratersCount </h4>
+
+                    </div>
+                    <h6><i class="glyphicon glyphicon-calendar"></i><b> Member since @Model.Ad.User.RegisteredDate.ToShortDateString()</b></h6>
+                    @if (!Model.Ad.UserId.Equals(User.Identity.GetUserId()) && !ViewBag.Rated)
+                    {
+                        using (Html.BeginForm("Rate", "Ratings", new { advertiserId = Model.Ad.UserId, returnUrl = HttpContext.Current.Request.Url.AbsolutePath }, FormMethod.Post))
+                        {
+                            <div class="row" style="margin-bottom:10px">
+                                <div class="col-md-2 "><b>Rate:</b></div>
+                                <div class="col-md-5" style="margin:0 -20px 0 20px;">
+                                    <select name="rateNumber" class="form-control">
+                                        <option>1</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                        <option>5</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-5">
+                                    <button type="submit" class="glyphicon glyphicon-star float-left" style="height:33px; width:100%;color:white;background-color:dimgrey;">
+                                        Rate
+                                    </button>
+                                </div>
+
+
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+            <div style="text-align:center;margin:10px 0;">
+                @if (!ViewBag.inFavorite)
+                {
+                    <a href="/Wishlists/Add/@Model.AdId" class="col-md-12 float-left" style="height:50px; width:100%;color:white;background-color:royalblue;padding-top:15px">
+                        <div><b><i class="glyphicon glyphicon-heart float-left"></i> Add to favorites  </b></div>
+                    </a>
+
+                    <div style="display:block;" id="btnnote">
+                        <button class="btn btn-default col-md-12 float-left" onclick="change()" style="height:50px; width:100%;">
+                            <div><b><i class="	glyphicon glyphicon-file float-left"></i> Add Notes</b></div>
+                        </button>
+                    </div>
+                }
+                @using (Html.BeginForm("AddToWishlistWithNote", "Wishlists", new { id = Model.AdId })) {
+                <div class="row" id="changeto" style="display:none; padding:5px 10px">
+                    <div class="col-md-8 float-left" style="height:30px;margin-top:5px;">
+                        <input type="text" name="note" placeholder="write your note" class="form-control" />
+                    </div>
+                    <div class="col-md-4"><button type="submit" class="btn btn-success" style="height:35px; width:100%;">save</button></div>
+                </div>
+                }
+                <script>
+                    var btnnote = document.getElementById("btnnote");
+                    var changeto = document.getElementById("changeto");
+                    function change() {
+                        btnnote.style.display = "none";
+                        changeto.style.display = "Block";
+                    }
+                </script>
+                <button class="btn btn-success col-md-12 float-left" onclick="shownumber()" style="height:50px; width:100%;">
+                    <div id="btncall"><i class="glyphicon glyphicon-earphone float-left"></i> Call</div>
+                </button>
+                <a href="/Messages/Chat/@Model.Ad.UserId" class="col-md-12 float-left" style="height:50px; width:100%;color:white;background-color:orange;padding-top:15px">
+                    <div><b><i class="glyphicon glyphicon-envelope float-left"></i> Chat  </b></div>
+                </a>
+            </div>
+            <script>
+                var btncall = document.getElementById("btncall");
+                    function shownumber() {
+                        btncall.innerHTML = @Model.Ad.User.PhoneNumber;
+
+                    }
+            </script>
+            <style>
+                #destable {
+                    font-family: arial, sans-serif;
+                    border-collapse: collapse;
+                    width: 100%;
+                    margin-bottom: 10px;
+                }
+
+#destable td, #destable th {
+                border-bottom: 1px solid #ffd800;
+                        background-color: #fff;
+                        text-align: left;
+                        padding: 8px;
+                    }
+
+                    #destable tr:nth-child(even) {
+                        background-color: #f0f0f0;
+                    }
+            </style>
+        </div>
+        <script>
+            var slideIndex = 0;
+                showSlides(slideIndex);
+
+                function plusSlides(n) {
+                    showSlides(slideIndex += n);
+                }
+
+                function currentSlide(n) {
+                    showSlides(slideIndex = n);
+                }
+
+                function showSlides(n) {
+                    var i;
+                    var slides = document.getElementsByClassName("mySlides");
+                    var dots = document.getElementsByClassName("demo");
+                    var captionText = document.getElementById("caption");
+                    if (n > slides.length) { slideIndex = 1 }
+                    if (n < 1) { slideIndex = slides.length }
+                    for (i = 0; i < slides.length; i++) {
+                        slides[i].style.display = "none";
+                    }
+                    for (i = 0; i < dots.length; i++) {
+                        dots[i].className = dots[i].className.replace(" active", "");
+                    }
+                    slides[slideIndex - 1].style.display = "block";
+                    dots[slideIndex - 1].className += " active";
+                    captionText.innerHTML = dots[slideIndex - 1].alt;
+                }
+        </script>
+        <style>
+            body {
+                font-family: Arial;
+                margin: 0;
+            }
+
+            * {
+                box-sizing: border-box;
+            }
+
+            img {
+                vertical-align: middle;
+            }
+
+            /* Position the image container (needed to position the left and right arrows) */
+            .container {
+                position: relative;
+            }
+
+            /* Hide the images by default */
+            .mySlides {
+                display: none;
+                border: 1px solid #808080;
+            }
+
+            /* Add a pointer when hovering over the thumbnail images */
+            .cursor {
+                cursor: pointer;
+            }
+
+            /* Next & previous buttons */
+            .prev,
+            .next {
+                cursor: pointer;
+                position: absolute;
+                top: 25%;
+                width: auto;
+                padding: 16px;
+                color: white;
+                font-weight: bold;
+                font-size: 20px;
+                border: 1px solid #000000;
+                border-radius: 0 3px 3px 0;
+                user-select: none;
+                -webkit-user-select: none;
+                background-color: black;
+            }
+
+            .vavor {
+                position: absolute;
+                top: 10%;
+                left: 650px;
+                width: auto;
+                user-select: none;
+                -webkit-user-select: none;
+                height: auto;
+                background-color: #f0f0f0;
+                background-color: #f0f0f0;
+                padding: 0 3px;
+                color: black;
+                border-radius: 5px;
+                /*background: url(../../Content/images/vavEmpty1.png)no-repeat;*/
+            }
+
+                /*.vavor:hover {
+                    background: url(../../Content/images/vavok.png)no-repeat;
+                }*/
+
+            .cpn {
+                position: absolute;
+                top: 45%;
+                left: 50px;
+                height: auto;
+                width: auto;
+                background-color: #f0f0f0;
+                padding: 0 3px;
+                color: black;
+                border-radius: 5px;
+            }
+
+            /* Position the "next button" to the right */
+            .next {
+                right: 15px;
+                border-radius: 3px 0 0 3px;
+            }
+
+                /* On hover, add a black background color with a little bit see-through */
+                .prev:hover,
+                .next:hover {
+                    background-color: rgba(0, 0, 0, 0.8);
+                color: red;
+                    text-decoration: none;
+                }
+
+            /* Number text (1/3 etc) */
+            .numbertext {
+                color: #000000;
+                font-size: 12px;
+                padding: 8px 12px;
+                position: absolute;
+                top: 0;
+            }
+
+            /* Container for image text */
+            .caption-container {
+                text-align: center;
+                background-color: #222;
+                padding: 2px 16px;
+                color: white;
+            }
+
+            .row:after {
+                content: "";
+                display: table;
+                clear: both;
+            }
+
+            /* Six columns side by side */
+            .column {
+                float: left;
+                width: 16.66%;
+            }
+
+            /* Add a transparency effect for thumnbail images */
+            .demo {
+                opacity: 0.6;
+            }
+
+                .active,
+                .demo:hover {
+                    opacity: 1;
+                }
+        </style>
+    </div>
+    <!--End Ads details-->
+    <!--Star Similar  Ads -->
+    <div class="container" style=" margin:10px;">
+        <div class="col-md-8" style="border:1px solid #c72929;padding:0;">
+            <div style="background-color:#c72929;width:100%;color:white;padding:10px 10px;"><b>Similar  Ads</b></div>
+            <div style="background-color:#f0f0f0;width:100%;padding:10px 10px;text-align:center;">
+                <div class="row">
+                    @foreach (var car in ViewBag.similarCars)
+                {
+                        <div class="col-md-3"><img src="~/Uploads/@car.Ad.Pictures[0].PictureURL" id="simler" /><h6><b>@car.Ad.AdTitle</b></h6></div>
+
+                    }
+                    @*<div class="col-md-3"><img src="~/Content/images/img\2.jpg" id="simler" /><h6><b>Car to sale</b></h6></div>
+        <div class="col-md-3"><img src="~/Content/images/img\3.jpg" id="simler" /><h6><b>Car to sale</b></h6></div>
+        <div class="col-md-3"><img src="~/Content/images/img\4.jpg" id="simler" /><h6><b>Car to sale</b></h6></div>
+        <div class="col-md-3"><img src="~/Content/images/img\5.jpg" id="simler" /><h6><b>Car to sale</b></h6></div>
+        <div class="col-md-3"><img src="~/Content/images/img\3.jpg" id="simler" /><h6><b>Car to sale</b></h6></div>
+        <div class="col-md-3"><img src="~/Content/images/img\1.jpg" id="simler" /><h6><b>Car to sale</b></h6></div>
+        <div class="col-md-3"><img src="~/Content/images/img\2.jpg" id="simler" /><h6><b>Car to sale</b></h6></div>*@
+                </div>
+            </div>
+        </div>
+        <style>
+            #simler {
+                border: 1px solid #000;
+                width: 100%;
+                height: 100px;
+            }
+        </style>
+    </div>
+    <!--End Similar  Ads -->
+
+    <p>
+
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</body>
+</html>

@@ -1,0 +1,129 @@
+﻿
+@model Yemen_Broker.Models.RegisterViewModel
+@{
+    ViewBag.Title = "Register";
+}
+@using (Html.BeginForm("Register", "Users", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    <h1 style="text-align:center;"><b>@ViewBag.Title page </b></h1>
+    <div class="row" style="margin:20px 0 0 200px;">
+        <div class="col-md-9" style="  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+            <div class="col-md-4">
+                <div style="border-right:2px solid rgba(0, 0, 0, 0.19);text-align:center;margin:20px 0 20px 0;padding:120px 0 120px 0">
+                    <img src="~/Content/images/useradd.png" style="width:200px;height:200px;margin-left:-20px;" />
+                    <h2 style="margin-left:-20px;"><b>@ViewBag.Title page</b></h2>
+                </div>
+            </div>
+
+            <div class="col-md-8">
+
+
+                <h4 style="text-align:left"><b>Create a new account.</b> </h4>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group" style="margin-left:-15px;">
+                    <div>@Html.LabelFor(m => m.UserName, new { @class = "control-label" })</div>
+                    <div class="col-md-12">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-user" style="height:20px;width:20px;font-size:large;"></i></span>
+                                @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+
+                            </div>
+                        @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+
+                    </div>
+                </div>
+                <div class="form-group" style="margin-left:-15px;">
+                    <div>@Html.LabelFor(m => m.UserAddress, new { @class = "control-label" })</div>
+                    <div class="col-md-12">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-map-marker" style="height:20px;width:20px;font-size:large;"></i></span>
+                                @Html.TextBoxFor(m => m.UserAddress, new { @class = "form-control" })
+
+                            </div>
+                        @Html.ValidationMessageFor(model => model.UserAddress, "", new { @class = "text-danger" })
+
+                    </div>
+                </div>
+                <div class="form-group" style="margin-left:-15px;">
+                    <div>@Html.LabelFor(m => m.Email, new { @class = "control-label" })</div>
+                    <div class="col-md-12">
+                            <div class="input-group">
+                                <span class="input-group-addon"><img src="~/Content/images/gmail.png" style="height:20px;width:20px;" /></span>
+                                @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+
+                            </div>
+                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+
+                    </div>
+                </div>
+                <div class="form-group" style="margin-left:-15px;">
+                    <div>@Html.LabelFor(m => m.PhoneNumber, new { @class = "control-label" })</div>
+                    <div class="col-md-12">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-earphone" style="height:20px;width:20px;font-size:large;"></i></span>
+                                @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control" })
+                            </div>
+                        @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+
+                    </div>
+                </div>
+                @*<div class="form-group" style="margin-left:-15px;">
+                        <div><b>Subscription</b></div>
+                        <div class="col-md-12">
+                            <form class="form-inline">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-credit-card" style="height:20px;width:20px;font-size:large;"></i></span>
+                                    <select disabled style="width:100%;height:35px;">
+                                        <option>free member</option>
+                                        <option class="dropdown item disabled">Gold</option>
+                                    </select>
+                                </div>
+                            </form>
+                        </div>
+                    </div>*@
+                <div class="form-group" style="margin-left:-15px;">
+                    <div>@Html.LabelFor(m => m.Password, new { @class = " control-label" })</div>
+                    <div class="col-md-12">
+                            <div class="input-group">
+                                <span class="input-group-addon"><img src="~/Content/images/password.png" style="height:20px;width:20px;" /></span>
+                                @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                            </div>
+                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                        <p style="color:red">@ViewBag.passwordErro</p>
+                    </div>
+                </div>
+                <div class="form-group" style="margin-left:-15px;">
+                    <div>
+                        @Html.LabelFor(m => m.ConfirmPassword, new { @class = " control-label" })
+                    </div>
+                    <div class="col-md-12">
+                            <div class="input-group">
+                                <span class="input-group-addon"><img src="~/Content/images/password.png" style="height:20px;width:20px;" /></span>
+                                @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+                            </div>
+                        @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class=" col-md-10">
+                        <input type="submit" value="Register" class="btn btn-success" style="width:250px;height:40px;border-radius:50px;margin-left:15px;" />
+                    </div>
+                    <br /><br /><br />
+                    <div style="margin: 0 0 0 90px;">
+                        @Html.ActionLink("Return to Log in page", "Login")
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>  }
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

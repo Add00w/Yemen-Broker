@@ -1,0 +1,68 @@
+﻿@model Yemen_Broker.Models.User
+
+<div style="border:1px dotted #808080;border-radius:10px;margin:0 5px 20px 5px;" class="row">
+
+    <div style="margin:5px 5px 5px -5px;text-align:center;" class="col-md-2 float-left">
+        <img src="~/Content/images/Lpgin.png" alt="userimage" style="height:110px;width:110px;">
+    </div>
+    <div class="col-md-10 float-right">
+        <div>
+            <div class="col-md-10">
+                <div style="text-align:left;">
+                    <h3><b> @Model.UserName</b></h3>
+                </div>
+                <div style="text-align:left;">
+                    <i class="glyphicon glyphicon-th"></i>  @Model.Subscription.SubscriptionType
+                </div>
+                <div style="text-align:left;">
+                    <i class="glyphicon glyphicon-calendar"></i> Member since @Model.RegisteredDate
+                </div>
+                <br />
+            </div>
+            <div class="col-md-2 float-right" style="margin-bottom:15px;">
+                <div style="padding:5px;background-color:red;color:white;margin-top:-15px; border-radius:50px;border:1px dotted #808080;text-align:center;"><b>Inactive</b></div>
+                <br />
+                <button class="btn btn-success" style="height:30px; width:100px;">
+                    <div id="conforrej">
+                        <b>
+                            <i class="glyphicon glyphicon-info-sign"></i>
+                            @Html.ActionLink("Confirm", "ConfirmOrReject", new { id = Model.Id, isConfirm = true })
+
+                        </b>
+                    </div>
+                </button>
+                <button class="btn btn-danger" style="height:30px; width:100px;">
+                    <div id="conforrej">
+                        <b>
+                            <i class="glyphicon glyphicon-info-sign"></i>
+                            @if (Model.Rejected)
+                            {
+                                <i>Rejected</i>
+                            }
+                            else
+                            {
+                                @Html.ActionLink("Reject", "ConfirmOrReject", new { id = Model.Id, isReject = true })
+                            }
+                        </b>
+                    </div>
+                </button>
+                <button class="btn btn-default" style="height:30px; width:100px;background:#f0f0f0">
+                    <div id="conformorrejct"><b><i class="glyphicon glyphicon-info-sign"></i> @Html.ActionLink("See more", "Details", new { id = Model.Id })</b></div>
+                </button>
+                <style>
+                    #conformorrejct b a {
+                        color: black;
+                        padding: 3px;
+                    }
+                </style>
+            </div>
+            <style>
+                #conforrej b a {
+                    color: white;
+                    padding: 3px;
+                }
+            </style>
+        </div>
+    </div>
+</div>
+

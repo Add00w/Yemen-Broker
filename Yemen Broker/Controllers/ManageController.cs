@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Linq;
+using System.Net;
+using System.Data.SqlClient;
+
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -13,6 +16,8 @@ namespace Yemen_Broker.Controllers
     [Authorize]
     public class ManageController : Controller
     {
+        private ApplicationDbContext db=new ApplicationDbContext();
+
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
@@ -49,6 +54,175 @@ namespace Yemen_Broker.Controllers
                 _userManager = value;
             }
         }
+        [Authorize()]
+        public async Task<ActionResult> Upgrade(string id)
+        {
+
+            RegisterViewModel model = new RegisterViewModel();
+
+            if (string.IsNullOrEmpty(id)) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+
+            var user = await UserManager.FindByIdAsync(id);
+            if (user == null)
+                return HttpNotFound();
+
+            //TempData["userId"]= id;
+            model.UserId = id;
+
+            model.UserAddress = user.UserAddress;
+            model.Email = user.Email;
+            model.UserName = user.UserName;
+            model.PhoneNumber = user.PhoneNumber;
+
+
+
+            ViewBag.SubscriptionId = new SelectList(db.Subscriptions, "SubscriptionId", "SubscriptionType", user.Subscription.SubscriptionId);
+
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize()]
+        public async Task<ActionResult> Upgrade(RegisterViewModel model, int SubscriptionId)
+        {
+            //var userid = TempData["userId"] as string;         
+
+            var userid = model.UserId;
+
+            User user = await UserManager.FindByIdAsync(userid);
+
+            //Before downgrade chech if he is allowed to.
+            if (user.SubscriptionId != SubscriptionId)
+            {
+                var oldSubsSize = user.Subscription.SubscripsionSize;
+                var newSubsSize = db.Subscriptions.Where(s => s.SubscriptionId == SubscriptionId).Select(su => su.SubscripsionSize).FirstOrDefault();
+                if (oldSubsSize > newSubsSize)//he is downgrading
+                {
+                    //find user's listings and check if he advertised more than allowed size
+                    int uAdsCount = db.Ads.Where(ad => ad.UserId.Equals(userid)).Count();
+
+
+
+                    if (uAdsCount > newSubsSize)
+                    {
+                        ViewBag.DowngradingError = "You can't downgrade now, first you have delete some listings";
+
+
+                        ViewBag.SubscriptionId = new SelectList(db.Subscriptions, "SubscriptionId", "SubscriptionType", user.Subscription.SubscriptionId);
+                        return View(model);
+                    }
+                }
+            }
+            //upgrade user
+            user.SubscriptionId = SubscriptionId;//Only this can change
+            if (!user.SubscriptionEndDate.HasValue)
+            {
+                user.DatePayingStarted = DateTime.Now.Date;
+
+            }
+            //calculate subscription end date
+            int daysRemaining;
+            if (user.SubscriptionEndDate.HasValue)
+            {
+                daysRemaining = DateTime.Now.Subtract(user.SubscriptionEndDate.Value).Days;
+                if (daysRemaining > 0)
+                {
+                    user.SubscriptionEndDate = DateTime.Now.AddMonths(1).AddDays(daysRemaining);
+                }
+                else
+                {
+                    user.SubscriptionEndDate = DateTime.Now.AddMonths(1);
+                }
+
+            }
+            user.Confirmed = false;
+            IdentityResult result = await UserManager.UpdateAsync(user);
+            if (result.Succeeded)
+            {
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError("", error);
+                }
+            }
+
+
+            ViewBag.SubscriptionId = new SelectList(db.Subscriptions, "SubscriptionId", "SubscriptionType", user.Subscription.SubscriptionId);
+            return View(model);
+        }
+
+        // GET: /Manage/Editprofile
+        [Authorize]
+        public async Task<ActionResult> Editprofile(string id)
+        {
+            RegisterViewModel model = new RegisterViewModel();
+
+            if (string.IsNullOrEmpty(id)) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+
+            var user = await UserManager.FindByIdAsync(id);
+            if (user == null)
+                return HttpNotFound();
+
+            //TempData["userId"]= id;
+            model.UserId = id;
+
+
+            model.UserAddress = user.UserAddress;
+            model.Email = user.Email;
+            model.UserName = user.UserName;
+            model.PhoneNumber = user.PhoneNumber;
+
+
+            ViewBag.SubscriptionId = new SelectList(db.Subscriptions, "SubscriptionId", "SubscriptionType", user.Subscription.SubscriptionId);
+
+
+            return View(model);
+        }
+
+        // Post: /Manage/Editprofile
+        [HttpPost]
+        [Authorize]
+        public async Task<ActionResult> Editprofile(RegisterViewModel model)
+        {
+            //var userId = TempData["userId"] as string;
+
+            var userId = model.UserId;
+
+
+            if (string.IsNullOrEmpty(userId)) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+
+            var user = await UserManager.FindByIdAsync(userId);
+            if (user == null)
+                return HttpNotFound();
+
+           
+               
+
+                user.UserAddress = model.UserAddress;
+                user.UserName = model.UserName;
+                user.PhoneNumber = model.PhoneNumber;
+
+                IdentityResult result = await UserManager.UpdateAsync(user);
+
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Index");
+                }
+            
+            ViewBag.SubscriptionId = new SelectList(db.Subscriptions, "SubscriptionId", "SubscriptionType", user.Subscription.SubscriptionId);
+
+
+            return View(model);
+        }
+
 
         //
         // GET: /Manage/Index
@@ -62,19 +236,83 @@ namespace Yemen_Broker.Controllers
                 : message == ManageMessageId.AddPhoneSuccess ? "Your phone number was added."
                 : message == ManageMessageId.RemovePhoneSuccess ? "Your phone number was removed."
                 : "";
-
+            //anagaa leh start
             var userId = User.Identity.GetUserId();
+            var user = db.Users.Find(userId);
+            double myAdsCount = db.Ads.Where(a => a.UserId.Equals(userId)).Count();
+            double myOrdersCount = db.Orders.Where(o => o.UserId.Equals(userId)).Count();
+            double myFavoritesCount = db.Wishlists.Where(w => w.UserId.Equals(userId)).Count();
+            double size = user.Subscription.SubscripsionSize;
+            double persentage = (myAdsCount / size)*100;
+            //end
             var model = new IndexViewModel
             {
                 HasPassword = HasPassword(),
                 PhoneNumber = await UserManager.GetPhoneNumberAsync(userId),
                 TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),
                 Logins = await UserManager.GetLoginsAsync(userId),
-                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
+                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId),
+                MyAdsCount=myAdsCount,//.........
+                MyFavoritesCount=myFavoritesCount,//.........
+                MyOrdersCount =myOrdersCount,//.........
+                User =user,//.........
+                Percentage = persentage //.........
             };
             return View(model);
         }
+        //[HttpPost]
+        public ActionResult Backup()
+        {
+            var BackupPath = "D:\\YemenBBackup";
+            var con = db.Database.Connection;
+            var sql = $"BACKUP DATABASE [{db.Database.Connection.Database}]"
+                + $" TO DISK = N'{BackupPath}\\{DateTime.Now.ToString().Replace('/', '-').Replace(':', '-').Replace(" ", "")}.bak'"
+                + $"WITH NOFORMAT, NOINIT, SKIP, STATS = 10; ";
 
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = (SqlConnection)con;
+            cmd.CommandText = sql;
+            try
+            {
+                con.Open();
+                cmd.ExecuteNonQuery();
+                TempData["Success"] = "تمت أخذ نسخة احتياطية بنجاح";
+                con.Close();
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrorDetails"] = ex/*.GetErrorMessage()*/;
+                TempData["failure"] = "حدث خطأ لم يتم أخذ نسخة احتياطية";
+            }
+            return RedirectToAction("BackupAndRestore");
+        }
+        public ActionResult Restore(string fileName)
+        {
+            var BackupPath = "D:\\YemenBBackup";
+            var conStr = db.Database.Connection.ConnectionString;//.Replace(db.Database.Connection.Database, "master");
+            var sql = $"alter database [{db.Database.Connection.Database}] set offline with rollback immediate "
+                + $"RESTORE DATABASE [{db.Database.Connection.Database}]"
+                + $" From DISK = N'{BackupPath}\\{fileName}'"
+                + $"WITH FILE = 1, NOUNLOAD, REPLACE, STATS = 10 "
+                + $"alter database [{db.Database.Connection.Database}] set online";
+            SqlConnection con = new SqlConnection(conStr);
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = con;
+            cmd.CommandText = sql;
+            try
+            {
+                con.Open();
+                cmd.ExecuteNonQuery();
+                TempData["Success"] = "تمت استرجاع النسخة الاحتياطية بنجاح";
+                con.Close();
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrorDetails"] = ex/*.GetErrorMessage()*/;
+                TempData["failure"] = "حدث خطأ لم يتم استرجاع النسخة الاحتياطية";
+            }
+            return RedirectToAction("BackupAndRestore");
+        }
         //
         // POST: /Manage/RemoveLogin
         [HttpPost]
@@ -98,7 +336,10 @@ namespace Yemen_Broker.Controllers
             }
             return RedirectToAction("ManageLogins", new { Message = message });
         }
-
+        public ActionResult BackupAndRestore()
+        {
+            return View();
+        }
         //
         // GET: /Manage/AddPhoneNumber
         public ActionResult AddPhoneNumber()

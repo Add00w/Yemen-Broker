@@ -11,8 +11,12 @@ namespace Yemen_Broker.ViewModels
     {
         public long Id { get; set; }
         [DisplayName("Price")]
+        [DisplayFormat(DataFormatString = "{0:c}")]
         [Required]
         public double AdPrice { set; get; }
+        [DisplayName("Title")]
+        [Required]
+        public String AdTitle { set; get; }
         [DisplayName("Description")]
         [Required]
         public String AdDescribtion { set; get; }
@@ -23,6 +27,9 @@ namespace Yemen_Broker.ViewModels
         [DisplayName("Floor number")]
         [Required]
         public int FloorNumber { get; set; }
+        [DisplayName("Number of rooms")]
+        [Required]
+        public int NumberOfRooms { get; set; }
         [DisplayName("Number of doors")]
         [Required]
         public int NumberOfDoors { get; set; }

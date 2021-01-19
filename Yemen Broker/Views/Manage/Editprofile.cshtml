@@ -1,0 +1,105 @@
+﻿@model Yemen_Broker.Models.RegisterViewModel
+@{
+    ViewBag.Title = "Edit Profile";
+}
+
+@using (Html.BeginForm("Editprofile", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    <h1 style="text-align:center;"><b>@ViewBag.Title page </b></h1>
+    <div class="row" style="margin:20px 0 0 200px;">
+        <div class="col-md-9" style="  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+            <div class="col-md-4">
+                <div style="border-right:2px solid rgba(0, 0, 0, 0.19);text-align:center;margin:20px 0 20px 0;padding:150px 0 150px 0">
+
+                    <img src="~/Content/images/userupgrade.png" style="width:200px;height:200px;margin-left:-20px;" />
+                    <h2 style="margin-left:-20px;"><b>@ViewBag.Title page</b></h2>
+                </div>
+            </div>
+
+            <div class="col-md-8">
+
+
+                <h4 style="text-align:left"><b>Edit Your Profile.</b> </h4>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group" style="margin-left:-15px;">
+                    <div><b>Subscription</b></div>
+                    <div class="col-md-12">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-credit-card" style="height:20px;width:20px;font-size:large;"></i></span>
+                            @Html.DropDownList("SubscriptionId", null, new { @class = "form-control", @style = "width:100%;height:35px;", @readonly = "readonly" })
+
+
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group" style="margin-left:-15px;">
+                    <div>@Html.LabelFor(m => m.UserName, new { @class = "control-label" })</div>
+                    <div class="col-md-12">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-user" style="height:20px;width:20px;font-size:large;"></i></span>
+                            @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+
+                        </div>
+                        @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+
+                    </div>
+                </div>
+                <div class="form-group" style="margin-left:-15px;">
+                    <div>@Html.LabelFor(m => m.UserAddress, new { @class = "control-label" })</div>
+                    <div class="col-md-12">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-map-marker" style="height:20px;width:20px;font-size:large;"></i></span>
+                            @Html.TextBoxFor(m => m.UserAddress, new { @class = "form-control" })
+
+                        </div>
+                        @Html.ValidationMessageFor(model => model.UserAddress, "", new { @class = "text-danger" })
+
+                    </div>
+                </div>
+                <div class="form-group" style="margin-left:-15px;">
+                    <div>@Html.LabelFor(m => m.Email, new { @class = "control-label" })</div>
+                    <div class="col-md-12">
+                        <div class="input-group">
+                            <span class="input-group-addon"><img src="~/Content/images/gmail.png" style="height:20px;width:20px;" /></span>
+                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @readonly = "readonly" })
+
+                        </div>
+                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+
+                    </div>
+                </div>
+                <div class="form-group" style="margin-left:-15px;">
+                    <div>@Html.LabelFor(m => m.PhoneNumber, new { @class = "control-label" })</div>
+                    <div class="col-md-12">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-earphone" style="height:20px;width:20px;font-size:large;"></i></span>
+                            @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control"})
+                        </div>
+                        @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class=" col-md-10">
+                        <input type="submit" value="Save" class="btn btn-success" style="width:250px;height:40px;border-radius:50px;margin-left:15px;" />
+                    </div>
+                    <br /><br /><br />
+                    <div style="margin: 0 0 0 90px;">
+                        @Html.ActionLink("Go back", "Index")
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>  }
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+

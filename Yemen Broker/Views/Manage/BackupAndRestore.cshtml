@@ -1,0 +1,30 @@
+﻿
+@{
+    ViewBag.Title = "Backup and Restore";
+}
+
+<h2 style="text-align:center;"><b>Backup and Restore</b></h2><br /><br />
+
+<div class="row">
+    <div class="col-md-6">
+        <h3>To make Backup click here.</h3>
+        @using (Html.BeginForm("Backup", "Manage", FormMethod.Get, new { @class = "form-horizontal" }))
+        {
+            @Html.AntiForgeryToken()
+
+            <input type="submit" value=" click to make backup" />
+
+        }</div>
+    <div class="col-md-6" style="border-left:1px solid #000000;padding-left:10px;">
+        <h3>To make Restore click here.</h3>
+        @using (Html.BeginForm("Restore", "Manage", FormMethod.Get, new { @class = "form-horizontal " }))
+        {
+            @Html.AntiForgeryToken()
+
+            <input type="file" name="fileName" accept=".bak" required />
+            <input type="submit" value=" click to make Restore" />
+
+        }
+    </div>
+    
+    </div>

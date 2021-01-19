@@ -1,67 +1,148 @@
-﻿@model Yemen_Broker.Models.Ad
-
+﻿
 @{
     ViewBag.Title = "Create";
 }
 
-<h2>Create</h2>
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Create</title>
+</head>
+<body>
+    @if (ViewBag.Confirmed)
+    {
 
 
-@using (Html.BeginForm("Create", "Ads", FormMethod.Post, new { enctype = "multipart/form-data" }))
-{
+        <div class="form-horizontal">
+            <div style="background-color:#f7e89d;width:100%;padding-left:20px;font-size:larger;"> <p><b>Welcome to our new Ad Insertion page. Continue to insert your ad.<span style="background-color:#9b0808;color:white;padding:0 2px; ">Now </span></b></p></div>
+            <h3><b>LET'S GET STARTED!</b></h3>
+            <hr />
+            <p style="color:orangered">@ViewBag.LimitReached</p>
+            <div style="border:1px solid #c72929;">
+                <div style="background-color:#c72929;width:100%;color:white;padding:10px 10px;"> <b style="font-size:larger;">Post Your Free Ad</b></div>
+                <div style="background:url(../../Content/images/parts.png) no-repeat;margin-left:-2px;height:50px;width:222px;"><h4 style="padding:13px;"> <b> 1- Choose Category:</b></h4></div>
+                <div class="text-danger">@ViewBag.chooseImage</div>
+                <div style="padding:5px 80px; text-align:left;">
+                    <p style="padding:0"><b>Category</b></p>
+                    <select id="dropdown" name="dropdown" onchange="changeDDL()" class="selector">
+                        <option value=''>select your Category </option>
+                        <option value="car"> Car </option>
 
-    @*<div class="warning">@ViewBag.LimitReached</div>*@
+                        <optgroup label="property">
+                            <option value="land"> Land </option>
+                            <option value="shop"> Shop </option>
+                            <option value="home"> Home </option>
+                            <option value="apartment"> Apartment </option>
+                            <option value="warehouse"> Warehouse </option>
 
-    @Html.AntiForgeryToken()
+                        </optgroup>
+                        <option value="computer"> Computer </option>
+                        <option value="mobile"> Mobile </option>
+                        <option value="other"> Other </option>
+                        <option value="order"> Order </option>
+                    </select>
+                    <hr />
+                    <style>
+                        .selector {
+                            width: 100%;
+                            padding: 12px 20px;
+                            display: inline-block;
+                            border: 1px solid #ccc;
+                            border-radius: 4px;
+                            box-sizing: border-box;
+                        }
+                    </style>
+                </div>
 
-<div class="form-horizontal">
-    <h4>Ad</h4>
-    <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    <div class="form-group">
-        @Html.LabelFor(model => model.CityId, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DropDownList("CityId", null, htmlAttributes: new { @class = "form-control" })
+                <!--star post Ads-->
+                <div id='car' style='display:none'>
+                    <div style="background:url(../../Content/images/parts.png) no-repeat;margin-left:-2px;height:50px;width:222px;"><h4 style="padding:13px;"> <b> 2- Post details:</b></h4></div>
+                    @Html.Partial("/Views/PartialViews/Car.cshtml");
+                </div>
+                <div id='computer' style='display:none'>
+                    <div style="background:url(../../Content/images/parts.png) no-repeat;margin-left:-2px;height:50px;width:222px;"><h4 style="padding:13px;"> <b> 2- Post details:</b></h4></div>
+                    @Html.Partial("/Views/PartialViews/Computer.cshtml");
+                </div>
+                <div id='mobile' style='display:none'>
+                    <div style="background:url(../../Content/images/parts.png) no-repeat;margin-left:-2px;height:50px;width:222px;"><h4 style="padding:13px;"> <b> 2- Post details:</b></h4></div>
+                    @Html.Partial("/Views/PartialViews/Mobile.cshtml");
+                </div>
+                <div id='warehouse' style='display:none'>
+                    <div style="background:url(../../Content/images/parts.png) no-repeat;margin-left:-2px;height:50px;width:222px;"><h4 style="padding:13px;"> <b> 2- Post details:</b></h4></div>
+                    @Html.Partial("/Views/PartialViews/Warehouse.cshtml");
+                </div>
+                <div id='land' style='display:none'>
+                    <div style="background:url(../../Content/images/parts.png) no-repeat;margin-left:-2px;height:50px;width:222px;"><h4 style="padding:13px;"> <b> 2- Post details:</b></h4></div>
+                    @Html.Partial("/Views/PartialViews/Land.cshtml");
+                </div>
+
+                <div id='shop' style='display:none'>
+                    <div style="background:url(../../Content/images/parts.png) no-repeat;margin-left:-2px;height:50px;width:222px;"><h4 style="padding:13px;"> <b> 2- Post details:</b></h4></div>
+                    @Html.Partial("/Views/PartialViews/Shop.cshtml");
+
+                </div>
+
+                <div id='home' style='display:none'>
+                    <div style="background:url(../../Content/images/parts.png) no-repeat;margin-left:-2px;height:50px;width:222px;"><h4 style="padding:13px;"> <b> 2- Post details:</b></h4></div>
+                    @Html.Partial("/Views/PartialViews/Home.cshtml");
+                </div>
+                <div id='apartment' style='display:none'>
+                    <div style="background:url(../../Content/images/parts.png) no-repeat;margin-left:-2px;height:50px;width:222px;"><h4 style="padding:13px;"> <b> 2- Post details:</b></h4></div>
+                    @Html.Partial("/Views/PartialViews/Apartment.cshtml");
+
+
+                </div>
+                <div id='other' style='display:none'>
+                    <div style="background:url(../../Content/images/parts.png) no-repeat;margin-left:-2px;height:50px;width:222px;"><h4 style="padding:13px;"> <b> 2- Post details:</b></h4></div>
+                    @Html.Partial("/Views/PartialViews/Other.cshtml");
+
+                </div>
+
+                <div id='order' style='display:none'>
+                    <div style="background:url(../../Content/images/parts.png) no-repeat;margin-left:-2px;height:50px;width:222px;"><h4 style="padding:13px;"> <b> 2- Post details:</b></h4></div>
+                    @Html.Partial("/Views/PartialViews/Order.cshtml");
+
+                </div>
+                <script>
+                    var ddl = document.querySelector('#dropdown');
+                    var prevEl;
+                    function changeDDL() {
+                        if (prevEl) {
+                            prevEl.style.display = "none";
+                        }
+                        var id = ddl.value;
+                        if (id) {
+                            var el = document.querySelector('#' + id);
+                            el.style.display = "block";
+                            prevEl = el;
+                        }
+                    }
+                </script>
+                <!--end post Ads-->
+
+                <hr />
+
+
+
+
+            </div>
         </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.AdPrice, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.AdPrice, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.AdPrice, "", new { @class = "text-danger" })
+        <div class="row">
+            <div class="col-md-2 " style="padding:15px;font-size:large;">
+                <div>
+                    <i class="glyphicon glyphicon-chevron-left"><i class="glyphicon glyphicon-chevron-left"></i></i> @Html.ActionLink("Back to List", "Index")
+                </div>
+            </div>
         </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.AdDescribtion, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.AdDescribtion, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.AdDescribtion, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.Pictures.FirstOrDefault().PictureId, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            <input type="file" class="multiple" name="files" multiple />
-
-            @Html.ValidationMessageFor(model => model.Pictures.FirstOrDefault().PictureId, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Create" class="btn btn-default" />
-        </div>
-    </div>
-</div>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
-
+    }
+    else
+    {
+        <p style="color:orangered">Please wait for confirmation!</p>
+    }
+</body>
+</html>
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }

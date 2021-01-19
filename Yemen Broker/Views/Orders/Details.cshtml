@@ -1,0 +1,122 @@
+﻿
+@model Yemen_Broker.Models.Order
+@using Microsoft.AspNet.Identity
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    <!--Star Ads details-->
+
+    <div class="container" style=" margin:10px;">
+        <h2><b>@Model.Order_title</b></h2>
+        <div class="col-md-8" style="border:1px solid #ffd800;">
+            <!--star describtion to Ads-->
+            <div class="container" style="background-color: #f0f0f0;margin:10px 0;width:730px">
+                <h5>GENERAL</h5>
+                <table id="destable">
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.Order_description)</th>
+                        <td>@Html.DisplayFor(model => model.Order_description) </td>
+                        <th>@Html.DisplayNameFor(model => model.Order_date)</th>
+                        <td>@Html.DisplayFor(model => model.Order_date)</td>
+                    </tr>
+
+                </table>
+            </div>
+            <div class="container" style="text-align:center;margin:10px -20px;">
+
+                <button class="btn btn-success col-md-6 float-left" onclick="shownumber()" style="height:50px; width:365px;">
+                    <div id="btncall"><b><i class="glyphicon glyphicon-earphone float-left"></i> Call</b></div>
+                </button>
+                <a href="/Messages/Chat/@Model.UserId" class="col-md-6 float-left" style="height:50px; width:365px;color:white;background-color:orange;padding-top:15px;margin-top:5px;">
+                    <div><b><i class="glyphicon glyphicon-envelope float-left"></i> Chat  </b></div>
+                </a>
+
+            </div>
+        </div>
+
+        <!--End describtion to Ads-->
+        <div class="col-md-4" style="border:1px solid #ffd800;padding:10px 0px;">
+
+            <table id="destable">
+                <tr>
+                    <th><i class="glyphicon glyphicon-map-marker"></i> Location:</th>
+                    <td>@Html.DisplayFor(model => model.City.Name)</td>
+                </tr>
+            </table>
+            <div>
+                <div class="col col-md-4 "><img src="~/Content/images/Lpgin.png" class="img-circle " style="width: 60px ; height:60px; text-align:center; border:solid 2px #f0f0f0; border-radius:50px; margin:15px 0 0 25px;" /></div>
+                <div class="col col-md-8 ">
+                    <h5><b><i class="glyphicon glyphicon-user"></i> @Model.User.UserName.  </b></h5>
+                    <h4>@ViewBag.ratingAverage <i class="	glyphicon glyphicon-star" style="color:#ffd800;"></i></h4>
+                    <h6><i class="glyphicon glyphicon-calendar"></i><b> Member since @Model.User.RegisteredDate.ToShortDateString()</b></h6>
+                    @if (!Model.UserId.Equals(User.Identity.GetUserId()) && !ViewBag.Rated)
+                    {
+                        using (Html.BeginForm("Rate", "Ratings", new { advertiserId = Model.UserId, returnUrl = HttpContext.Current.Request.Url.AbsolutePath }, FormMethod.Post))
+                        {
+                            <div class="row" style="margin-bottom:10px">
+                                <div class="col-md-2 "><b>Rate:</b></div>
+                                <div class="col-md-5" style="margin:0 -20px 0 20px;">
+                                    <select name="rateNumber" class="form-control">
+                                        <option>1</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                        <option>5</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-5">
+                                    <button type="submit" class="glyphicon glyphicon-star float-left" style="height:33px; width:100%;color:white;background-color:dimgrey;">
+                                        Rate
+                                    </button>
+                                </div>
+
+
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+            <script>
+                var btncall = document.getElementById("btncall");
+                function shownumber() {
+                    btncall.innerHTML = @Model.User.PhoneNumber;
+
+                }
+            </script>
+            <style>
+                #destable {
+                    font-family: arial, sans-serif;
+                    border-collapse: collapse;
+                    width: 100%;
+                    margin-bottom: 10px;
+                }
+
+                    #destable td, #destable th {
+                        border-bottom: 1px solid #ffd800;
+                        background-color: #fff;
+                        text-align: left;
+                        padding: 8px;
+                    }
+
+                    #destable tr:nth-child(even) {
+                        background-color: #f0f0f0;
+                    }
+            </style>
+        </div>
+    </div>
+    <!--End Ads details-->
+    <p>
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</body>
+</html>
