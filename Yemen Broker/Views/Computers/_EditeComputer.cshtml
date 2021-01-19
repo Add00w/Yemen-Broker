@@ -1,0 +1,243 @@
+﻿
+@model Yemen_Broker.ViewModels.ComputerViewModel
+
+
+@using (Html.BeginForm("Edit", "Computers", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+
+<div style="padding:5px 80px;">
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(m => m.Id)
+    <div class="text-danger">@ViewBag.chooseImage</div>
+    <div class="row">
+        <div class="col-md-6 ">
+            <div class="form-group">
+                <p style="padding:0 18px;">  @Html.LabelFor(model => model.CityId, htmlAttributes: new { @class = "control-label" })</p>
+                <div class="col-md-12">
+
+                    @Html.DropDownList("CityId", null, htmlAttributes: new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 ">
+            <div class="form-group">
+                <p style="padding:0 18px;">
+                    @Html.LabelFor(Model => Model.AdPrice, htmlAttributes: new { @class = "control-label" })
+                </p>
+                <div class="col-md-12">
+                    @Html.EditorFor(model => model.AdPrice, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.AdPrice, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 ">
+            <div class="form-group">
+                <p style="padding:0 18px;">
+                    @Html.LabelFor(model => model.AdDescribtion, htmlAttributes: new { @class = "control-label" })
+                </p>
+                <div class="col-md-12">
+                    @Html.EditorFor(model => model.AdDescribtion, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.AdDescribtion, "", new { @class = "text-danger" })
+                </div>
+
+            </div>
+        </div>
+        <div class="col-md-6 ">
+            <div class="form-group">
+                <p style="padding:0 18px;">
+                    @Html.LabelFor(model => model.AdTitle, htmlAttributes: new { @class = "control-label" })
+                </p>
+                <div class="col-md-12">
+                    @Html.EditorFor(model => model.AdTitle, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.AdTitle, "", new { @class = "text-danger" })
+                </div>
+
+            </div>
+        </div>
+        <!--edite here-->
+        <div class="col-md-6 ">
+            <div class="form-group">
+                <p style="padding:0 18px;">
+                    @Html.LabelFor(model => model.ComputerCompany, htmlAttributes: new { @class = "control-label" })
+                </p>
+                <div class="col-md-12">
+                    @Html.EditorFor(model => model.ComputerCompany, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ComputerCompany, "", new { @class = "text-danger" })
+                </div>
+
+            </div>
+        </div>
+        <div class="col-md-6 ">
+            <div class="form-group">
+                <p style="padding:0 18px;">
+                    @Html.LabelFor(model => model.ComputerRam, htmlAttributes: new { @class = "control-label" })
+                </p>
+                <div class="col-md-12">
+                    @Html.EditorFor(model => model.ComputerRam, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ComputerRam, "", new { @class = "text-danger" })
+                </div>
+
+            </div>
+        </div>
+        <div class="col-md-6 ">
+            <div class="form-group">
+                <p style="padding:0 18px;">
+                    @Html.LabelFor(model => model.ComputerStorage, htmlAttributes: new { @class = "control-label" })
+                </p>
+                <div class="col-md-12">
+                    @Html.EditorFor(model => model.ComputerStorage, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ComputerStorage, "", new { @class = "text-danger" })
+                </div>
+
+            </div>
+        </div>
+
+
+        <div class="col-md-6 ">
+            <div class="form-group">
+                <p style="padding:0 18px;">
+                    @Html.LabelFor(model => model.ComputerScreenSize, htmlAttributes: new { @class = "control-label" })
+                </p>
+                <div class="col-md-12">
+                    @Html.EditorFor(model => model.ComputerScreenSize, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ComputerScreenSize, "", new { @class = "text-danger" })
+                </div>
+
+            </div>
+        </div>
+        <div class="col-md-6 ">
+            <div class="form-group">
+                <p style="padding:0 18px;">
+                    @Html.LabelFor(model => model.ComputerCpu, htmlAttributes: new { @class = "control-label" })
+                </p>
+                <div class="col-md-12">
+                    @Html.EditorFor(model => model.ComputerCpu, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ComputerCpu, "", new { @class = "text-danger" })
+                </div>
+
+            </div>
+        </div>
+        <div class="col-md-6 ">
+            <div class="form-group">
+                <p style="padding:0 18px;">
+                    @Html.LabelFor(model => model.ComputerOS, htmlAttributes: new { @class = "control-label" })
+                </p>
+                <div class="col-md-12">
+                    @Html.EditorFor(model => model.ComputerOS, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ComputerOS, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 ">
+            <div class="form-group">
+                <p style="padding:0 18px;">
+                    @Html.LabelFor(model => model.ComputerColor, htmlAttributes: new { @class = "control-label" })
+                </p>
+                <div class="col-md-12">
+                    @Html.EditorFor(model => model.ComputerColor, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ComputerColor, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 ">
+            <div class="form-group">
+                <p style="padding:0 18px;">
+                    @Html.LabelFor(model => model.ComputerBattery, htmlAttributes: new { @class = "control-label" })
+                </p>
+                <div class="col-md-12">
+                    @Html.EditorFor(model => model.ComputerBattery, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ComputerBattery, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 ">
+            <div class="form-group">
+                <p style="padding:0 18px;">
+                    @Html.LabelFor(model => model.ComputerStatus, htmlAttributes: new { @class = "control-label" })
+                </p>
+                <div class="col-md-12">
+                    @Html.EditorFor(model => model.ComputerStatus, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ComputerStatus, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 ">
+            <div class="form-group">
+                <p style="padding:0 18px;">
+                    @Html.LabelFor(model => model.CD_Drive, htmlAttributes: new { @class = "control-label" })
+                </p>
+                <div class="col-md-12">
+                    @Html.EditorFor(model => model.CD_Drive, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.CD_Drive, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 ">
+            <div class="form-group">
+                <p style="padding:0 18px;">
+                    @Html.LabelFor(model => model.ComputerScreenCard, htmlAttributes: new { @class = "control-label" })
+                </p>
+                <div class="col-md-12">
+                    @Html.EditorFor(model => model.ComputerScreenCard, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ComputerScreenCard, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    <!--no edite-->
+    <div style="background:url(../../Content/images/parts.png) no-repeat;margin-left:-2px;height:50px;width:222px;"><h4 style="padding:13px;"> <b> 3- Add photo:</b></h4></div>
+    <div style="padding:5px 20px; text-align:left;">
+        <div class="row">
+            <div class="form-group">
+                <p style="padding:0 18px;">
+                    @Html.LabelFor(model => model.Pictures, htmlAttributes: new { @class = "control-label" })
+                </p>
+                <div class="col-md-10">
+                    <input type="file" class="multiple" name="files" multiple />
+
+                    @Html.ValidationMessageFor(model => model.Pictures, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <hr />
+        </div>
+    </div>
+    <div style="background:url(../../Content/images/parts.png) no-repeat;margin-left:-2px;height:50px;width:225px;"><h4 style="padding:13px;"> <b> 4- Contact information:</b></h4></div>
+    <div style="padding:5px 60px; text-align:left;">
+        <div class="row">
+            <div class="form-group  col-md-6">
+                <p style="padding:0 18px;"><b>Name :</b></p>
+                <div class="col-md-12">
+                    @Html.TextBox("Name")
+                </div>
+            </div>
+            <div class="form-group  col-md-6">
+                <div class="form-group ">
+                    <p style="padding:0 5px;"><b>Phonne Number :</b></p>
+                    <div class="col-md-12">
+                        @Html.TextBox("userPhone")
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-12" style="padding:0 25px;">
+                    <input type="submit" value="Save and Submit Ad " class="btn btn-warning" style="height:50px; width:100%;opacity:100;" />
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+
+
+
+

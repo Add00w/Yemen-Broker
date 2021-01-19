@@ -1,0 +1,176 @@
+﻿@model Yemen_Broker.ViewModels.WishlistViewModel
+@{
+    ViewBag.Title = "Myfavorites";
+}
+
+<div>
+    <h1 style=" display:inline;"><b>Myfavorites</b></h1>
+    <h3 style=" display:inline;padding-left:20px;">Your favorite <b>@Model.Wishlists.Count()</b></h3>
+</div>
+<div id="menu" class="row">
+    <ul class="col-md-6">
+        <li class="item active">
+            <b>Favorite Ads</b>
+        </li>
+
+    </ul>
+    <div class = "col-md-6"style="display:inline;margin:-40px 0 0 700px;">
+        @using (Html.BeginForm())
+        {
+            @Html.TextBox("SearchString", Model.SearchString, new { @placeholder = "Search here..", @style = "height:33px;width:100%;" })
+            <button class="btn btn-danger my-2 my-sm-0" type="submit" style="height:33px;width:100px;opacity:100;margin-top:-3px">Search</button>
+        }
+    </div>
+</div>
+
+<div id="menucontent">
+    <p class="text-success">
+        @(String.IsNullOrWhiteSpace(Model.SearchString) ? "Showing all" : "You search for " + Model.SearchString + " found") @Model.Pager.TotalItems Favorites
+    </p>
+    <!-- start Favorite Ads section-->
+    <div id="activeconte" style="display:block">
+        @if (Model.Wishlists.Count() <= 0)
+        {
+            <div style="text-align :center; display:block">
+                <h3>No Favorite Ads</h3>
+                <h1><b>The Favorite Ads list is empty</b></h1>
+            </div>
+        }
+
+        <div>
+            <!--star show car-->
+            @foreach (var fav in Model.Wishlists)
+            {
+                <div style="border:1px dotted #808080;border-radius:10px;margin:8px 5px;">
+                    <div class="row">
+                        <div style="margin:5px -5px 5px 5px;text-align:center;" class="col-md-3 float-left">
+                            <img src="~/Uploads/@fav.Ad.Pictures.FirstOrDefault().PictureURL" alt="img1" style="width:250px;height:175px;">
+                        </div>
+                        <div class="col-md-9 float-right">
+                            <div>
+                                <div class="col-md-10">
+                                    <h3>@fav.Ad.AdTitle</h3>
+                                    <div style="text-align:left;">
+                                        <i class="glyphicon glyphicon-map-marker"></i>  @fav.Ad.City.Name
+                                    </div>
+                                    <div style="text-align:left;">
+                                        <i class="glyphicon glyphicon-th"></i> @fav.Ad.AdDescribtion
+                                    </div>
+                                    <br />
+                                    <div style="text-align:center;margin:10px 0 10px 0;">
+                                        <a href="/Wishlists/Remove/@fav.AdId" class="col-md-6 float-left" style="margin-right:5px;height:50px; width:300px;color:white;background-color:darkred;padding-top:15px">
+                                            <div><b><i class="glyphicon glyphicon-trash"></i>  Remove</b></div>
+                                        </a>
+                                        <a href="/Ads/Details/@fav.AdId" class="col-md-6 float-left" style="margin-right:5px;height:50px; width:300px;color:black;background-color:#f0f0f0;padding-top:15px">
+                                            <div><b><i class="glyphicon glyphicon-info-sign"></i>  see more</b></div>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="col-md-2 float-right">
+                                    <br />
+                                    <h4 style="color:red;"><b>YR @fav.Ad.AdPrice</b></h4>
+                                    <img src="~/Content/images/Lpgin.png" class="img-circle " style="width:60px;height:60px;text-align:center;border:solid 2px #f1f1f1;border-radius:50px;margin:5px 0 0 25px;" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="padding:5px 10px;">
+                        <h5 style="display:inline;"><b>Note:</b></h5><p style="display:inline;padding-left:10px;">@fav.Note</p>
+                    </div>
+                </div>
+            }
+            <!--end show car -->
+
+        </div>
+        <!-- End Favorite Ads section-->
+
+    </div>
+</div>
+<style>
+    #menu {
+        background-color: #f0f0f0;
+        margin: 10px 0;
+        height: 50px;
+    }
+
+        #menu ul {
+            list-style-type: none;
+            margin-bottom: 15px;
+            padding: 15px 0 0 10px;
+            width: 100%;
+            text-align: left;
+        }
+
+            #menu ul li {
+                display: inline;
+                padding: 8px 16px;
+                border: 1px solid #808080;
+                border-radius: 0 50px 0 50px;
+                margin-right: 5px;
+                background-color: #f0f0f0;
+                text-decoration: none;
+                height: 50px;
+            }
+
+                #menu ul li:hover {
+                    background-color: #fff;
+                    text-decoration: none;
+                }
+
+
+        #menu li.active {
+            background-color: #fff;
+            text-decoration: none;
+        }
+
+    #menucontent {
+        border: 1px solid #808080;
+        margin: -4px 0 10px 0;
+        padding: 10px;
+    }
+</style>
+
+
+<!-- pager -->
+@if (Model.Pager.EndPage > 1)
+{
+    <p>
+        Page @(Model.Pager.PageSize > Model.Pager.CurrentPage ? 1 : Model.Pager.CurrentPage) of @Model.Pager.TotalPages
+    </p>
+    <nav>
+        <ul class="pagination">
+            @if (Model.Pager.CurrentPage > 1)
+            {
+                <li class="page-item">
+                    <a class="page-link" href="@Url.Action("Index","Wishlists",new {SearchString=Model.SearchString})">
+                        First
+                    </a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="@Url.Action("Index","Wishlists",new { page=Model.Pager.CurrentPage - 1, SearchString=Model.SearchString})">
+                        Previous
+                    </a>
+                </li>
+            }
+
+            @for (var page = Model.Pager.StartPage; page <= Model.Pager.EndPage; page++)
+            {
+                <li class="page-item @(page == Model.Pager.CurrentPage ? "active" : "")">
+                    <a class="page-link" href="@Url.Action("Index","Wishlists",new { page=page, SearchString=Model.SearchString})">@page</a>
+                </li>
+            }
+
+            @if (Model.Pager.CurrentPage < Model.Pager.TotalPages)
+            {
+                <li class="page-item">
+                    <a class="page-link" href="@Url.Action("Index","Wishlists",new { page=Model.Pager.CurrentPage + 1, SearchString=Model.SearchString})">Next</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="@Url.Action("Index","Wishlists",new { page=Model.Pager.TotalPages, SearchString=Model.SearchString})">Last</a>
+                </li>
+            }
+        </ul>
+    </nav>
+
+}
+

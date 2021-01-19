@@ -1,0 +1,178 @@
+﻿@using Microsoft.AspNet.Identity;
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Report</title>
+
+
+    <link rel="stylesheet" href="~/Content/bootstrap.min.css">
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+
+    <script src="~/Content/bootstrap4-offline/javascript.js"></script>
+    <script src="~/Content/bootstrap4-offline/jquery.js"></script>
+
+
+</head>
+<body>
+    <div class="container">
+        @*header*@
+        <div class="row" style="border-bottom:1px double #000000">
+            
+            <div class="col-sm-8">
+                <a href="/Home">
+                    <img src="~/Content/images/logoYB.png" alt="YB Logo." />
+                </a>
+            </div>
+            <div class="col-sm-4" style="margin-top:15px;">
+                <h4><b>@User.Identity.GetUserName()</b></h4>
+                <h4>@DateTime.Now</h4>
+            </div>
+            <hr />
+        </div>
+        <div style="text-align:center;background-color:white;"><h3><b>Wellcome to the report page.</b></h3></div>
+        @*Content*@
+        <div style="padding-bottom:50px;">
+            <hr />
+            @if (User.IsInRole("Admin"))
+            {
+                <h4>The number of users based on subscripton type:</h4>
+                <div style="margin:5px 250px;">
+                    <table class="container table table-bordered" style="text-align:center;">
+                        <thead>
+                            <tr>
+                                <td style="background-color:#fafafa"><b>Free</b></td>
+                                <td style="background-color:#e0dfdf"><b>Silver</b></td>
+                                <td style="background-color:gold"><b>Gold</b></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                @foreach (var g in ViewBag.GroupedUsers)
+                                {<td>
+                                    <a href="/Home/subSubscriptionUsers?subsType=@g.Name">
+                                        @g.Total Users
+                                    </a>
+                                </td>
+                                }
+                                @*<td>100 Users</td>
+                            <td>50 Users</td>*@
+
+                            </tr>
+                        <tbody>
+                    </table>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col-sm-10">
+                        <h4>The number of Ads in the system:</h4>
+                    </div>
+                    <div class="col-sm-2">
+                        <h4>
+                            <b>@Model.AdsCount Ads.</b>
+                        </h4>
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col-sm-10">
+                        <h4>The number of Orders in the system:</h4>
+                    </div>
+                    <div class="col-sm-2">
+                        <h4>
+                            <b>@Model.OrdersCount Orders.</b>
+                        </h4>
+                    </div>
+                </div>
+            }
+                <hr />
+                <h4>Number of My ads based on their categories:</h4>
+                <div style="margin:5px 250px;">
+
+                    <table class="container table table-bordered" style="text-align:center;">
+
+
+                        <thead>
+                            <tr class="danger">
+                                @foreach (var g in ViewBag.AdsGroups)
+                                {
+                                    <td>@g.Name</td>
+                                }
+
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                @foreach (var g in ViewBag.AdsGroups)
+                                {
+                                    <td>@g.Total</td>
+                                }
+                            </tr>
+                        </tbody>
+
+
+                    </table>
+
+                </div>
+
+                <hr />
+                <div class="row">
+                    <div class="col-sm-10">
+                        <h4>The number of My ads in the system:</h4>
+                    </div>
+                    <div class="col-sm-2">
+                        <h4>
+                            <b>@Model.MyAdsCount Ads.</b>
+                        </h4>
+                    </div>
+                </div>
+
+                <hr />
+                <div class="row">
+                    <div class="col-sm-10">
+                        <h4>The number of My orders in the system:</h4>
+                    </div>
+                    <div class="col-sm-2">
+                        <h4>
+                            <b>@Model.MyOrdersCount Orders.</b>
+                        </h4>
+                    </div>
+                </div>
+
+                <hr />
+                <h4>Views of my ads based on the address of the viewer:</h4>
+                <div style="margin:5px 250px;">
+
+
+                    <table class="container table table-bordered">
+                        <thead>
+                            <tr class="danger">
+                                <td><b>City</b></td>
+                                <td><b>Views</b></td>
+                            </tr>
+                        </thead>
+                        @foreach (var g in ViewBag.GroupedViews)
+                        {
+
+                            <tbody>
+                                <tr>
+                                    <th>@g.Name</th>
+                                    <td>@g.Total</td>
+                                </tr>
+                            </tbody>
+                        }
+                    </table>
+
+                   
+                </div>
+            </div>
+    </div>
+</body>
+</html>

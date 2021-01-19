@@ -13,16 +13,51 @@ using Yemen_Broker.ViewModels;
 
 namespace Yemen_Broker.Areas.Dashboard.Controllers
 {
-    [Authorize()]
     public class ShopsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Dashboard/Shops
-        public ActionResult Index()
+        public ActionResult Index(string SearchString, String city, double from = 0.0, double to = 0.0, int page = 1,int numberofDoor=1)
         {
-            var shops = db.Shops.Include(s => s.Ad);
-            return View(shops.ToList());
+            var shops = db.Shops.OfType<Shop>()
+                .Where(w => w.Ad.User.Confirmed)
+                .Include(l => l.Ad);
+            ViewBag.Views = db.Views;
+            ViewBag.Wishlists = db.Wishlists;
+            if (!String.IsNullOrEmpty(SearchString))
+            {
+                shops = shops.Where(a => a.Ad.City.Name.ToUpper().Contains(SearchString.ToUpper())
+                || a.Ad.AdDescribtion.ToUpper().Contains(SearchString.ToUpper())
+                || a.Ad.AdTitle.ToUpper().Contains(SearchString.ToUpper()));
+            }
+            if (!String.IsNullOrEmpty(city))
+            {
+                shops = shops.Where(a => a.Ad.City.Name.ToUpper().Equals(city));
+            }
+
+            if (to >= from && to > 1 && from >= 0.0)
+            {
+                shops = shops.Where(a => a.Ad.AdPrice >= from && a.Ad.AdPrice <= to);
+
+            }
+            var cities = shops.Select(c => c.Ad.City.Name).Distinct();
+            ViewBag.city = new SelectList(cities);
+            //pagination steps
+            int pageSize = 6;
+            var pager = new Pager(shops.Count(), page, pageSize);
+            ShopIndexViewModel vModel = new ShopIndexViewModel()
+            {
+                Shops = shops.OrderBy(a => a.Ad.AdPrice).Skip((pager.CurrentPage - 1) * pager.PageSize).Take(pager.PageSize),
+                Pager = pager,
+                SearchString = SearchString,
+                City = city,
+                NumberofDoor=numberofDoor,
+                From = from,
+                To = to
+
+            };
+            return View(vModel);
         }
 
         // GET: Dashboard/Shops/Details/5
@@ -33,14 +68,56 @@ namespace Yemen_Broker.Areas.Dashboard.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Shop shop = db.Shops.Find(id);
+            //code for rating start
+            var rate = db.Ratings.Find(User.Identity.GetUserId(), shop.Ad.UserId);
+            ViewBag.inFavorite = db.Wishlists.Find(shop.AdId, User.Identity.GetUserId()) != null;
+            var adverRate = db.Ratings.Where(r => r.AdvertiserId.Equals(shop.Ad.UserId)).ToList();
+            ViewBag.ratingAverage = adverRate.Count() > 0 ?
+                                 db.Ratings.Where(r => r.AdvertiserId.Equals(shop.Ad.UserId))
+                                .Select(r => r.RatingNumber)
+                                .Average() : 0;
+            ViewBag.ratersCount = adverRate.Count() > 0 ?
+                               db.Ratings.Where(r => r.AdvertiserId.Equals(shop.Ad.UserId))
+                               .Count() : 0;
+            ViewBag.Rated = rate != null;
+            //end of rating
             if (shop == null)
             {
                 return HttpNotFound();
             }
+            if (User.Identity.IsAuthenticated)
+            {
+                String userId = User.Identity.GetUserId();
+                bool isOwner = shop.Ad.UserId.Equals(userId);
+                int view = db.Views.Where(v => v.UserId.Equals(userId) && v.AdId == shop.AdId).Count();
+
+                if (!isOwner && view == 0)
+                {
+                    db.Views.Add(new View()
+                    {
+                        AdId = shop.AdId,
+                        UserId = userId,
+                    });
+                    db.SaveChanges();
+                }
+            }
+            var views = db.Views.Where(s => s.AdId.Equals(shop.AdId)).Count();
+
+            ViewBag.views = views;     
+            //similar ads
+            var similarShops = db.Shops
+                            .Where(c => c.Ad.Confirmed)
+                            .OrderBy(c => shop.Ad.City.Name)
+                            .ThenBy(c => shop.Ad.AdTitle)
+                            .ThenBy(c => shop.NumberOfDoors)
+                            .ThenBy(c => c.Ad.User.DatePayingStarted)
+                            .Take(4);
+            ViewBag.similarShops = similarShops;
             return View(shop);
         }
 
         // GET: Dashboard/Shops/Create
+        [Authorize]
         public ActionResult Create()
         {
             ViewBag.CityId = new SelectList(db.Cities, "Id","Name");
@@ -52,30 +129,46 @@ namespace Yemen_Broker.Areas.Dashboard.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public ActionResult Create( ShopModel shopVM, IEnumerable<HttpPostedFileBase> files)
         {
+            var uid = User.Identity.GetUserId();
+            var user = db.Users.Find(uid);
+            if (!user.Confirmed)
+            {
+                ViewBag.NotConfirmed = "Sory! wait until the confirmation, thanks!.";
+                ViewBag.CityId = new SelectList(db.Cities, "Id", "Name", shopVM.CityId);
+
+                return View(shopVM);
+            }
             if (ModelState.IsValid)
             {
-                //find user's listings and check if he advertised more than allowed size
-                //var uid = User.Identity.GetUserId();
-                //int uAppartmentsCount = db.Appartments.Where(ap => ap.AdvertiserId.Equals(uid)).Count();
-                //int uShopsCount = db.Shops.Where(sh => sh.AdvertiserId.Equals(uid)).Count();
-                //int uHomesCount = db.Homes.Where(ap => ap.AdvertiserId.Equals(uid)).Count();
-                //int uWarehousesCount = db.Warehouses.Where(ap => ap.AdvertiserId.Equals(uid)).Count();
-                //int uLandsCount = db.Lands.Where(ap => ap.AdvertiserId.Equals(uid)).Count();
-                //int totalAdvertised = uAppartmentsCount + uShopsCount + uHomesCount + uWarehousesCount + uLandsCount;
-                ////find user's subscription size
-                //int usubsId = db.Users.Where(u => u.Id.Equals(uid)).Select(usub => usub.SubscriptionId).FirstOrDefault();
-                //int subsSize = db.Subscriptions.Where(s => s.SubscriptionId == usubsId).Select(sz => sz.SubscripsionSize).FirstOrDefault();
+                if (!User.IsInRole("Admin"))
+                {
+                    //find user's listings and check if he advertised more than allowed size
+                    int uLiveAdsCount = db.Ads.Where(ap => ap.UserId.Equals(uid)).Count();
+                    ////find user's subscription size
+                    int usubsId = db.Users.Where(u => u.Id.Equals(uid)).Select(usub => usub.SubscriptionId).FirstOrDefault();
+                    int subsSize = db.Subscriptions.Where(s => s.SubscriptionId == usubsId).Select(sz => sz.SubscripsionSize).FirstOrDefault();
 
+                    if (uLiveAdsCount >= subsSize)
+                    {
+                        ViewBag.LimitReached = "Sory! you have reached the limit of this subscription please remove some ads or upgrade your subscription, thanks!.";
+                        ViewBag.CityId = new SelectList(db.Cities, "Id", "Name", shopVM.CityId);
 
-                //if (totalAdvertised >= subsSize)
-                //{
-                //    ViewBag.LimitReached = "Sory! you have reached the limit of this subscription please remove some listings or upgrade your subscription, thanks!.";
-                //    return View(shop);
+                        return View(shopVM);
 
-                //}
-
+                    }
+                }
+               
+                //if user chooses no image show him error
+                if (files == null || files.Count() <= 0 || files.FirstOrDefault() == null)
+                {
+                    ViewBag.chooseImage = "Please choose image";
+                    ViewBag.CityId = new SelectList(db.Cities, "Id", "Name", shopVM.CityId);
+                    return View(shopVM);
+                }
+                //end
 
                 var pictures = new List<Picture>();
 
@@ -97,6 +190,8 @@ namespace Yemen_Broker.Areas.Dashboard.Controllers
                 {
                     AdDescribtion = shopVM.AdDescribtion,
                     AdPrice = shopVM.AdPrice,
+                    AdTitle = shopVM.AdTitle,
+                    Date = DateTime.Now.Date,
                     City=City,
                     Discriminator = DiscriminatorOptions.Shop,
                     Pictures=pictures,
@@ -134,6 +229,7 @@ namespace Yemen_Broker.Areas.Dashboard.Controllers
             {
                 AdDescribtion = shop.Ad.AdDescribtion,
                 AdPrice = shop.Ad.AdPrice,
+                AdTitle=shop.Ad.AdTitle,
                 NumberOfDoors = shop.NumberOfDoors,
                 StreetArea=shop.StreetArea,
                 Id=shop.AdId,
@@ -160,7 +256,7 @@ namespace Yemen_Broker.Areas.Dashboard.Controllers
 
                 var pictures = new List<Picture>();
 
-                if (files != null && files.Count()>0)
+                if (files != null && files.Count()> 0 && files.FirstOrDefault() != null)
                 {
                     foreach (var file in files)
                     {
@@ -175,6 +271,7 @@ namespace Yemen_Broker.Areas.Dashboard.Controllers
                 
                 shop.Ad.AdDescribtion = shopVM.AdDescribtion;
                 shop.Ad.AdPrice = shopVM.AdPrice;
+                shop.Ad.AdTitle = shopVM.AdTitle;
                 shop.Ad.City= city;
                 shop.NumberOfDoors = shopVM.NumberOfDoors;
                 shop.StreetArea = shopVM.StreetArea;
@@ -184,10 +281,10 @@ namespace Yemen_Broker.Areas.Dashboard.Controllers
                 db.SaveChanges();
 
 
-                return RedirectToAction("Index");
+                return RedirectToAction("MyAds", "Ads");
             }
            
-            ViewBag.CityId = new SelectList(db.Cities, "Id","Name", city.Name);
+            ViewBag.CityId = new SelectList(db.Cities, "Id","Name", shopVM.CityId);
             return View(shopVM);
         }
 

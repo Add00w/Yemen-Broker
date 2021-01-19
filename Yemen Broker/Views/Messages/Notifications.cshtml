@@ -1,0 +1,32 @@
+﻿@model IEnumerable<Yemen_Broker.Models.Message>
+@{
+    ViewBag.Title = "Notifications";
+}
+
+<h3><b>Notifications list</b></h3>
+
+<div style="background-color:#f0f0f0;padding:5px 10px;"><h4><b>Notifications</b></h4></div>
+
+<div style="border:1px solid #808080;padding:10px">
+    @if (Model.Count() <= 0)
+    {
+        <div style="text-align:center;display:block;">
+            <h3>No Notifications</h3>
+            <h1><b>The Notifications list is empty</b></h1>
+        </div>
+    }
+    else
+    {
+        foreach (var m in Model)
+        {
+            <div class="row" style="border-bottom:1px solid #808080;margin:5px 10px;padding-bottom:20px;">
+                <div class="col-md-1" style="text-align:center;"><img src="~/Content/images/Lpgin.png" style="width:20px;height:20px;" /></div>
+                <div class="col-md-10">@m.MessageContent</div>
+                <div class="col-md-1" style="text-align:center;" id="read">@m.MessageDateTime.Date.ToShortDateString()</div>
+            </div>
+        }
+
+
+    }
+
+</div>

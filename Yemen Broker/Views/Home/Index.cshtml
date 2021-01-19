@@ -2,236 +2,314 @@
 @{
     ViewBag.Title = "Home Page";
 }
-
 <!-- Slider -->
 
-<div style="width:100%;">
-    <div class="col-md-4 float-left" style=" border: 2px solid rgba(0, 0, 0, 0.2);padding: 10px;border-radius: 25px;margin-top:5px;">
-        <div>
-            <h1> Ads Faster & </h1>
-            <h1>Find Great Deals</h1>
+<body onload="show();">
+    <div style="width:100%;">
+        <div class="col-md-4 float-left" style=" border: 2px solid rgba(0, 0, 0, 0.2);padding: 10px;border-radius: 25px;margin-top:5px;">
+            <div>
+                <h1> Ads Faster & </h1>
+                <h1>Find Great Deals</h1>
 
-            <div style="float:left;text-align:center;">
-                <button type="button" class="btn btn-warning" style="height:50px; width:100px;">Post Ad now</button>
-                <h6>Snap it. Post it. Make RM</h6>
+                <div style="float:left;text-align:center;">
+                    <button type="button" class="btn btn-warning" style="height:50px; width:100px;">Post Ad now</button>
+                    <h6>Snap it. Post it. Make RM</h6>
+                </div>
+                <div style="float:right;text-align:center;">
+                    <button type="button" class="btn btn-primary" style="height:50px; width:100px;">Find Ad now</button>
+                    <h6>1 M+ Fresh Offers</h6>
+                </div>
             </div>
-            <div style="float:right;text-align:center;">
-                <button type="button" class="btn btn-primary" style="height:50px; width:100px;">Find Ad now</button>
-                <h6>1 M+ Fresh Offers</h6>
+        </div>
+        <div class="container col-md-8 float-right">
+            <div id="myCarousel" class="carousel slide" data-ride="carousel" style="height:250px;border: 2px solid rgba(0, 0, 0, 0.2);border-radius: 25px;">
+                <!-- Indicators -->
+                <ol class="carousel-indicators">
+                    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                    <li data-target="#myCarousel" data-slide-to="1"></li>
+                    <li data-target="#myCarousel" data-slide-to="2"></li>
+                    <li data-target="#myCarousel" data-slide-to="3"></li>
+                </ol>
+
+                <!-- Wrapper for slides -->
+                <div class="carousel-inner" style="background-color:#f1f1f1">
+                    <div class="item active">
+                        <img src="~/Content/images/slide/slide1.png" alt="Propertes" style="width:100%;height:250px;">
+                    </div>
+
+                    <div class="item">
+                        <img src="~/Content/images/slide/slide2.png" alt="Cars" style="width:100%;height:250px;">
+                    </div>
+
+                    <div class="item">
+                        <img src="~/Content/images/slide/slide3.png" alt="computers" style="width:100%;height:250px;">
+                    </div>
+                    <div class="item">
+                        <img src="~/Content/images/slide/slide4.png" alt="Mobiles" style="width:100%;height:250px;">
+                    </div>
+                </div>
+
+                <!-- Left and right controls -->
+                <a class="left carousel-control" href="#myCarousel" data-slide="prev" style="border: 2px 0 0 2px solid rgba(0, 0, 0, 0.2);border-radius: 25px;">
+                    <span class="glyphicon glyphicon-chevron-left"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="right carousel-control" href="#myCarousel" data-slide="next" style="border: 2px 2px 0 0 solid rgba(0, 0, 0, 0.2);border-radius: 25px;">
+                    <span class="glyphicon glyphicon-chevron-right"></span>
+                    <span class="sr-only">Next</span>
+                </a>
             </div>
         </div>
     </div>
-    <div class="container col-md-8 float-right">
-        <div id="myCarousel" class="carousel slide" data-ride="carousel" style="height:250px;border: 2px solid rgba(0, 0, 0, 0.2);border-radius: 25px;">
-            <!-- Indicators -->
-            <ol class="carousel-indicators">
-                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                <li data-target="#myCarousel" data-slide-to="1"></li>
-                <li data-target="#myCarousel" data-slide-to="2"></li>
-                <li data-target="#myCarousel" data-slide-to="3"></li>
-            </ol>
 
-            <!-- Wrapper for slides -->
-            <div class="carousel-inner" style="background-color:#f1f1f1">
-                <div class="item active">
-                    <img src="~/Content/images/slide/slide1.png" alt="Propertes" style="width:100%;height:250px;">
-                </div>
+    <!-- star Navigation menue-->
+    <div style="margin-top:100px;">
 
-                <div class="item">
-                    <img src="~/Content/images/slide/slide2.png" alt="Cars" style="width:100%;height:250px;">
-                </div>
+        <h1> <br /></h1>
+        <h2>Browse Categories:</h2>
+        <p>From Cars to Properties, Mobile phones and many more..</p>
+        <div id="menu">
 
-                <div class="item">
-                    <img src="~/Content/images/slide/slide3.png" alt="computers" style="width:100%;height:250px;">
-                </div>
-                <div class="item">
-                    <img src="~/Content/images/slide/slide4.png" alt="Mobiles" style="width:100%;height:250px;">
-                </div>
-            </div>
+            <ul>
+                <li class="item">
+                    <a href="/Ads/Properties">  <img src="~/Content/images/Property.png" alt="Propertes"></a>
+                </li>
 
-            <!-- Left and right controls -->
-            <a class="left carousel-control" href="#myCarousel" data-slide="prev" style="border: 2px 0 0 2px solid rgba(0, 0, 0, 0.2);border-radius: 25px;">
-                <span class="glyphicon glyphicon-chevron-left"></span>
-                <span class="sr-only">Previous</span>
-            </a>
-            <a class="right carousel-control" href="#myCarousel" data-slide="next" style="border: 2px 2px 0 0 solid rgba(0, 0, 0, 0.2);border-radius: 25px;">
-                <span class="glyphicon glyphicon-chevron-right"></span>
-                <span class="sr-only">Next</span>
-            </a>
+                <li class="item">
+                    <a href="~/Cars">  <img src="~/Content/images/Cars.png" alt="Cars"></a>
+                </li>
+
+                <li class="item">
+                    <a href="~/Computers">  <img src="~/Content/images/Computers.png" alt="Mobiles"></a>
+                </li>
+                <li class="item">
+                    <a href="~/Mobiles"> <img src="~/Content/images/Mobiles.png" alt="computers"></a>
+                </li>
+                <li class="item">
+                    <a href="~/Ads">   <img src="~/Content/images/Others.png" alt="Others"></a>
+                </li>
+                <li class="item">
+                    <a href="~/Orders"> <img src="~/Content/images/Orders.png" alt="Orders"></a>
+                </li>
+            </ul>
         </div>
+        <style>
+            #menu ul {
+                list-style-type: none;
+                margin-top: 10px;
+                margin-bottom: 15px;
+                padding: 10px 0 0 0;
+                width: 100%;
+                background-color: #ffffff;
+                text-align: left;
+            }
+
+                #menu ul li {
+                    display: inline;
+                    color: #000;
+                    padding: 8px 16px;
+                    text-decoration: none;
+                    height: 50px;
+                }
+
+                    #menu ul li a img {
+                        height: 90px;
+                    }
+
+            #menu li img.active {
+                box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            }
+
+            #menu li img:hover:not(.active) {
+                box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            }
+        </style>
     </div>
-</div>
+    <!-- end Navigation menue-->
+    <!--star All catogre show-->
+    @{
+        var apartments = Model.Where(ad => ad.Discriminator == Yemen_Broker.ViewModels.DiscriminatorOptions.Apartment).Take(4);
+        var lands = Model.Where(ad => ad.Discriminator == Yemen_Broker.ViewModels.DiscriminatorOptions.Land).Take(4);
+        var shops = Model.Where(ad => ad.Discriminator == Yemen_Broker.ViewModels.DiscriminatorOptions.Shop).Take(4);
+        var homes = Model.Where(ad => ad.Discriminator == Yemen_Broker.ViewModels.DiscriminatorOptions.Home).Take(4);
+        var warehouses = Model.Where(ad => ad.Discriminator == Yemen_Broker.ViewModels.DiscriminatorOptions.Warehouse).Take(4);
 
-<!-- star Navigation menue-->
-<div style="margin-top:100px;">
+        var cars = Model.Where(ad => ad.Discriminator == Yemen_Broker.ViewModels.DiscriminatorOptions.Car).Take(4);
+        var computers = Model.Where(ad => ad.Discriminator == Yemen_Broker.ViewModels.DiscriminatorOptions.Computer).Take(4);
+        var mobiles = Model.Where(ad => ad.Discriminator == Yemen_Broker.ViewModels.DiscriminatorOptions.Mobile).Take(4);
 
-    <h1> <br /></h1>
-    <h2>Browse Categories:</h2>
-    <p>From Cars to Cameras, Properties to Pets, Mobile phones to Motorcycles, Treadmills to Textbooks, Watches to Washing machines, Jobs and many more..</p>
-    <div id="menu">
+        var others = Model.Where(ad => ad.Discriminator == Yemen_Broker.ViewModels.DiscriminatorOptions.Ad).Take(4);
 
-        <ul>
-            <li class="item">
-                <a href="">  <img src="~/Content/images/Property.png" alt="Propertes"></a>
-            </li>
+        <div class="container" id="div1">
+            <h2>Apartments</h2>
+            <ul>
+                @foreach (var item in apartments)
+                {
+                    <li><a href="/Apartments/Details/@item.AdId"><img src="/Uploads/@Html.DisplayFor(model => item.Pictures.FirstOrDefault().PictureURL)" /></a><div id="divprice"><img src="~/Content/images/price.png" /><h5 id="ne"><b>RY @item.AdPrice</b></h5></div></li>
+                }
 
-            <li class="item">
-                <a href="">  <img src="~/Content/images/Cars.png" alt="Cars"></a>
-            </li>
+                <li>
+                    <a href="~/Apartments">
+                        <button type="button">Show All</button>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="container" id="div1">
 
-            <li class="item">
-                <a href="">  <img src="~/Content/images/Computers.png" alt="Mobiles"></a>
-            </li>
-            <li class="item">
-                <a href=""> <img src="~/Content/images/Mobiles.png" alt="computers"></a>
-            </li>
-            <li class="item">
-                <a href="">   <img src="~/Content/images/Others.png" alt="Others"></a>
-            </li>
-            <li class="item">
-                <a href=""> <img src="~/Content/images/Orders.png" alt="Orders"></a>
-            </li>
-        </ul>
-    </div>
+
+
+            <h2>Shops</h2>
+            <ul>
+                @foreach (var item in shops)
+                {
+                    <li><a href="/Shops/Details/@item.AdId"><img src="/Uploads/@Html.DisplayFor(model => item.Pictures.FirstOrDefault().PictureURL)" /></a><div id="divprice"><img src="~/Content/images/price.png" /><h5 id="ne"><b>RY @item.AdPrice</b></h5></div></li>
+                }
+
+                <li>
+                    <a href="~/Shops">
+                        <button type="button">Show All</button>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="container" id="div1">
+            <h2>Warehouses</h2>
+            <ul>
+                @foreach (var item in warehouses)
+                {
+                    <li><a href="/Warehouses/Details/@item.AdId"><img src="/Uploads/@Html.DisplayFor(model => item.Pictures.FirstOrDefault().PictureURL)" /></a><div id="divprice"><img src="~/Content/images/price.png" /><h5 id="ne"><b>RY @item.AdPrice</b></h5></div></li>
+                }
+
+                <li>
+                    <a href="~/Warehouses">
+                        <button type="button">Show All</button>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="container" id="div1">
+
+
+
+            <h2>Homes</h2>
+            <ul>
+                @foreach (var item in homes)
+                {
+                    <li><a href="/Homes/Details/@item.AdId"><img src="/Uploads/@Html.DisplayFor(model => item.Pictures.FirstOrDefault().PictureURL)" /></a><div id="divprice"><img src="~/Content/images/price.png" /><h5 id="ne"><b>RY @item.AdPrice</b></h5></div></li>
+                }
+
+                <li>
+                    <a href="~/Homes">
+                        <button type="button">Show All</button>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="container" id="div1">
+            <h2>Lands</h2>
+            <ul>
+                @foreach (var item in lands)
+                {
+                    <li><a href="/Lands/Details/@item.AdId">  <img src="/Uploads/@Html.DisplayFor(model => item.Pictures.FirstOrDefault().PictureURL)" /></a><div id="divprice"><img src="~/Content/images/price.png" /><h5 id="ne"><b>RY @item.AdPrice</b></h5></div></li>
+                }
+                <li>
+                    <a href="~/Lands">
+                        <button type="button">Show All</button>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="container" id="div1">
+            <h2>Cars</h2>
+            <ul>
+                @foreach (var item in cars)
+                {
+                    <li><a href="/Cars/Details/@item.AdId"><img src="/Uploads/@Html.DisplayFor(model => item.Pictures.FirstOrDefault().PictureURL)" /></a><div id="divprice"><img src="~/Content/images/price.png" /><h5 id="ne"><b>RY @item.AdPrice</b></h5></div></li>
+                }
+
+                <li>
+                    <a href="~/Cars">
+                        <button type="button">Show All</button>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="container" id="div1">
+            <h2>Computers</h2>
+            <ul>
+                @foreach (var item in computers)
+                {
+                    <li><a href="/Computers/Details/@item.AdId"><img src="/Uploads/@Html.DisplayFor(model => item.Pictures.FirstOrDefault().PictureURL)" /></a><div id="divprice"><img src="~/Content/images/price.png" /><h5 id="ne"><b>RY @item.AdPrice</b></h5></div></li>
+                }
+
+                <li>
+                    <a href="~/Computers">
+                        <button type="button">Show All</button>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="container" id="div1">
+            <h2>Mobiles</h2>
+            <ul>
+                @foreach (var item in mobiles)
+                {
+                    <li><a href="/Mobiles/Details/@item.AdId"><img src="/Uploads/@Html.DisplayFor(model => item.Pictures.FirstOrDefault().PictureURL)" /></a><div id="divprice"><img src="~/Content/images/price.png" /><h5 id="ne"><b>RY @item.AdPrice</b></h5></div></li>
+                }
+
+                <li>
+                    <a href="~/Mobiles">
+                        <button type="button">Show All</button>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="container" id="div1">
+            <h2>Others</h2>
+            <ul>
+                @foreach (var item in others)
+                {
+                    <li><a href="/Ads/Details/@item.AdId"><img src="/Uploads/@Html.DisplayFor(model => item.Pictures.FirstOrDefault().PictureURL)" /></a><div id="divprice"><img src="~/Content/images/price.png" /><h5 id="ne"><b>RY @item.AdPrice</b></h5></div></li>
+                }
+
+                <li>
+                    <a href="~/Ads">
+                        <button type="button">Show All</button>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    }
+
     <style>
-        #menu ul {
+        #div1 ul {
             list-style-type: none;
-            margin-top: 10px;
-            margin-bottom: 15px;
-            padding: 10px 0 0 0;
+            margin: 10px 0 0 0;
             width: 100%;
             background-color: #ffffff;
             text-align: left;
         }
 
-            #menu ul li {
+            #div1 ul li {
                 display: inline;
                 color: #000;
-                padding: 8px 16px;
+                margin: 15px 0 20px -40px;
                 text-decoration: none;
-                height: 50px;
             }
 
-                #menu ul li a img {
-                    height: 90px;
-                }
-
-        #menu li img.active {
-            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-        }
-
-        #menu li img:hover:not(.active) {
-            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-        }
-    </style>
-</div>
-<!-- end Navigation menue-->
-
-<!--star All catogre show-->
-<div class="container" id="div1">
-
-    <table>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.AdDescribtion)
-            </th>
-        </tr>
-
-
-
-
-    </table>
-
-    @{
-        string des;
-        des = Model.FirstOrDefault().AdDescribtion;
-        <p> @des</p>
-
-
-        var apartments = Model.Where(ad => ad.Discriminator == Yemen_Broker.ViewModels.DiscriminatorOptions.Apartment).Take(4);
-        var lands = Model.Where(ad => ad.Discriminator == Yemen_Broker.ViewModels.DiscriminatorOptions.Land).Take(4);
-
-        <h2>Apartments</h2>
-        <ul>
-            @foreach (var item in apartments)
-            {
-                <li><a href="#"><img src="/Uploads/@Html.DisplayFor(model=>item.Pictures.FirstOrDefault().PictureURL)" /></a><div><img src="~/Content/images/price.png" /><h5><b> $@item.AdPrice</b></h5></div></li>
-            }
-            <li>
-                <a href="#">
-                    <button type="button">Show All</button>
-                </a>
-            </li>
-        </ul>
-        <h2>lands</h2>
-        <ul>
-            @foreach (var item in lands)
-            {
-                <li><a href="#"><img src="/Uploads/@Html.DisplayFor(model=>item.Pictures.FirstOrDefault().PictureURL)" /></a><div><img src="~/Content/images/price.png" /><h5><b> $@item.AdPrice</b></h5></div></li>
-            }
-            <li>
-                <a href="#">
-                    <button type="button">Show All</button>
-                </a>
-            </li>
-        </ul>
-    }
-
-
-    <h2>Cars</h2>
-    <ul>
-        <li><a href="index 2.html"><img src="~/Content/images/img\2.jpg" /></a><div><img src="~/Content/images/price.png" /><h5><b>YR 1000000</b></h5></div></li>
-        <li> <a href="index 2.html"> <img src="~/Content/images/img\3.jpg" /></a><div><img src="~/Content/images/price.png" /><h5><b>YR 1000000</b></h5></div></li>
-        <li> <a href="index 2.html"> <img src="~/Content/images/img\4.jpg" /></a><div><img src="~/Content/images/price.png" /><h5><b>YR 1000000</b></h5></div></li>
-        <li><a href="index 2.html"> <img src="~/Content/images/img\5.jpg" /></a><div><img src="~/Content/images/price.png" /><h5><b>YR 1000000</b></h5></div></li>
-        <li>
-            <a href="#">
-                <button type="button">Show All</button>
-            </a>
-        </li>
-    </ul>
-</div>
-<div class="container" id="div1">
-    <h2>Mobiles & computers</h2>
-    <ul>
-        <li><a href="index 2.html">  <img src="~/Content/images/img\7.jpg" /></a><div><img src="~/Content/images/price.png" /><h5><b>YR 1000000</b></h5></div></li>
-        <li> <a href="index 2.html"> <img src="~/Content/images/img\8.jpg" /></a><div><img src="~/Content/images/price.png" /><h5><b>YR 1000000</b></h5></div></li>
-        <li> <a href="index 2.html"> <img src="~/Content/images/img\9.jpg" /></a><div><img src="~/Content/images/price.png" /><h5><b>YR 1000000</b></h5></div></li>
-        <li><a href="index 2.html"> <img src="~/Content/images/img\10.jpg" /></a><div><img src="~/Content/images/price.png" /><h5><b>YR 1000000</b></h5></div></li>
-        <li>
-            <a href="index 2.html">
-                <button type="button">Show All</button>
-            </a>
-        </li>
-    </ul>
-</div>
-<style>
-    #div1 ul {
-        list-style-type: none;
-        margin: 10px 0 0 -50px;
-        width: 100%;
-        background-color: #ffffff;
-        text-align: left;
-    }
-
-        #div1 ul li {
-            display: inline;
-            color: #000;
-            padding: 8px 5px;
-            margin: 15px 0 20px 0;
-            text-decoration: none;
-        }
-
-            #div1 ul li div {
-                display: inline;
-                margin: 0 110px 0 -205px;
-            }
-
-                #div1 ul li div h5 {
+                #div1 ul li #divprice {
                     display: inline;
-                    margin: -180px 0 0 -95px;
-                    color: red;
+                    margin: 40px 0 0 -255px;
+                    position: absolute;
                 }
+
+                    #div1 ul li #divprice #ne {
+                        height: 25px;
+                        width: 100px;
+                        color: red;
+                        margin: -18px 0 0 5px;
+                    }
 
                 #div1 ul li div img {
                     height: 25px;
@@ -239,32 +317,46 @@
                     margin: -5px 0 0 5px;
                 }
 
-            #div1 ul li a img {
-                height: 130px;
-                width: 200px;
-                border: solid 1px rgba(0, 0, 0, 0.2);
-            }
-
-            #div1 ul li a button {
-                height: 130px;
-                width: 200px;
-                border: solid 1px rgba(0, 0, 0, 0.2);
-                background-color: #73b21d;
-                color: white;
-            }
-
-                #div1 ul li a button:hover {
+                #div1 ul li a img {
+                    height: 130px;
+                    width: 200px;
                     border: solid 1px rgba(0, 0, 0, 0.2);
-                    background-color: green;
+                    margin-right: 50px;
+                }
+
+                #div1 ul li a button {
+                    height: 130px;
+                    width: 200px;
+                    border: solid 1px rgba(0, 0, 0, 0.2);
+                    margin-left: 40px;
+                    background-color: #73b21d;
                     color: white;
                 }
 
-    #div1 li img.active {
-        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    }
+                    #div1 ul li a button:hover {
+                        border: solid 1px rgba(0, 0, 0, 0.2);
+                        background-color: green;
+                        color: white;
+                    }
 
-    #div1 li img:hover:not(.active) {
-        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        #div1 li img.active {
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        }
+
+        #div1 li img:hover:not(.active) {
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        }
+    </style>
+
+
+    @if (User.Identity.IsAuthenticated && ViewBag.Notify)
+    {
+        <script>
+            function show() {
+                alert("Warning!" + "\n" + "Your subscription ends within 5 days plz renew.")
+            }
+        </script>
     }
-</style>
-<!--end All catogre show-->
+    <!--end All catogre show-->
+
+</body>

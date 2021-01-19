@@ -169,78 +169,83 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AdsController.cs" />
     <Compile Include="Controllers\ApartmentsController.cs" />
+    <Compile Include="Controllers\CarsController.cs" />
+    <Compile Include="Controllers\CityController.cs" />
+    <Compile Include="Controllers\ComputersController.cs" />
     <Compile Include="Controllers\HomesController.cs" />
     <Compile Include="Controllers\LandsController.cs" />
+    <Compile Include="Controllers\MessagesController.cs" />
+    <Compile Include="Controllers\MobilesController.cs" />
+    <Compile Include="Controllers\OrdersController.cs" />
+    <Compile Include="Controllers\RatingsController.cs" />
     <Compile Include="Controllers\ShopsController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\SubscriptionsController.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="Controllers\WarehousesController.cs" />
+    <Compile Include="Controllers\WishlistsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202009080818186_init.cs" />
-    <Compile Include="Migrations\202009080818186_init.Designer.cs">
-      <DependentUpon>202009080818186_init.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202009090905158_city.cs" />
-    <Compile Include="Migrations\202009090905158_city.Designer.cs">
-      <DependentUpon>202009090905158_city.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202009090944208_shopUpdate.cs" />
-    <Compile Include="Migrations\202009090944208_shopUpdate.Designer.cs">
-      <DependentUpon>202009090944208_shopUpdate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202010230757298_PicturesAdded.cs" />
-    <Compile Include="Migrations\202010230757298_PicturesAdded.Designer.cs">
-      <DependentUpon>202010230757298_PicturesAdded.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202010232009551_CityId.cs" />
-    <Compile Include="Migrations\202010232009551_CityId.Designer.cs">
-      <DependentUpon>202010232009551_CityId.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202010242004495_AdvertiserToUser.cs" />
-    <Compile Include="Migrations\202010242004495_AdvertiserToUser.Designer.cs">
-      <DependentUpon>202010242004495_AdvertiserToUser.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202010251755259_Homes.cs" />
-    <Compile Include="Migrations\202010251755259_Homes.Designer.cs">
-      <DependentUpon>202010251755259_Homes.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202010251849019_nn.cs" />
-    <Compile Include="Migrations\202010251849019_nn.Designer.cs">
-      <DependentUpon>202010251849019_nn.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202010251959426_ModelValidationsAdded.cs" />
-    <Compile Include="Migrations\202010251959426_ModelValidationsAdded.Designer.cs">
-      <DependentUpon>202010251959426_ModelValidationsAdded.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202010291836329_Land.cs" />
-    <Compile Include="Migrations\202010291836329_Land.Designer.cs">
-      <DependentUpon>202010291836329_Land.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202010300701011_Apartment.cs" />
-    <Compile Include="Migrations\202010300701011_Apartment.Designer.cs">
-      <DependentUpon>202010300701011_Apartment.cs</DependentUpon>
+    <Compile Include="Migrations\202012292020156_UsersBagFix.cs" />
+    <Compile Include="Migrations\202012292020156_UsersBagFix.Designer.cs">
+      <DependentUpon>202012292020156_UsersBagFix.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Ad.cs" />
     <Compile Include="Models\Apartment.cs" />
+    <Compile Include="Models\Car.cs" />
+    <Compile Include="Models\Computer.cs" />
     <Compile Include="Models\Home.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Land.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Message.cs" />
+    <Compile Include="Models\Mobile.cs" />
+    <Compile Include="Models\Order.cs" />
     <Compile Include="Models\Picture.cs" />
+    <Compile Include="Models\Rating.cs" />
     <Compile Include="Models\Shop.cs" />
+    <Compile Include="Models\Subscription.cs" />
+    <Compile Include="Models\View.cs" />
+    <Compile Include="Models\Warehouse.cs" />
+    <Compile Include="Models\Wishlist.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\ActiveIactiveOrders.cs" />
+    <Compile Include="ViewModels\ActiveInactiveAds.cs" />
+    <Compile Include="ViewModels\AdIndexViewModel.cs" />
+    <Compile Include="ViewModels\ApartmentIndexViewModel.cs" />
     <Compile Include="ViewModels\ApartmentViewModel.cs" />
+    <Compile Include="ViewModels\CarrIndexViewModel.cs" />
+    <Compile Include="ViewModels\CarViewModel.cs" />
     <Compile Include="ViewModels\CityModel.cs" />
+    <Compile Include="ViewModels\ComputerIndexViewModel.cs" />
+    <Compile Include="ViewModels\ComputerViewModel.cs" />
     <Compile Include="ViewModels\DiscriminatorModel.cs" />
-    <Compile Include="ViewModels\HomePageViewModel.cs" />
+    <Compile Include="ViewModels\GroupedAdsViewModel.cs" />
+    <Compile Include="ViewModels\HomeIndexViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModel.cs" />
+    <Compile Include="ViewModels\IndexPaginationViewModel.cs" />
+    <Compile Include="ViewModels\IndividualUserReport.cs" />
+    <Compile Include="ViewModels\LandIndexViewModel.cs" />
     <Compile Include="ViewModels\LandsViewModel.cs" />
+    <Compile Include="ViewModels\MobileIndexViewModel.cs" />
+    <Compile Include="ViewModels\MobileViewModel.cs" />
+    <Compile Include="ViewModels\OrderIndexViewModel.cs" />
+    <Compile Include="ViewModels\OrderViewModel.cs" />
+    <Compile Include="ViewModels\ShopIndexViewModel.cs" />
     <Compile Include="ViewModels\ShopModel.cs" />
+    <Compile Include="ViewModels\SubscribedUsersBasedOnSubsType.cs" />
+    <Compile Include="ViewModels\UsersViewModel.cs" />
+    <Compile Include="ViewModels\UserViewModel.cs" />
+    <Compile Include="ViewModels\ViewsBasedOnCityViewModel.cs" />
+    <Compile Include="ViewModels\WarehouseIndexViewModel.cs" />
+    <Compile Include="ViewModels\WarehouseViewModel.cs" />
+    <Compile Include="ViewModels\WishlistViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -254,9 +259,13 @@
     <Content Include="Content\footer_style.css" />
     <Content Include="Content\images\Add Advetrise.png" />
     <Content Include="Content\images\Add Advetrise1.png" />
+    <Content Include="Content\images\Appartment.png" />
     <Content Include="Content\images\Cars.png" />
     <Content Include="Content\images\Computers.png" />
     <Content Include="Content\images\cpn.png" />
+    <Content Include="Content\images\Forgetpass.png" />
+    <Content Include="Content\images\gmail.png" />
+    <Content Include="Content\images\Home.png" />
     <Content Include="Content\images\img\1.jpg" />
     <Content Include="Content\images\img\10.jpg" />
     <Content Include="Content\images\img\2.jpg" />
@@ -267,16 +276,21 @@
     <Content Include="Content\images\img\7.jpg" />
     <Content Include="Content\images\img\8.jpg" />
     <Content Include="Content\images\img\9.jpg" />
+    <Content Include="Content\images\land.png" />
     <Content Include="Content\images\logo.png" />
     <Content Include="Content\images\logoYB.png" />
     <Content Include="Content\images\Lpgin.png" />
     <Content Include="Content\images\Mobiles.png" />
     <Content Include="Content\images\Orders.png" />
     <Content Include="Content\images\Others.png" />
+    <Content Include="Content\images\Paner cover.jpg" />
+    <Content Include="Content\images\parts.png" />
+    <Content Include="Content\images\password.png" />
     <Content Include="Content\images\price.png" />
     <Content Include="Content\images\property paner.jpg" />
     <Content Include="Content\images\property paner1.jpg" />
     <Content Include="Content\images\Property.png" />
+    <Content Include="Content\images\shop.png" />
     <Content Include="Content\images\slide\slide1.jpg" />
     <Content Include="Content\images\slide\slide1.png" />
     <Content Include="Content\images\slide\slide2.jpg" />
@@ -285,8 +299,12 @@
     <Content Include="Content\images\slide\slide3.png" />
     <Content Include="Content\images\slide\slide4.jpg" />
     <Content Include="Content\images\slide\slide4.png" />
+    <Content Include="Content\images\useradd.png" />
+    <Content Include="Content\images\userlogin.png" />
+    <Content Include="Content\images\userupgrade.png" />
     <Content Include="Content\images\vavEmpty1.png" />
     <Content Include="Content\images\vavok.png" />
+    <Content Include="Content\images\wharehouse.png" />
     <Content Include="Content\mystyle.css" />
     <Content Include="Content\search__style.css" />
     <Content Include="favicon.ico" />
@@ -301,6 +319,17 @@
     <Content Include="Views\Ads\Details.cshtml" />
     <Content Include="Views\Ads\Edit.cshtml" />
     <Content Include="Views\Ads\Index.cshtml" />
+    <Content Include="Views\PartialViews\Apartment.cshtml" />
+    <Content Include="Views\PartialViews\Car.cshtml" />
+    <Content Include="Views\PartialViews\Computer.cshtml" />
+    <Content Include="Views\PartialViews\Home.cshtml" />
+    <Content Include="Views\PartialViews\Land.cshtml" />
+    <Content Include="Views\PartialViews\Mobile.cshtml" />
+    <Content Include="Views\PartialViews\MyActiveOrInactiveAd.cshtml" />
+    <Content Include="Views\PartialViews\NoAds.cshtml" />
+    <Content Include="Views\PartialViews\Other.cshtml" />
+    <Content Include="Views\PartialViews\Shop.cshtml" />
+    <Content Include="Views\PartialViews\Warehouse.cshtml" />
     <Content Include="Views\Shops\Create.cshtml" />
     <Content Include="Views\Shops\Delete.cshtml" />
     <Content Include="Views\Shops\Details.cshtml" />
@@ -366,10 +395,86 @@
     <Content Include="Views\Apartments\Details.cshtml" />
     <Content Include="Views\Apartments\Edit.cshtml" />
     <Content Include="Views\Apartments\Index.cshtml" />
+    <Content Include="Views\Ads\MyAds.cshtml" />
+    <Content Include="Views\Users\Index.cshtml" />
+    <Content Include="Views\Users\Details.cshtml" />
+    <Content Include="Views\Users\Register.cshtml" />
+    <Content Include="Views\Warehouses\Create.cshtml" />
+    <Content Include="Views\Warehouses\Delete.cshtml" />
+    <Content Include="Views\Warehouses\Details.cshtml" />
+    <Content Include="Views\Warehouses\Edit.cshtml" />
+    <Content Include="Views\Warehouses\Index.cshtml" />
+    <Content Include="Views\Shared\_RegisterPartial.cshtml" />
+    <Content Include="Views\Cars\Create.cshtml" />
+    <Content Include="Views\Cars\Delete.cshtml" />
+    <Content Include="Views\Cars\Details.cshtml" />
+    <Content Include="Views\Cars\Edit.cshtml" />
+    <Content Include="Views\Cars\Index.cshtml" />
+    <Content Include="Views\Subscriptions\Create.cshtml" />
+    <Content Include="Views\Subscriptions\Delete.cshtml" />
+    <Content Include="Views\Subscriptions\Details.cshtml" />
+    <Content Include="Views\Subscriptions\Edit.cshtml" />
+    <Content Include="Views\Subscriptions\Index.cshtml" />
+    <Content Include="Views\Computers\Create.cshtml" />
+    <Content Include="Views\Computers\Delete.cshtml" />
+    <Content Include="Views\Computers\Details.cshtml" />
+    <Content Include="Views\Computers\Edit.cshtml" />
+    <Content Include="Views\Computers\Index.cshtml" />
+    <Content Include="Views\Mobiles\Create.cshtml" />
+    <Content Include="Views\Mobiles\Delete.cshtml" />
+    <Content Include="Views\Mobiles\Details.cshtml" />
+    <Content Include="Views\Mobiles\Edit.cshtml" />
+    <Content Include="Views\Mobiles\Index.cshtml" />
+    <Content Include="Views\Users\Upgrade.cshtml" />
+    <Content Include="Views\Users\_UpgradePartial.cshtml" />
+    <Content Include="Views\Users\_ActiveUsers.cshtml" />
+    <Content Include="Views\Users\_InactiveUsers.cshtml" />
+    <Content Include="Views\Ads\Properties.cshtml" />
+    <Content Include="Views\Wishlists\Index.cshtml" />
+    <Content Include="Views\Ads\ManageAds.cshtml" />
+    <Content Include="Views\Orders\Create.cshtml" />
+    <Content Include="Views\Orders\Delete.cshtml" />
+    <Content Include="Views\Orders\Details.cshtml" />
+    <Content Include="Views\Orders\Edit.cshtml" />
+    <Content Include="Views\Orders\Index.cshtml" />
+    <Content Include="Views\Orders\MyOrders.cshtml" />
+    <Content Include="Views\Orders\ManageOrders.cshtml" />
+    <Content Include="Views\PartialViews\Order.cshtml" />
+    <Content Include="Views\PartialViews\MyActiveOrInactiveOrder.cshtml" />
+    <Content Include="Views\Cars\_EditCar.cshtml" />
+    <Content Include="Views\Orders\ConfirmReject.cshtml" />
+    <Content Include="Views\Users\Block.cshtml" />
+    <Content Include="Views\Users\ConfirmReject.cshtml" />
+    <Content Include="Views\Ads\_EditAd.cshtml" />
+    <Content Include="Views\Apartments\_EditApartment.cshtml" />
+    <Content Include="Views\Computers\_EditeComputer.cshtml" />
+    <Content Include="Views\Homes\_EditHome.cshtml" />
+    <Content Include="Views\Lands\_EditLand.cshtml" />
+    <Content Include="Views\Mobiles\_EditMobile.cshtml" />
+    <Content Include="Views\Orders\_EditOrder.cshtml" />
+    <Content Include="Views\Shops\_EditShop.cshtml" />
+    <Content Include="Views\Warehouses\_EditWarehouse.cshtml" />
+    <Content Include="Views\Messages\Notifications.cshtml" />
+    <Content Include="Views\Messages\Index.cshtml" />
+    <Content Include="Views\Ads\ConfirmReject.cshtml" />
+    <Content Include="Views\Messages\Chat.cshtml" />
+    <Content Include="Views\Manage\Upgrade.cshtml" />
+    <Content Include="Views\Manage\_UpgradePartial.cshtml" />
+    <Content Include="Views\Manage\Editprofile.cshtml" />
+    <Content Include="Views\Home\Report.cshtml" />
+    <Content Include="Views\City\Create.cshtml" />
+    <Content Include="Views\City\Delete.cshtml" />
+    <Content Include="Views\City\Details.cshtml" />
+    <Content Include="Views\City\Edit.cshtml" />
+    <Content Include="Views\City\Index.cshtml" />
+    <Content Include="Views\Home\SubSubscriptionUsers.cshtml" />
+    <Content Include="Views\Home\IndividualUserReport.cshtml" />
+    <Content Include="Views\Manage\BackupAndRestore.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Uploads\" />
+    <Folder Include="Views\Ratings\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -385,38 +490,8 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202009080818186_init.resx">
-      <DependentUpon>202009080818186_init.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202009090905158_city.resx">
-      <DependentUpon>202009090905158_city.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202009090944208_shopUpdate.resx">
-      <DependentUpon>202009090944208_shopUpdate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202010230757298_PicturesAdded.resx">
-      <DependentUpon>202010230757298_PicturesAdded.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202010232009551_CityId.resx">
-      <DependentUpon>202010232009551_CityId.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202010242004495_AdvertiserToUser.resx">
-      <DependentUpon>202010242004495_AdvertiserToUser.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202010251755259_Homes.resx">
-      <DependentUpon>202010251755259_Homes.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202010251849019_nn.resx">
-      <DependentUpon>202010251849019_nn.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202010251959426_ModelValidationsAdded.resx">
-      <DependentUpon>202010251959426_ModelValidationsAdded.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202010291836329_Land.resx">
-      <DependentUpon>202010291836329_Land.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202010300701011_Apartment.resx">
-      <DependentUpon>202010300701011_Apartment.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202012292020156_UsersBagFix.resx">
+      <DependentUpon>202012292020156_UsersBagFix.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

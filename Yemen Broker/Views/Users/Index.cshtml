@@ -1,0 +1,121 @@
+﻿@model Yemen_Broker.ViewModels.UserViewModel
+
+
+@{
+    ViewBag.Title = "ManageUsers";
+}
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ManageUsers</title>
+</head>
+<body>
+    <div>
+        <div style="background-color:#f7e89d;width:100%;padding:5px 20px;font-size:larger;margin-bottom:20px;"> <p><b>Welcome to Manage Users page.</b></p></div>
+          @Html.ActionLink("Register new user", "Register")
+
+        <div id="menucontent">
+            <!-- start Active Users section-->
+            <div id="activeconte" style="display:block">
+                <nav class="navbar navbar-dark" style="background-color:#f1f1f1">
+                    <h4 class="navbar-brand col-md-3"><b>@Model.Users.Where(u => u.Confirmed).Count()</b><b> Active </b><b> & </b><b>@Model.Users.Where(u => !u.Confirmed).Count()</b><b> Inactive Users</b></h4>
+                    @using (Html.BeginForm())
+                    {
+                        @Html.DropDownListFor(vm => vm.SortBy, new SelectList(Model.Sorts, "Value", "Key"), "Default", new { @style = "height:33px;width:100%;margin:20px 30px 0 110px;" })
+
+                        @Html.TextBox("SearchString", Model.SearchString, new { @placeholder = "Search here..", @style = "height:33px;width:100%;margin-top:20px;" })
+                        <button class="btn btn-danger my-2 my-sm-0" type="submit" style="height:33px;width:100px;opacity:100;margin-top:-3px">Search</button>
+                    }
+                </nav>
+                <p class="text-success">
+                    @(String.IsNullOrWhiteSpace(Model.SearchString) ? "Showing all" : "You search for " + Model.SearchString + " found") @Model.Pager.TotalItems Users
+                </p>
+                @if (Model.Users.Count() <= 0)
+                {
+                    <div style="text-align :center; display:block">
+                        <h3>No Users</h3>
+                        <h1><b>The Users list is empty</b></h1>
+                    </div>
+                }
+                <div>
+                    @if (Model.Users.Count() > 0)
+                    {
+                        <!--star show Active Users-->
+                        foreach (var user in Model.Users.Where(u => u.Confirmed))
+                        {
+                            @Html.Partial("/Views/Users/_ActiveUsers.cshtml", user);
+
+                        }
+                        <!--end show Active Users -->
+                        <!--star show Inactive Users-->
+                        foreach (var user in Model.Users.Where(u => !u.Confirmed))
+                        {
+                            @Html.Partial("/Views/Users/_InactiveUsers.cshtml", user);
+                        }
+                    }
+                    <!--end show Inactive Users -->
+                </div>
+            </div>
+            <!-- End  Users section-->
+        </div>
+        <style>
+
+
+            #menucontent {
+                border: 1px solid #808080;
+                margin: 24px 0 10px 0;
+                padding: 10px;
+            }
+        </style>
+    </div>
+</body>
+</html>
+<!-- pager -->
+@if (Model.Pager.EndPage > 1)
+{
+    <p>
+        Page @(Model.Pager.PageSize > Model.Pager.CurrentPage ? 1 : Model.Pager.CurrentPage) of @Model.Pager.TotalPages
+    </p>
+    <nav>
+        <ul class="pagination">
+            @if (Model.Pager.CurrentPage > 1)
+            {
+                <li class="page-item">
+                    <a class="page-link" href="@Url.Action("Index","Users",new {SearchString=Model.SearchString})">
+                        First
+                    </a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="@Url.Action("Index","Users",new { page=Model.Pager.CurrentPage - 1, SearchString=Model.SearchString})">
+                        Previous
+                    </a>
+                </li>
+            }
+
+            @for (var page = Model.Pager.StartPage; page <= Model.Pager.EndPage; page++)
+            {
+                <li class="page-item @(page == Model.Pager.CurrentPage ? "active" : "")">
+                    <a class="page-link" href="@Url.Action("Index","Users",new { page=page, SearchString=Model.SearchString})">@page</a>
+                </li>
+            }
+
+            @if (Model.Pager.CurrentPage < Model.Pager.TotalPages)
+            {
+                <li class="page-item">
+                    <a class="page-link" href="@Url.Action("Index","Users",new { page=Model.Pager.CurrentPage + 1, SearchString=Model.SearchString})">Next</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="@Url.Action("Index","Users",new { page=Model.Pager.TotalPages, SearchString=Model.SearchString})">Last</a>
+                </li>
+            }
+        </ul>
+    </nav>
+
+}
+

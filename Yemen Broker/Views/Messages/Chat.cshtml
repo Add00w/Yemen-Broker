@@ -1,0 +1,73 @@
+﻿@model IEnumerable<Yemen_Broker.Models.Message>
+@using Microsoft.AspNet.Identity;
+
+
+<div class="col-md-8 " id="showchat">
+    <div class="row">
+
+        @using (Html.BeginForm("Chat", "Messages", FormMethod.Post))
+        {
+
+            <div class="col-md-10">
+                <input class="form-control" name="message" type="text" placeholder="write massage..." id="Coms" required>
+            </div>
+            <button type="submit" style="border:none;margin-top:10px;"><i class="glyphicon glyphicon-send" style="color:white;padding:10px;background-color:darkgreen;border-radius:10px"></i></button><hr />
+
+        }
+    </div>
+    <div style="padding:10px;border-top:1px solid #808080;margin-top:-10px; height: 370px;overflow-y:auto;" id="content">
+        @foreach (var mess in Model)
+        {
+            if (mess.SenderId.Equals(User.Identity.GetUserId()))
+            {
+                <div id="mesend"><p><b>@mess.MessageContent</b></p></div><br /><h6 style="text-align:left;">@mess.MessageDateTime.ToShortTimeString()</h6>
+
+            }
+            else
+            {
+                <div id="yousend"><p>@mess.MessageContent</p></div><br /><h6 style="text-align:right;">@mess.MessageDateTime.ToShortTimeString()</h6>
+
+            }
+
+        }
+
+
+    </div>
+</div>
+
+
+
+
+<style>
+    #mesend {
+        float: left;
+        background-color: #adef58;
+        width: auto;
+        padding: 2px 5px 1px 5px;
+        border-radius: 0 50px 50px 50px;
+        margin: 2px 0;
+    }
+
+    #yousend {
+        float: right;
+        text-align: right;
+        background-color: #fff;
+        width: auto;
+        padding: 2px 5px 1px 5px;
+        border-radius: 50px 50px 0 50px;
+        margin: 2px 0;
+    }
+
+    #chatcontent {
+        border: 1px solid #808080;
+        height: 450px;
+        margin-top: -10px;
+    }
+
+    #showchat {
+        background-color: #f1f1f1;
+        height: 445px;
+        margin-top: -8px;
+        padding: 20px;
+    }
+</style>

@@ -11,8 +11,11 @@ namespace Yemen_Broker.ViewModels
     {
 
         public long Id { get; set; }
-
+        [DisplayName("Title")]
+        [Required]
+        public String AdTitle { set; get; }
         [DisplayName("Price")]
+        [DisplayFormat(DataFormatString = "{0:c}")]
         public double AdPrice { set; get; }
         [DisplayName("Description")]
         public String AdDescribtion { set; get; }

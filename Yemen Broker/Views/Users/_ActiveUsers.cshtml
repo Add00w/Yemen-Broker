@@ -1,0 +1,77 @@
+﻿@model Yemen_Broker.Models.User
+
+<div style="border:1px dotted #808080;border-radius:10px;margin:0 5px 20px 5px;" class="row">
+
+    <div style="margin:5px 5px 5px -5px;" class="col-md-3 float-left">
+        <img src="~/Content/images/Lpgin.png" alt="userimage">
+    </div>
+    <div class="col-md-9 float-right">
+        <div>
+            <div class="col-md-10">
+                <div style="text-align:left;">
+                    <h3><b> @Model.UserName</b></h3>
+                </div>
+                <div style="text-align:left;">
+                    <i class="glyphicon glyphicon-th"></i>  @Model.Subscription.SubscriptionType
+                </div>
+                <div style="text-align:left;">
+                    <i class="glyphicon glyphicon-calendar"></i>  Member since @Model.RegisteredDate
+                </div>
+                <br />
+                <div style="text-align:center;margin:10px 0 10px 0;">
+                    <button class="btn btn-success col-md-4 float-left" style="height:50px; width:200px;">
+                        <div><b><i class="glyphicon glyphicon-earphone"></i> Call</b></div>
+                    </button>
+                    <a href="/Messages/Chat/@Model.Id" class="col-md-4 float-left" style="margin-top:4px;height:50px; width:200px;color:white;background-color:orange;padding-top:15px">
+                        <div><b><i class="glyphicon glyphicon-envelope float-left"></i> Chat  </b></div>
+                    </a>
+                    <button class="btn btn-default col-md-4 float-left" style="height:50px; width:200px;background:#f0f0f0">
+                        <div id="conformorrejct"><b><i class="glyphicon glyphicon-info-sign"></i> @Html.ActionLink("See more", "Details", new { id = Model.Id })</b></div>
+                    </button>
+                    <style>
+                        #conformorrejct b a {
+                            color: black;
+                            padding: 3px;
+                        }
+                    </style>
+                </div>
+            </div>
+            <div class="col-md-2 float-right">
+                <div style="padding:5px;background-color:forestgreen;color:white;margin-top:-15px; border-radius:50px;border:1px dotted #808080;text-align:center;"><b>active</b></div>
+                <br />
+                <button class="btn btn-warning" style="height:30px; width:100px;">
+                    <div id="conforrej"><b><i class="glyphicon glyphicon-edit"></i> 
+                            @Html.ActionLink("Upgrade", "Upgrade", new { id = Model.Id })
+
+                        </b></div>
+                </button>
+                <button class="btn btn-danger" style="height:30px; width:100px;display:block;">
+                    <div id="conforrej">
+                        <b>
+                            <i class="glyphicon glyphicon-info-sign"></i>
+                            @if (!Model.Blocked)
+                            {
+
+                                @Html.ActionLink("Block", "Block", new { id = Model.Id });
+                            }
+                            else
+                            {
+                                <i class="glyphicon glyphicon-info-sign"></i>
+                                @Html.ActionLink("Unblock", "Unblock", new { id = Model.Id });
+                            }
+
+                        </b>
+                    </div>
+                    <style>
+                        #conforrej b a {
+                            color: white;
+                            padding: 3px;
+                        }
+                    </style>
+                </button>
+
+            </div>
+        </div>
+    </div>
+</div>
+

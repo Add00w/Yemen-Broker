@@ -25,10 +25,13 @@ namespace Yemen_Broker.Models
         [DisplayName("Type of finishing")]
         [Required]
         public string TypeOfFinishing { get; set; }
-
+        [DisplayName("Number of rooms")]
+        [Required]
+        public int NumberOfRooms { get; set; }
         [ForeignKey("Ad")]
         [Key]
         public long AdId { set; get; }
         public virtual Ad Ad { set; get; }
+
     }
 }

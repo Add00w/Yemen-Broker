@@ -21,12 +21,19 @@ namespace Yemen_Broker.Models
         [DisplayName("Description")]
         [Required]
         public String AdDescribtion { set; get; }
+        [DisplayName("Title")]
+        [Required]
+        public String AdTitle { set; get; }
+        public DateTime Date { get; set; }
         public DiscriminatorOptions Discriminator { get; set; }
         [ForeignKey("City")]
         public int CityId { get; set; }
         public virtual CityModel City { get; set; }
         public virtual List<Picture> Pictures { get; set; }
-        
+        [DefaultValue(false)]
+        public bool Confirmed { get; set; }
+        [DefaultValue(false)]
+        public bool Rejected { get; set; }
         [ForeignKey("User")]
         public string UserId { get; set; }
         public virtual User User { get; set; }

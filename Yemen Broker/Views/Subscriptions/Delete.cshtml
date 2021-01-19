@@ -1,0 +1,64 @@
+﻿@model Yemen_Broker.Models.Subscription
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Subscription</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.SubscriptionType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SubscriptionType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SubscriptionPrice)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SubscriptionPrice)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SubscriptionDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SubscriptionDescription)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SubscripsionSize)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SubscripsionSize)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SubscriptionPeriod)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SubscriptionPeriod)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

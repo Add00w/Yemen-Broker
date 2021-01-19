@@ -8,7 +8,11 @@ namespace Yemen_Broker.ViewModels
    
         public enum DiscriminatorOptions
         {
-            Ad, Shop,Home,Land,Apartment
-        }
+            Ad, Shop,Home,Land,Apartment,
+        Car,
+        Computer,
+        Mobile,
+        Warehouse
+    }
     
 }

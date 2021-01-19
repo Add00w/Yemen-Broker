@@ -1,0 +1,58 @@
+﻿@model Yemen_Broker.Models.Subscription
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Subscription</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.SubscriptionType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SubscriptionType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SubscriptionPrice)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SubscriptionPrice)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SubscriptionDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SubscriptionDescription)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SubscripsionSize)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SubscripsionSize)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SubscriptionPeriod)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SubscriptionPeriod)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.SubscriptionId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

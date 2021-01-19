@@ -1,4 +1,92 @@
-﻿@model Yemen_Broker.Models.IndexViewModel
+﻿@using Microsoft.AspNet.Identity;
+
+@{
+    ViewBag.Title = "UserAccount";
+}
+
+<div style="text-align:center;"><h2><b>My Account</b></h2></div>
+<div id="content" class="container row">
+    <div class="col-md-6" id="contentleft">
+        <div class="row">
+            <div class="col-md-3">
+                <img src="~/Content/images/Lpgin.png" alt="userimage" style="height:110px;width:110px;">
+            </div>
+            <div class="col-md-6">
+                <div style="text-align:left;">
+                    <h3><b> @User.Identity.GetUserName()</b></h3>
+                </div>
+                <div style="text-align:left;">
+                    <i class="glyphicon glyphicon-th"></i>  @Model.User.Subscription.SubscriptionType
+                </div>
+                <div style="text-align:left;">
+                    <i class="glyphicon glyphicon-calendar"></i>  Member since @Model.User.RegisteredDate
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div style=" height:30px; width:110px;background-color:forestgreen;padding:5px 5px 5px 10px;">
+                    <a href="/Manage/Editprofile/@User.Identity.GetUserId()" style="color:white;">
+                        <div><b><i class="glyphicon glyphicon-edit float-left"></i> Edit profile  </b></div>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <hr />
+        <div class="row" style=" text-align:center;">
+            <div class="col-md-4"><b>@Model.MyAdsCount</b><h5><b>Ads</b></h5></div>
+            <div class="col-md-4"><b>@Model.MyOrdersCount</b><h5><b>Orders</b></h5></div>
+            <div class="col-md-4"><b>@Model.MyFavoritesCount</b><h5><b>Favorites</b></h5></div>
+        </div>
+        <hr />
+    </div>
+    <div class="col-md-6" id="contentright">
+        <div class="row">
+            <div class="col-md-8"><h4><b>My Account</b></h4></div>
+            <div class="col-md-4" style="text-align:center;"><h5><b><a href="/Manage/Upgrade/@Model.User.Id">Uprade my account</a></b></h5></div>
+        </div>
+        <div>
+            <div class="row">
+                <div class="col-md-11"><h5><b>Limit of live Ads</b></h5></div>
+                <div class="col-md-1"><h5><b>@Model.User.Subscription.SubscripsionSize</b></h5></div>
+            </div>
+            <div class="progress">
+                <div class="progress-bar bg-success" role="progressbar" style="width: @Model.Percentage%;background-color:limegreen" aria-valuenow=@Model.Percentage aria-valuemin="0" aria-valuemax="100">@Model.Percentage%</div>
+            </div>
+        </div>
+        @*<div>
+                <h5><b>live Orders</b></h5>
+                <div class="progress">
+                    <div class="progress-bar bg-success" role="progressbar" style="width: 50%;background-color:orange" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">50%</div>
+                </div>
+            </div>*@
+        <div style="margin:5px 0 ;background-color:#f1f1f1;text-align:center;" class="row">
+            <div class="col-md-4"><h5>Account Type</h5><h5><b>@Model.User.Subscription.SubscriptionType</b></h5></div>
+            <div class="col-md-4"><h5>Limit of live Ads</h5><h5><b>@Model.User.Subscription.SubscripsionSize Ads</b></h5></div>
+            <div class="col-md-4"><h5>live Ads</h5><h5><b>@Model.MyAdsCount Ads</b></h5></div>
+        </div>
+    </div>
+</div>
+<style>
+    #content {
+        margin: 10px 5px;
+        border: 1px solid #808080;
+        border-radius: 25px;
+    }
+
+    #contentleft {
+        padding: 10px;
+        border-right: 3px double #808080;
+    }
+
+    #contentright {
+        padding: 10px;
+    }
+</style>
+
+
+
+
+
+@model Yemen_Broker.Models.IndexViewModel
 @{
     ViewBag.Title = "Manage";
 }
@@ -23,65 +111,68 @@
             }
             ]
         </dd>
-        <dt>External Logins:</dt>
-        <dd>
-            @Model.Logins.Count [
-            @Html.ActionLink("Manage", "ManageLogins") ]
-        </dd>
-        @*
-            Phone Numbers can used as a second factor of verification in a two-factor authentication system.
-             
-             See <a href="https://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
-                for details on setting up this ASP.NET application to support two-factor authentication using SMS.
-             
-             Uncomment the following block after you have set up two-factor authentication
-        *@
-        @*  
-            <dt>Phone Number:</dt>
+        @*<dt>External Logins:</dt>
             <dd>
-                @(Model.PhoneNumber ?? "None")
-                @if (Model.PhoneNumber != null)
-                {
-                    <br />
-                    <text>[&nbsp;&nbsp;@Html.ActionLink("Change", "AddPhoneNumber")&nbsp;&nbsp;]</text>
-                    using (Html.BeginForm("RemovePhoneNumber", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                    {
-                        @Html.AntiForgeryToken()
-                        <text>[<input type="submit" value="Remove" class="btn-link" />]</text>
-                    }
-                }
-                else
-                {
-                    <text>[&nbsp;&nbsp;@Html.ActionLink("Add", "AddPhoneNumber")
-                }
-            </dd>
-        *@
-        <dt>Two-Factor Authentication:</dt>
-        <dd>
-            <p>
-                There are no two-factor authentication providers configured. See <a href="https://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
-                for details on setting up this ASP.NET application to support two-factor authentication.
-            </p>
-            @*@if (Model.TwoFactor)
-                {
-                    using (Html.BeginForm("DisableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                    {
-                        @Html.AntiForgeryToken()
-                        <text>Enabled
-                        <input type="submit" value="Disable" class="btn btn-link" />
-                        </text>
-                    }
-                }
-                else
-                {
-                    using (Html.BeginForm("EnableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                    {
-                        @Html.AntiForgeryToken()
-                        <text>Disabled
-                        <input type="submit" value="Enable" class="btn btn-link" />
-                        </text>
-                    }
-                }*@
-        </dd>
+                @Model.Logins.Count [
+                @Html.ActionLink("Manage", "ManageLogins") ]
+            </dd>*@
     </dl>
 </div>
+
+@*
+    Phone Numbers can used as a second factor of verification in a two-factor authentication system.
+
+     See <a href="https://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
+        for details on setting up this ASP.NET application to support two-factor authentication using SMS.
+
+     Uncomment the following block after you have set up two-factor authentication
+*@
+@*
+    <dt>Phone Number:</dt>
+    <dd>
+        @(Model.PhoneNumber ?? "None")
+        @if (Model.PhoneNumber != null)
+        {
+            <br />
+            <text>[&nbsp;&nbsp;@Html.ActionLink("Change", "AddPhoneNumber")&nbsp;&nbsp;]</text>
+            using (Html.BeginForm("RemovePhoneNumber", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                <text>[<input type="submit" value="Remove" class="btn-link" />]</text>
+            }
+        }
+        else
+        {
+            <text>[&nbsp;&nbsp;@Html.ActionLink("Add", "AddPhoneNumber")
+        }
+    </dd>
+*@
+@*<dt>Two-Factor Authentication:</dt>
+    <dd>
+        <p>
+            There are no two-factor authentication providers configured. See <a href="https://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
+            for details on setting up this ASP.NET application to support two-factor authentication.
+        </p>*@
+@*@if (Model.TwoFactor)
+    {
+        using (Html.BeginForm("DisableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+        {
+            @Html.AntiForgeryToken()
+            <text>Enabled
+            <input type="submit" value="Disable" class="btn btn-link" />
+            </text>
+        }
+    }
+    else
+    {
+        using (Html.BeginForm("EnableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+        {
+            @Html.AntiForgeryToken()
+            <text>Disabled
+            <input type="submit" value="Enable" class="btn btn-link" />
+            </text>
+        }
+    }*@
+@*</dd>
+        </dl>
+    </div>*@

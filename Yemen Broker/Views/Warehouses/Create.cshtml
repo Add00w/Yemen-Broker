@@ -1,0 +1,15 @@
+﻿<div class="form-horizontal">
+    <div style="background-color:#f7e89d;width:100%;padding-left:20px;font-size:larger;"> <p><b>Welcome to our new Ad Insertion page. Continue to insert your ad.<span style="background-color:#9b0808;color:white;padding:0 2px; ">Now </span></b></p></div>
+    <h3><b>LET'S GET STARTED!</b></h3>
+    <hr />
+    <p style="color:orangered">@ViewBag.LimitReached</p>
+    <p style="color:orangered">@ViewBag.NotConfirmed</p>
+
+    <div style="border:1px solid #c72929;">
+        <div id='home' style='display:block'>
+            <div style="background:url(../../Content/images/parts.png) no-repeat;margin-left:-2px;height:50px;width:222px;"><h4 style="padding:13px;"> <b> 2- Post details:</b></h4></div>
+            @Html.Partial("/Views/PartialViews/Warehouse.cshtml")
+        </div>
+
+    </div>
+</div>

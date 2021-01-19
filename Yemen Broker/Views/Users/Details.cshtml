@@ -1,0 +1,76 @@
+﻿@model Yemen_Broker.Models.User
+@{
+    ViewBag.Title = "UserDetails";
+}
+
+<div id="content" class="container">
+    <div style="text-align:center;margin-top:-60px">
+        <div><img src="~/Content/images/Lpgin.png" alt="userimage" style="height:110px;width:110px;border: 1px solid #808080;border-radius: 100px;"></div>
+        <div><h3><b> @Model.UserName</b></h3></div>
+        <div><b>@Model.Subscription.SubscriptionType</b></div>
+    </div>
+    <!--star describtion to Ads-->
+    <div class="container" style="background-color: #f0f0f0; margin:0 20px 10px 0;width:100%">
+        <h5>GENERAL INFORMATION :</h5>
+
+        <table id="destable">
+            <tr>
+                <th>Email: </th>
+                <td>@Model.Email </td>
+                <th>User Address :</th>
+                <td>@Model.UserAddress</td>
+            </tr>
+            <tr>
+                <th>User phone :</th>
+                <td>@Model.PhoneNumber</td>
+                <th>Status :</th>
+
+                @if (Model.Confirmed)
+                {
+                    <td> Active </td>
+
+                }
+                else
+                {
+                    <td> Inactive </td>
+
+                }
+
+            </tr>
+            <tr>
+                <th>Member since :</th>
+                <td>@Model.RegisteredDate</td>
+                <th>Subscription Date :</th>
+                <td>@Model.DatePayingStarted</td>
+            </tr>
+        </table>
+    </div>
+    <!--End describtion to Ads-->
+
+</div>
+<style>
+    #content {
+        margin: 80px 5px 10px 5px;
+        padding-bottom: 20px;
+        border: 1px solid #808080;
+        border-radius: 25px;
+    }
+
+    #destable {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+        margin-bottom: 15px;
+    }
+
+        #destable td, #destable th {
+            border-bottom: 1px solid #ffd800;
+            background-color: #fff;
+            text-align: left;
+            padding: 8px;
+        }
+
+        #destable tr:nth-child(even) {
+            background-color: #f0f0f0;
+        }
+</style>

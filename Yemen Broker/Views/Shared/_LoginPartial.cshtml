@@ -1,22 +1,80 @@
 ﻿@using Microsoft.AspNet.Identity
 @if (Request.IsAuthenticated)
 {
-    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+   
+<div class="dropdown">
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background:none;height:50px;width:150px;float:left;color:black;">
+        <img src="~/Content/images/Lpgin.png" style="width:22px; height:22px;" />
+        <div style="display:inline;background-color:red;color:white;border-radius:50px;margin-left:-10px;padding:1px;position:absolute;"><b>@Session["totalCount"]</b></div>
+        <br /> my account   <span class="caret"></span>
+    </button>
+    <a href="/Ads/Create" style="float:right;margin-top:-50px;margin-bottom:10px"> <img src="~/Content/images/Add Advetrise.png" /></a>
+    @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
     {
     @Html.AntiForgeryToken()
 
-    <ul class="nav navbar-nav navbar-right">
-        <li>
-            @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
-        </li>
-        <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
-    </ul>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="background-color:white;padding:5px 10px 5px 10px;margin-top:65px;margin-right:110px">
+
+        <a href="#" id="uname">
+            <img src="~/Content/images/Lpgin.png" style="width:20px; height:20px;" /> <b>
+                @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+                .
+
+
+            </b><i class="glyphicon glyphicon-chevron-right" style="float:right;"></i><br />
+            <h6 style="padding-left: 23px;margin:-3px 0;">@Session["subscriptionType"]</h6>
+        </a><hr />
+        <a href="~/Ads/MyAds" id="uname"><i class="glyphicon glyphicon-th-list" style="width:20px; height:20px;"></i> <b>My Ads.</b></a><br />
+        <a href="~/Orders/MyOrders" id="uname"><i class="glyphicon glyphicon-shopping-cart" style="width:20px; height:20px;"></i> <b>My Orders.</b></a><br />
+        <a href="~/Wishlists" id="uname"><i class="glyphicon glyphicon-heart" style="width:20px; height:20px;"></i> <b>Favorite Ads.</b></a><br />
+        @if (User.IsInRole("Admin"))
+        {
+            <a href="~/Ads/ManageAds" id="uname"><i class="glyphicon glyphicon-dashboard" style="width:20px; height:20px;"></i> <b>Manage Ads. </b></a><br />
+            <a href="~/Users" id="uname"><i class="glyphicon glyphicon-dashboard" style="width:20px; height:20px;"></i> <b>Manage Users. </b></a><br />
+            <a href="~/Orders/ManageOrders" id="uname"><i class="glyphicon glyphicon-dashboard" style="width:20px; height:20px;"></i> <b>Manage Orders. </b></a><br /><hr />
+            <a href="~/City" id="uname"><i class="glyphicon glyphicon-dashboard" style="width:20px; height:20px;"></i> <b>Manage Cities. </b></a><br /><hr />
+            <a href="~/Manage/BackupAndRestore" id="uname"><i class="glyphicon glyphicon-save" style="width:20px; height:20px;"></i> <b>Backup and Restore. </b></a><br /><hr />
+            
+        }         
+        <a href="~/Home/Report" id="uname"><i class="glyphicon glyphicon-stats" style="width:20px; height:20px;"></i> <b>Reports. </b></a><br /><hr />
+
+        <a href="~/Messages" id="uname"><i class="glyphicon glyphicon-comment" style="width:20px; height:20px;"></i><div style="display:inline;background-color:red;color:white;border-radius:50px;margin-left:-10px;padding:1px;position:absolute;"><b>@Session["myChatsCount"]</b></div> <b>My chats.</b></a><br />
+        <a href="~/Messages/Notifications" id="uname"><i class="glyphicon glyphicon-bell" style="width:20px; height:20px;"></i><div style="display:inline;background-color:red;color:white;border-radius:50px;margin-left:-10px;padding:1px;position:absolute;"><b>@Session["myNotificationsCount"]</b></div> <b>Notifications. </b></a><br /><hr />
+        <a href="#" id="uname"><i class="glyphicon glyphicon-earphone" style="width:20px; height:20px;"></i> <b>Contact Us.</b></a><br />
+        <a href="#" id="uname"><i class="glyphicon glyphicon-question-sign" style="width:20px; height:20px;"></i> <b>Help.</b></a><br />
+        <a href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
+    </div>
     }
-}
+    <style>
+        #uname {
+            color: #808080;
+        }
+
+            #uname:hover {
+                text-decoration: none;
+                color: black;
+            }
+    </style>
+</div>
+   
+        @*using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+            {
+            @Html.AntiForgeryToken()
+
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+                </li>
+                <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+            </ul>
+            }*@
+ }
 else
 {
-    <ul class="nav navbar-nav navbar-right">
-        <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-        <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
-    </ul>
+<div style ="margin:10px">
+
+<img src="~/Content/images/Lpgin.png" style ="width:22px; height:22px;"/>
+
+@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })
+</div>
 }
