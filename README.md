@@ -3,6 +3,7 @@ This is advertising and ordering web app for final project of 2020 Computer Info
 
 
 Features:
+
  1- Rating: Advertiser of an add can be rated by other users
    
  2- Views:Users can view the ads and thier visit is recorded and showed visited or not visited inspired by google.
